@@ -1,22 +1,39 @@
 import {level} from '/levels.js';
 import {persons} from '/characters.js';
+import {SCREEN} from '/ui.js';
+
 
 /// INPUTS
-let attackButton = document.querySelector('#attackButton');
-let turnButton = document.querySelector('#turnButton');
-let inventoryButton = document.querySelector('#inventoryButton');
-let inventoryItem = document.querySelectorAll('.inventoryItem');
+const attackButton = document.querySelector('#attackButton');
+const turnButton = document.querySelector('#turnButton');
+const inventoryButton = document.querySelector('#inventoryButton');
+const inventoryItem = document.querySelectorAll('.inventoryItem');
 
-let attack = attackButton.addEventListener('click', function(e) {
+const attack = attackButton.addEventListener('click', function(e) {
     e.preventDefault;
     //player turn
-    if (persons.player.hp > 0) {
+    if (persons.player.alive) {
         persons.player.attack(level.monster)
+        attackButton.disabled = true;
+        setTimeout(e => {
+            attackButton.disabled = false;
+        }, 500)
+    } else {
+        SCREEN.loseScreen();
     }
     //enemy turn
-    if (level.monster.hp > 0) {
-        level.monster.attack(persons.player)
+    if (level.monster.alive) {
+        setTimeout(e => {
+            level.monster.attack(persons.player)
+        }, 500)
+    } else {
+        SCREEN.winScreen();
     }
+});
+
+
+turnButton.addEventListener('click', e => {
+    SCREEN.winScreen();
 });
 
 export {attack}
