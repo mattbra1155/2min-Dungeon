@@ -17,6 +17,11 @@ class person {
     }
 
     attack(enemy) {
+        // add text to feed
+        const FEED = document.querySelector('#feedContainer');
+        const feedRow = document.createElement('li');
+        feedRow.setAttribute('class', 'feed__item');
+
         // update presons health on the ui
         const updatePersonHealth = () => {
             playerHealth.textContent = persons.player.hp;
@@ -29,7 +34,7 @@ class person {
                 attackButton.disabled = true;
 
                 console.log(`${enemy.name} is dead`);
-
+                
                 const next = (x = 1) => x + 1;
 
                 level.changeRoom(next(level.id));
@@ -48,7 +53,9 @@ class person {
 
         // check if attack hits
         if (this.melee > diceRollResult) {
-            console.log( `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`)
+            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`;
+            FEED.appendChild(feedRow);
+            console.log( `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`);
             // reduce health
             enemy.hp = enemy.hp - this.weapon.damage;
             // update health
@@ -56,8 +63,18 @@ class person {
             // check if dead
             checkIfAlive();
         } else {
+            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and misses.`
+            FEED.appendChild(feedRow);
             console.log(`${this.name} rolls: ${diceRollResult} and misses.`)
         }
+
+        if (FEED.childElementCount > 5) {
+            setTimeout(e => {
+                FEED.firstChild.remove();
+            }, 2000)
+        } 
+
+
     };
     //check item equiped
     inspectHoldItem() {
@@ -71,54 +88,13 @@ class person {
     inspectPerson(person) {
         console.log(person.description)
     };
-
-    //show items in inventory
-    /*
-    inventoryList() {
-        this.inventory.forEach(element => {
-            const inventoryItem = document.createElement('li');
-            inventoryItem.setAttribute('class', 'inventory__item');
-            inventoryItem.textContent = element.name;
-            const inventoryContainer = document.querySelector('#inventoryList');
-            inventoryContainer.appendChild(inventoryItem); // FOR LATER TO FIX
-        })
-    }*/
 }
 
 const persons = {
-    player: new person('Player', 45, 10, 10, 10, items.weapons.sword, 'It\'s you the Player', [items.utility.torch, items.healingItems.smallHealthPotion]),
-    orc: new person('Orc', 45, 5, 10, 5, items.weapons.mace, 'It\'s an Orc, he carries a weapon', [items.utility.torch, items.healingItems.healingItems]),
-    goblin: new person('Goblin', 25, 4, 5, 5, items.weapons.sword,'He looks skiny and crazy', [items.healingItems.smallHealthPotion]),
-    ogr: new person('Ogr', 45, 5, 10, 3, items.weapons.mace, `a big and bulky Ogr. Looks intimidating`)
+    player: new person('Player', 45, 10, 5, 10, items.weapons.sword, 'It\'s you the Player', [items.utility.torch, items.healingItems.smallHealthPotion]),
+    orc: new person('Orc', 45, 5, 5, 5, items.weapons.mace, 'It\'s an Orc, he carries a weapon', [items.utility.torch, items.healingItems.healingItems]),
+    goblin: new person('Goblin', 25, 4, 3, 5, items.weapons.sword,'He looks skiny and crazy', [items.healingItems.smallHealthPotion]),
+    ogr: new person('Ogr', 45, 5, 6, 3, items.weapons.mace, `a big and bulky Ogr. Looks intimidating`)
 }
-
-/*
-inventoryButton.addEventListener('click', function(e) {
-    e.preventDefault;
-    const inventory = document.querySelector('#inventory');
-
-    //toggle inventory
-    if (inventory.style.display = inventory.style.display == '') {
-        inventory.style.display = 'flex';
-        inventoryButton.style.zIndex = 101;
-        inventoryButton.textContent = "Close";
-        persons.player.inventoryList();
-
-    } else {
-
-
-        inventory.style.display = '';
-        inventoryButton.style.zIndex = 1;
-        inventoryButton.textContent = "Inventory";
-        for (i = 0; i < inventoryItem.length; i++) {
-            console.log(inventoryItem[i])
-        }
-        
-    };
-
-});
-*/
-
-
 
 export {persons} ;

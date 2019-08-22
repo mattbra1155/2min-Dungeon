@@ -1,6 +1,8 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
 }
 .health__display {
     display: flex;
@@ -9,17 +11,24 @@
 }
 
 .feed {
+    height: 50vh;
+    background: lightgray;
+
+}
+
+.feed__container {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
-    align-items: center;
+    align-content: center;
     height: 50vh;
     background: lightgray;
     overflow-y: scroll;
 }
 
-.text__container {
-    height: 100%;
+.feed__item {
+    text-decoration: none;
+    list-style: none;
 }
 
 .text__container p:first-child {
@@ -70,7 +79,7 @@
 .overlay {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     position: absolute;
     top: 0;

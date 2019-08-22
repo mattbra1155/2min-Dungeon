@@ -40,7 +40,7 @@ class Ui {
 
         const HEADER = document.createElement('h1');
         HEADER.style.color = 'white';
-        HEADER.textContent = `You have finished the dungeon`;
+        HEADER.textContent = `You have finished the dungeon CONGRATULATIONS!`;
         OVERLAYSCREEN.appendChild(HEADER);
         
         const BUTTON = document.createElement('button');
@@ -55,6 +55,7 @@ class Ui {
         const closeButton = document.querySelector('#closeButton')
         closeButton.addEventListener('click', e => {
             e.preventDefault;
+            window.location.reload(true);
             OVERLAYSCREEN.remove();
         });
         
@@ -81,7 +82,7 @@ class Ui {
         const closeButton = document.querySelector('#closeButton')
         closeButton.addEventListener('click', e => {
             e.preventDefault;
-            window.location.reload(true); 
+            window.location.reload(true);
             OVERLAYSCREEN.remove();
         });
         
