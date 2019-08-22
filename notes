@@ -1,0 +1,17 @@
+MVP 
+
+1. Attack and calculate damage
+2. Dead/alive state
+3. Change rooms after defeating the monster
+
+-----
+
+
+DAMAGE 
+make a function damage (dmg, buff, debuff, armor, dexterity, strenght) that will sum all modifiers into on number
+
+----
+ 
+
+
+ 

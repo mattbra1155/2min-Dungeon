@@ -1,0 +1,48 @@
+21.05.2019
+
+1. rebuild whole game
+
+22.05.2019
+1.attack system rebuild and working 
+2. random number generator (1-100)
+3. hit detection
+4. adding feed messages 
+5. You can check what weapon you are holding
+6. Added health potion, that heal the PLAYER
+7. Health check if player or monster is alive
+
+** IMPORTANT **
+attackRoll() === randomNumber  -> is the same if randomNumber is after attackRoll();
+
+-------------------
+
+14.08.2019
+
+1. rebuild the whole game
+2. Objects oriented with Class'es
+3. Attack system
+4. Dice rolls
+5. Items
+
+---------
+
+15.08.2019
+
+1. Added an Inventory system
+2. added subclasses to Items
+3. added a show Inventory function
+
+------------
+
+17.08.2019
+
+1. added UI and health score
+2. added Inventory to DOM
+
+----------
+
+20.08.2019
+
+1. Added a Room Class to store the scene
+2. Added level name and monster name
+3. Change level by choosing the id with monsters and names
