@@ -1,7 +1,5 @@
 import {persons} from '/characters.js';
 
-
-
 class room { 
     constructor(id, name, monster) {
         this.id = id;
@@ -11,10 +9,10 @@ class room {
     // change room by selecting an ID
     changeRoom(id = 1) {
 
-        let LevelName = document.querySelector('#levelName');
+        const LevelName = document.querySelector('#levelName');
 
         if (id == 1) {
-            level = level;
+            level = level1;
             this.monsterInRoom(level.monster);
             LevelName.textContent = level.name;
         } else if (id == 2) {
@@ -26,18 +24,18 @@ class room {
             this.monsterInRoom(level.monster);
             LevelName.textContent = level.name;
         }
-    }
+    };
     // choose what monster will be in a room
     monsterInRoom(monster) {
         this.monster = monster;
-        let monsterName = document.querySelector('#monsterName');
+        const monsterName = document.querySelector('#monsterName');
         monsterName.textContent = this.monster.name;
-    }
+    };
 }
 
-
-let level = new room (1 ,'First level', persons.orc);
-let level2 = new room (2 ,'Second level', persons.goblin);
-let level3 = new room (3 ,'Third level', persons.player);
+let level = new room (0, 'Global level', '');
+const level1 = new room (1 ,'First level', persons.orc);
+const level2 = new room (2 ,'Second level', persons.goblin);
+const level3 = new room (3 ,'Third level', persons.ogr);
 
 export {level, level2}

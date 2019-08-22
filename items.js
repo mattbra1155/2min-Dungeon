@@ -6,7 +6,7 @@ class item {
     }
 };  
 
-let items = {
+const items = {
     weapons: {
         sword: new item ('Old sword', 2, 'An old sword'), 
         mace: new item('Rusty mace', 1, 'A rusty mace')

@@ -52,4 +52,3 @@ attackRoll() === randomNumber  -> is the same if randomNumber is after attackRol
 1. Added moving to the next room after defiting the monster in the current Room
 2  Added Start and Win screens
 3. Added timeout for attacks
-4. 
