@@ -81,6 +81,7 @@ class Ui {
         const closeButton = document.querySelector('#closeButton')
         closeButton.addEventListener('click', e => {
             e.preventDefault;
+            window.location.reload(false); 
             OVERLAYSCREEN.remove();
         });
         
