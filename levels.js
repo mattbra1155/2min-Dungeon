@@ -38,4 +38,4 @@ const level1 = new room (1 ,'First level', persons.orc);
 const level2 = new room (2 ,'Second level', persons.goblin);
 const level3 = new room (3 ,'Third level', persons.ogr);
 
-export {level, level2}
+export {level}

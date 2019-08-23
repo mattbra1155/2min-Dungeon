@@ -1,4 +1,5 @@
 import {level} from '/levels.js'
+import {persons} from '/characters.js'
 
 class Ui {
     constructor() {
@@ -99,11 +100,21 @@ class Ui {
         HEADER.textContent = `You defeted the ${level.monster.name}`;
         OVERLAYSCREEN.appendChild(HEADER);
         
-        const BUTTON = document.createElement('button');
-        BUTTON.textContent = "Next dungeon room"
-        BUTTON.setAttribute('id', 'closeButton');
-        BUTTON.setAttribute('class', 'action__button');
-        OVERLAYSCREEN.appendChild(BUTTON);
+        const NEXTBUTTON = document.createElement('button');
+        NEXTBUTTON.textContent = "Next dungeon room"
+        NEXTBUTTON.setAttribute('id', 'closeButton');
+        NEXTBUTTON.setAttribute('class', 'action__button');
+        OVERLAYSCREEN.appendChild(NEXTBUTTON);
+
+        const TAKEWEAPONTEXT = document.createElement('p');
+        TAKEWEAPONTEXT.textContent = `You can take the ${level.monster.name} weapon which is a ${level.monster.weapon.name}`;
+        OVERLAYSCREEN.appendChild(TAKEWEAPONTEXT);
+
+        const TAKEWEAPONBUTTON = document.createElement('button');
+        TAKEWEAPONBUTTON.textContent = `Grab weapon`
+        TAKEWEAPONBUTTON.setAttribute('id', 'takeWeaponButton');
+        NEXTBUTTON.setAttribute('class', 'action__button');
+        OVERLAYSCREEN.appendChild(TAKEWEAPONBUTTON);
 
         const APP = document.querySelector('#app');
         APP.appendChild(OVERLAYSCREEN);
@@ -111,9 +122,15 @@ class Ui {
         const closeButton = document.querySelector('#closeButton')
         closeButton.addEventListener('click', e => {
             e.preventDefault;
-            window.location.reload(true);
             OVERLAYSCREEN.remove();
         });
+
+        const takeWeapon = document.querySelector('#takeWeaponButton');
+        takeWeapon.addEventListener('click', e => {
+            e.preventDefault;
+            persons.player.weapon = level.monster.weapon;
+            console.log(`Your new weapon is ${level.monster.weapon.name}`)
+        })
         
     };
 }
