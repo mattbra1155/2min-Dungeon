@@ -1,3 +1,5 @@
+import {level} from '/levels.js'
+
 class Ui {
     constructor() {
         this.OVERLAYSCREEN = document.createElement('div');
@@ -72,6 +74,33 @@ class Ui {
         
         const BUTTON = document.createElement('button');
         BUTTON.textContent = "Try Again"
+        BUTTON.setAttribute('id', 'closeButton');
+        BUTTON.setAttribute('class', 'action__button');
+        OVERLAYSCREEN.appendChild(BUTTON);
+
+        const APP = document.querySelector('#app');
+        APP.appendChild(OVERLAYSCREEN);
+
+        const closeButton = document.querySelector('#closeButton')
+        closeButton.addEventListener('click', e => {
+            e.preventDefault;
+            window.location.reload(true);
+            OVERLAYSCREEN.remove();
+        });
+        
+    };
+
+    nextRoomScreen() {
+        const OVERLAYSCREEN = document.createElement('div');
+        OVERLAYSCREEN.setAttribute('class', 'overlay next-room-screen');
+
+        const HEADER = document.createElement('h1');
+        HEADER.style.color = 'white';
+        HEADER.textContent = `You defeted the ${level.monster.name}`;
+        OVERLAYSCREEN.appendChild(HEADER);
+        
+        const BUTTON = document.createElement('button');
+        BUTTON.textContent = "Next dungeon room"
         BUTTON.setAttribute('id', 'closeButton');
         BUTTON.setAttribute('class', 'action__button');
         OVERLAYSCREEN.appendChild(BUTTON);
