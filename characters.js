@@ -1,6 +1,7 @@
-import {level,level2} from '/levels.js';
+import {level} from '/levels.js';
 import {items} from "/items.js";
-import {playerHealth, enemyHealth} from '/ui.js'
+import {playerHealth, enemyHealth, SCREEN} from '/ui.js'
+
 
 
 class person {
@@ -29,14 +30,17 @@ class person {
         }
 
         const checkIfAlive = () => {
-            if (enemy.hp <= 0) {
+            if (enemy.hp <= 0 && enemy === persons.player) {
+                enemy.alive = false;
+                console.log(`${enemy.name} is dead`);
+                SCREEN.loseScreen();
+                
+            } else if (enemy.hp <= 0 && enemy === level.monster) {
                 enemy.alive = false;
                 attackButton.disabled = true;
-
                 console.log(`${enemy.name} is dead`);
-                
+                SCREEN.nextRoomScreen();
                 const next = (x = 1) => x + 1;
-
                 level.changeRoom(next(level.id));
                 updatePersonHealth();
                 attackButton.disabled = false;

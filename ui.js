@@ -1,3 +1,6 @@
+import {level} from '/levels.js'
+import {persons} from '/characters.js'
+
 class Ui {
     constructor() {
         this.OVERLAYSCREEN = document.createElement('div');
@@ -85,6 +88,49 @@ class Ui {
             window.location.reload(true);
             OVERLAYSCREEN.remove();
         });
+        
+    };
+
+    nextRoomScreen() {
+        const OVERLAYSCREEN = document.createElement('div');
+        OVERLAYSCREEN.setAttribute('class', 'overlay next-room-screen');
+
+        const HEADER = document.createElement('h1');
+        HEADER.style.color = 'white';
+        HEADER.textContent = `You defeted the ${level.monster.name}`;
+        OVERLAYSCREEN.appendChild(HEADER);
+        
+        const NEXTBUTTON = document.createElement('button');
+        NEXTBUTTON.textContent = "Next dungeon room"
+        NEXTBUTTON.setAttribute('id', 'closeButton');
+        NEXTBUTTON.setAttribute('class', 'action__button');
+        OVERLAYSCREEN.appendChild(NEXTBUTTON);
+
+        const TAKEWEAPONTEXT = document.createElement('p');
+        TAKEWEAPONTEXT.textContent = `You can take the ${level.monster.name} weapon which is a ${level.monster.weapon.name}`;
+        OVERLAYSCREEN.appendChild(TAKEWEAPONTEXT);
+
+        const TAKEWEAPONBUTTON = document.createElement('button');
+        TAKEWEAPONBUTTON.textContent = `Grab weapon`
+        TAKEWEAPONBUTTON.setAttribute('id', 'takeWeaponButton');
+        NEXTBUTTON.setAttribute('class', 'action__button');
+        OVERLAYSCREEN.appendChild(TAKEWEAPONBUTTON);
+
+        const APP = document.querySelector('#app');
+        APP.appendChild(OVERLAYSCREEN);
+
+        const closeButton = document.querySelector('#closeButton')
+        closeButton.addEventListener('click', e => {
+            e.preventDefault;
+            OVERLAYSCREEN.remove();
+        });
+
+        const takeWeapon = document.querySelector('#takeWeaponButton');
+        takeWeapon.addEventListener('click', e => {
+            e.preventDefault;
+            persons.player.weapon = level.monster.weapon;
+            console.log(`Your new weapon is ${level.monster.weapon.name}`)
+        })
         
     };
 }

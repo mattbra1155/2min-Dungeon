@@ -29,11 +29,8 @@ const attack = attackButton.addEventListener('click', function(e) {
     } else {
         SCREEN.winScreen();
     }
-});
 
-
-turnButton.addEventListener('click', e => {
-    SCREEN.winScreen();
+    
 });
 
 export {attack}
