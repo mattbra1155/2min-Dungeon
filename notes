@@ -1,14 +1,14 @@
 MVP 
 
-1. Attack and calculate damage
-2. Dead/alive state
+##1. Attack and calculate damage##
+##2. Dead/alive state##
 ##3. Change rooms after defeating the monster##
 4. Start, Win, Lose screen
-    - when start:
-        -reset all setting to default;
+   ##- when start:##
+       ##-reset all setting to default;##
     - when win:
-        - show gathered items
-        - show Start Screen (reset all to default);
+        ##- show gathered items##
+       ## - show Start Screen (reset all to default);##
 
 -----
 
@@ -23,5 +23,3 @@ LEVEL SYSTEM
 made a level changer changeRoom() that starts as level 1 and adds +1 level id each time the monster is destroyed
 
 need to create a global level and make sublevels (??)
-
- 

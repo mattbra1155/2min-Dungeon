@@ -1,0 +1,22 @@
+
+
+/// Change room scene
+
+ after monster.hp = 0 :
+  -> disable attack button
+  -> show Next Room Overlay
+
+  after clicking NEXT ROOM : 
+  -> set next level name 
+  -> set next level monster
+  
+
+
+/// ATTACK
+
+when click on button: 
+
+-> check if person is alive
+-> calculate if hit is true
+-> 
+

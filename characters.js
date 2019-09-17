@@ -1,14 +1,13 @@
-import {level} from '/levels.js';
-import {items} from "/items.js";
-import {playerHealth, enemyHealth, SCREEN} from '/ui.js'
+import { level } from '/levels.js';
+import { items } from "/items.js";
+import { playerHealth, enemyHealth, screen } from '/ui.js'
 
 
 
-class person {
-    constructor(name, melee, ranged, hp, dexterity, weapon, description, inventory, alive) {
+class Person {
+    constructor(name, melee, hp, dexterity, weapon, description, inventory) {
         this.name = name;
         this.melee = melee;
-        this.ranged = ranged; 
         this.hp = hp;
         this.dexterity = dexterity;
         this.weapon = weapon;
@@ -17,9 +16,23 @@ class person {
         this.alive = true;
     }
 
+    checkIfAlive = (enemy) => {
+        if (enemy === persons.player && enemy.hp <= 0) {
+            enemy.alive = false;
+            console.log(`${enemy.name} is dead`);
+            screen.loseScreen();
+
+
+        } else if (enemy === level.monster && enemy.hp <= 0) {
+            enemy.alive = false;
+            console.log(`${enemy.name} is dead`);
+            screen.nextRoomScreen();
+        }
+    }
+
     attack(enemy) {
         // add text to feed
-        const FEED = document.querySelector('#feedContainer');
+        const feed = document.querySelector('#feedContainer');
         const feedRow = document.createElement('li');
         feedRow.setAttribute('class', 'feed__item');
 
@@ -29,23 +42,6 @@ class person {
             enemyHealth.textContent = level.monster.hp;
         }
 
-        const checkIfAlive = () => {
-            if (enemy.hp <= 0 && enemy === persons.player) {
-                enemy.alive = false;
-                console.log(`${enemy.name} is dead`);
-                SCREEN.loseScreen();
-                
-            } else if (enemy.hp <= 0 && enemy === level.monster) {
-                enemy.alive = false;
-                attackButton.disabled = true;
-                console.log(`${enemy.name} is dead`);
-                SCREEN.nextRoomScreen();
-                const next = (x = 1) => x + 1;
-                level.changeRoom(next(level.id));
-                updatePersonHealth();
-                attackButton.disabled = false;
-            }
-        }
         // k100 dice roll
         const diceRoll = (min, max) => {
             min = Math.ceil(min);
@@ -53,30 +49,28 @@ class person {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         // save dice roll result
-        const diceRollResult = diceRoll(1,100)
+        const diceRollResult = diceRoll(1, 100)
 
         // check if attack hits
         if (this.melee > diceRollResult) {
             feedRow.textContent = `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`;
-            FEED.appendChild(feedRow);
-            console.log( `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`);
+            feed.appendChild(feedRow);
+            console.log(`${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`);
             // reduce health
             enemy.hp = enemy.hp - this.weapon.damage;
             // update health
             updatePersonHealth();
-            // check if dead
-            checkIfAlive();
         } else {
             feedRow.textContent = `${this.name} rolls: ${diceRollResult} and misses.`
-            FEED.appendChild(feedRow);
+            feed.appendChild(feedRow);
             console.log(`${this.name} rolls: ${diceRollResult} and misses.`)
         }
 
-        if (FEED.childElementCount > 5) {
+        if (feed.childElementCount > 5) {
             setTimeout(e => {
-                FEED.firstChild.remove();
+                feed.firstChild.remove();
             }, 2000)
-        } 
+        }
 
 
     };
@@ -92,13 +86,21 @@ class person {
     inspectPerson(person) {
         console.log(person.description)
     };
+
+    showInventory() {
+        this.inventory.forEach(element => {
+            console.log(element.name)
+        });
+    }
 }
 
 const persons = {
-    player: new person('Player', 45, 10, 5, 10, items.weapons.sword, 'It\'s you the Player', [items.utility.torch, items.healingItems.smallHealthPotion]),
-    orc: new person('Orc', 45, 5, 5, 5, items.weapons.mace, 'It\'s an Orc, he carries a weapon', [items.utility.torch, items.healingItems.healingItems]),
-    goblin: new person('Goblin', 25, 4, 3, 5, items.weapons.sword,'He looks skiny and crazy', [items.healingItems.smallHealthPotion]),
-    ogr: new person('Ogr', 45, 5, 6, 3, items.weapons.mace, `a big and bulky Ogr. Looks intimidating`)
+    player: new Person('Player', 100, 5, 10, items.weapons.sword, 'It\'s you the Player', [items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion]),
+    orc: new Person('Orc', 100, 5, 5, items.weapons.mace, 'It\'s an Orc, he carries a weapon', [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion]),
+    goblin: new Person('Goblin', 25, 3, 5, items.weapons.sword, 'He looks skiny and crazy', [items.weapons.sword, items.healingItems.smallHealthPotion]),
+    ogr: new Person('Ogr', 45, 6, 3, items.weapons.mace, `a big and bulky Ogr. Looks intimidating`, [items.weapons.mace]),
+    skeleton: new Person('Skeleton', 35, 5, 10, items.weapons.mace, `It's a reanimated skeleton`, []),
+    lich: new Person('lich', 50, 7, 25, items.weapons.staff, `A powerfull Lich wearing thick and decorative robes with different symbols`, [items.weapons.staff])
 }
 
-export {persons} ;
+export { persons };

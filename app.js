@@ -1,4 +1,4 @@
-import {playerHealth, enemyHealth, SCREEN} from '/ui.js';
+import {playerHealth, enemyHealth, screen} from '/ui.js';
 import {items} from '/items.js';
 import {level} from '/levels.js';
 import {persons} from '/characters.js';
@@ -9,8 +9,7 @@ console.log(persons)
 console.log(items)
 console.log(level)
 console.log(attack)
-console.log(SCREEN)
-
+console.log(screen)
 
 
 // INIT
@@ -24,6 +23,6 @@ let updatePersonHealth = () => {
 updatePersonHealth();
 
 // Shows start screen
-SCREEN.startScreen();
+screen.startScreen();
 
 

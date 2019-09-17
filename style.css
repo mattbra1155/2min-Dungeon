@@ -5,6 +5,10 @@
     font-size: 1.2rem;
 }
 
+.text--white {
+    color: white;
+}
+
 .level__name {
     text-align: center;
 }
@@ -14,10 +18,17 @@
     text-align: center;
 }
 
+.player-hp {
+    color: blue;
+}
+
+.monster-hp {
+    color: red;
+}
+
 .feed {
     height: 50vh;
     background: lightgray;
-
 }
 
 .feed__container {
@@ -33,6 +44,7 @@
 .feed__item {
     text-decoration: none;
     list-style: none;
+    padding: 0 5%;
 }
 
 .text__container p:first-child {

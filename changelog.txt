@@ -56,3 +56,8 @@ attackRoll() === randomNumber  -> is the same if randomNumber is after attackRol
 1. Added Start and Win screens
 2. Added timeout for attacks
 3. Working feed with visable last 5 entries
+
+
+14.09.2019
+
+1. changed const variables from upperCase to lowerCase

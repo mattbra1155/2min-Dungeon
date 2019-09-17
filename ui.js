@@ -1,146 +1,201 @@
-import {level} from '/levels.js'
-import {persons} from '/characters.js'
+import { level } from '/levels.js';
+import { persons } from '/characters.js';
 
 class Ui {
     constructor() {
-        this.OVERLAYSCREEN = document.createElement('div');
-        this.HEADER = document.createElement('h1');
-        this.BUTTON = document.createElement('button');
-        this.APP = document.querySelector('#app');
+        this.overlayscreen = document.createElement('div');
+        this.header = document.createElement('h1');
+        this.button = document.createElement('button');
+        this.app = document.querySelector('#app');
+    }
+
+    clearFeed() {
+        // add text to feed
+        const feed = document.querySelector('#feedContainer');
+        feed.innerHTML = '';
     }
 
     startScreen() {
         document.addEventListener('DOMContentLoaded', (e) => {
-            e.preventDefault;
-            const OVERLAYSCREEN = document.createElement('div');
-            OVERLAYSCREEN.setAttribute('class', 'overlay start-screen');
-            
-            const HEADER = document.createElement('h1');
-            HEADER.style.color = 'white';
-            HEADER.textContent = `2 MINUTE DUNGEON`;
-            OVERLAYSCREEN.appendChild(HEADER);
-           
-            const BUTTON = document.createElement('button');
-            BUTTON.textContent = "START"
-            BUTTON.setAttribute('id', 'startButton');
-            BUTTON.setAttribute('class', 'action__button');
-            OVERLAYSCREEN.appendChild(BUTTON)
+            e.preventDefault();
+            const overlayscreen = document.createElement('div');
+            overlayscreen.setAttribute('class', 'overlay start-screen');
 
-            const APP = document.querySelector('#app');
-            APP.appendChild(OVERLAYSCREEN);
-        
-            const startButton = document.querySelector('#startButton')
-                startButton.addEventListener('click', e => {
-                    e.preventDefault;
-                    OVERLAYSCREEN.remove();
-                });
+            const header = document.createElement('h1');
+            header.setAttribute('class', 'text--white');
+            header.textContent = `2 MINUTE DUNGEON`;
+            overlayscreen.appendChild(header);
+
+            const button = document.createElement('button');
+            button.textContent = "START";
+            button.setAttribute('id', 'startButton');
+            button.setAttribute('class', 'action__button');
+            overlayscreen.appendChild(button);
+
+            const app = document.querySelector('#app');
+            app.appendChild(overlayscreen);
+
+            const startButton = document.querySelector('#startButton');
+            startButton.addEventListener('click', e => {
+                e.preventDefault();
+                overlayscreen.remove();
+            });
         });
     }
 
     winScreen() {
-        const OVERLAYSCREEN = document.createElement('div');
-        OVERLAYSCREEN.setAttribute('class', 'overlay win-screen');
+        const overlayscreen = document.createElement('div');
+        overlayscreen.setAttribute('class', 'overlay win-screen');
 
-        const HEADER = document.createElement('h1');
-        HEADER.style.color = 'white';
-        HEADER.textContent = `You have finished the dungeon CONGRATULATIONS!`;
-        OVERLAYSCREEN.appendChild(HEADER);
-        
-        const BUTTON = document.createElement('button');
-        BUTTON.textContent = "CLOSE"
-        BUTTON.setAttribute('id', 'closeButton');
-        BUTTON.setAttribute('class', 'action__button');
-        OVERLAYSCREEN.appendChild(BUTTON);
+        const header = document.createElement('h1');
+        header.setAttribute('class', 'text--white');
+        header.textContent = `You have finished the dungeon CONGRATULATIONS!`;
+        overlayscreen.appendChild(header);
 
-        const APP = document.querySelector('#app');
-        APP.appendChild(OVERLAYSCREEN);
+        const gatheredItemsList = document.createElement('ul');
+        const gatheredItemListHeader = document.createElement('h2');
+        gatheredItemListHeader.textContent = 'Your inventory';
+        gatheredItemListHeader.setAttribute('class', 'text--white');
+        overlayscreen.appendChild(gatheredItemListHeader);
+        overlayscreen.appendChild(gatheredItemsList);
 
-        const closeButton = document.querySelector('#closeButton')
-        closeButton.addEventListener('click', e => {
-            e.preventDefault;
-            window.location.reload(true);
-            OVERLAYSCREEN.remove();
+        persons.player.inventory.forEach(element => {
+            const gatheredItem = document.createElement('li');
+            gatheredItem.setAttribute('class', 'text--white');
+            gatheredItem.textContent = element.name;
+            gatheredItemsList.appendChild(gatheredItem);
+            
         });
         
+        
+
+
+        const button = document.createElement('button');
+        button.textContent = "Go again";
+        button.setAttribute('id', 'winButton');
+        button.setAttribute('class', 'action__button');
+        overlayscreen.appendChild(button);
+
+        const app = document.querySelector('#app');
+        app.appendChild(overlayscreen);
+
+        const winButton = document.querySelector('#winButton')
+        winButton.addEventListener('click', e => {
+            e.preventDefault();
+            window.location.reload(true);
+            overlayscreen.remove();
+        });
+
     };
 
     loseScreen() {
-        const OVERLAYSCREEN = document.createElement('div');
-        OVERLAYSCREEN.setAttribute('class', 'overlay lose-screen');
+        const overlayscreen = document.createElement('div');
+        overlayscreen.setAttribute('class', 'overlay lose-screen');
 
-        const HEADER = document.createElement('h1');
-        HEADER.style.color = 'white';
-        HEADER.textContent = `You DIED`;
-        OVERLAYSCREEN.appendChild(HEADER);
-        
-        const BUTTON = document.createElement('button');
-        BUTTON.textContent = "Try Again"
-        BUTTON.setAttribute('id', 'closeButton');
-        BUTTON.setAttribute('class', 'action__button');
-        OVERLAYSCREEN.appendChild(BUTTON);
+        const header = document.createElement('h1');
+        header.setAttribute('class', 'text--white');
+        header.textContent = `You DIED`;
+        overlayscreen.appendChild(header);
 
-        const APP = document.querySelector('#app');
-        APP.appendChild(OVERLAYSCREEN);
+        const button = document.createElement('button');
+        button.textContent = "Try Again";
+        button.setAttribute('id', 'closeButton');
+        button.setAttribute('class', 'action__button');
+        overlayscreen.appendChild(button);
+
+        const app = document.querySelector('#app');
+        app.appendChild(overlayscreen);
 
         const closeButton = document.querySelector('#closeButton')
         closeButton.addEventListener('click', e => {
-            e.preventDefault;
+            e.preventDefault();
             window.location.reload(true);
-            OVERLAYSCREEN.remove();
+            overlayscreen.remove();
         });
-        
+
     };
 
     nextRoomScreen() {
-        const OVERLAYSCREEN = document.createElement('div');
-        OVERLAYSCREEN.setAttribute('class', 'overlay next-room-screen');
 
-        const HEADER = document.createElement('h1');
-        HEADER.style.color = 'white';
-        HEADER.textContent = `You defeted the ${level.monster.name}`;
-        OVERLAYSCREEN.appendChild(HEADER);
-        
-        const NEXTBUTTON = document.createElement('button');
-        NEXTBUTTON.textContent = "Next dungeon room"
-        NEXTBUTTON.setAttribute('id', 'closeButton');
-        NEXTBUTTON.setAttribute('class', 'action__button');
-        OVERLAYSCREEN.appendChild(NEXTBUTTON);
+        if (level.id < 5) {
+            const overlayscreen = document.createElement('div');
+            overlayscreen.setAttribute('class', 'overlay next-room-screen');
 
-        const TAKEWEAPONTEXT = document.createElement('p');
-        TAKEWEAPONTEXT.textContent = `You can take the ${level.monster.name} weapon which is a ${level.monster.weapon.name}`;
-        OVERLAYSCREEN.appendChild(TAKEWEAPONTEXT);
+            const header = document.createElement('h1');
+            header.setAttribute('class', 'text--white');
+            header.textContent = `You defeted the ${level.monster.name}`;
+            overlayscreen.appendChild(header);
 
-        const TAKEWEAPONBUTTON = document.createElement('button');
-        TAKEWEAPONBUTTON.textContent = `Grab weapon`
-        TAKEWEAPONBUTTON.setAttribute('id', 'takeWeaponButton');
-        NEXTBUTTON.setAttribute('class', 'action__button');
-        OVERLAYSCREEN.appendChild(TAKEWEAPONBUTTON);
+            const nextButton = document.createElement('button');
+            nextButton.textContent = "Next dungeon room";
+            nextButton.setAttribute('id', 'closeButton');
+            nextButton.setAttribute('class', 'action__button');
+            overlayscreen.appendChild(nextButton);
 
-        const APP = document.querySelector('#app');
-        APP.appendChild(OVERLAYSCREEN);
+            const SearchBodyText = document.createElement('p');
+            SearchBodyText.setAttribute('class', 'text--white');
+            SearchBodyText.textContent = `You can take your time to search the ${level.monster.name} body.`;
+            overlayscreen.appendChild(SearchBodyText);
 
-        const closeButton = document.querySelector('#closeButton')
-        closeButton.addEventListener('click', e => {
-            e.preventDefault;
-            OVERLAYSCREEN.remove();
-        });
+            const searchBodyButton = document.createElement('button');
+            searchBodyButton.textContent = `Search ${level.monster.name}'s body`;
+            searchBodyButton.setAttribute('id', 'searchBodyButton');
+            nextButton.setAttribute('class', 'action__button');
+            overlayscreen.appendChild(searchBodyButton);
 
-        const takeWeapon = document.querySelector('#takeWeaponButton');
-        takeWeapon.addEventListener('click', e => {
-            e.preventDefault;
-            persons.player.weapon = level.monster.weapon;
-            console.log(`Your new weapon is ${level.monster.weapon.name}`)
-        })
-        
+            const app = document.querySelector('#app');
+            app.appendChild(overlayscreen);
+
+            const closeButton = document.querySelector('#closeButton')
+            closeButton.addEventListener('click', e => {
+                e.preventDefault();
+                // Add +1 to level id to change to next room
+                const next = (x = 1) => x + 1;
+                level.changeRoom(next(level.id));
+                attackButton.disabled = false;
+                let updatePersonHealth = () => {
+                    playerHealth.textContent = persons.player.hp;
+                    enemyHealth.textContent = level.monster.hp;
+                }
+                updatePersonHealth();
+                // Clear feed each time new monster apperas 
+                this.clearFeed();
+                overlayscreen.remove();
+            });
+            
+            
+
+            const searchBody = document.querySelector('#searchBodyButton');
+            searchBody.addEventListener('click', e => {
+                e.preventDefault();
+                // Choose random item key from Object
+                const keys = Object.values(level.monster.inventory);
+                const newItems = keys[Math.floor(Math.random() * keys.length)];
+                // Hide button to make space for text
+                searchBody.style.display = 'none';
+                // Add item to Player inventory
+                if (level.monster.inventory != '') {
+                    persons.player.inventory.push(newItems);
+                    console.log(`You found a ${newItems.name}`);
+                    console.log(persons.player.inventory);
+                    SearchBodyText.textContent = `You found a ${newItems.name}`;
+                } else {
+                    SearchBodyText.textContent = `${level.monster.name} had nothing`;
+                };
+            })
+        } else {
+            // If level.id > 5 it's the last level, so show winScreen instead of next screen
+            this.winScreen();
+        }
     };
 }
 
-const SCREEN = new Ui();
+const screen = new Ui();
 
 /// UI
-const playerHealth = document.querySelector('#playerHp')
-const enemyHealth = document.querySelector('#monsterHp')
+const playerHealth = document.querySelector('#playerHp');
+const enemyHealth = document.querySelector('#monsterHp');
 
 
 
-export {playerHealth, enemyHealth, SCREEN};
+export { playerHealth, enemyHealth, screen };
