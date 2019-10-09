@@ -5,15 +5,22 @@ import { playerHealth, enemyHealth, screen } from '/ui.js'
 
 
 class Person {
-    constructor(name, melee, hp, dexterity, weapon, description, inventory) {
+    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, description) {
         this.name = name;
-        this.melee = melee;
         this.hp = hp;
+        this.melee = melee;
+        this.ranged = ranged;
         this.dexterity = dexterity;
+        this.strength = strength;
+        this.speed = speed;
+        this.initiative = initiative;
+        this.attacks = attacks;
+        this.intelect = intelect;
+        this.charisma = charisma;
         this.weapon = weapon;
-        this.description = description;
-        this.inventory = inventory;
         this.alive = true;
+        this.inventory = inventory;
+        this.description = description;
     }
 
     checkIfAlive = (enemy) => {
@@ -95,12 +102,12 @@ class Person {
 }
 
 const persons = {
-    player: new Person('Player', 100, 5, 10, items.weapons.sword, 'It\'s you the Player', [items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion]),
-    orc: new Person('Orc', 100, 5, 5, items.weapons.mace, 'It\'s an Orc, he carries a weapon', [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion]),
-    goblin: new Person('Goblin', 25, 3, 5, items.weapons.sword, 'He looks skiny and crazy', [items.weapons.sword, items.healingItems.smallHealthPotion]),
-    ogr: new Person('Ogr', 45, 6, 3, items.weapons.mace, `a big and bulky Ogr. Looks intimidating`, [items.weapons.mace]),
-    skeleton: new Person('Skeleton', 35, 5, 10, items.weapons.mace, `It's a reanimated skeleton`, []),
-    lich: new Person('lich', 50, 7, 25, items.weapons.staff, `A powerfull Lich wearing thick and decorative robes with different symbols`, [items.weapons.staff])
+    player: new Person('Player', 10, 33, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),
+    orc: new Person('Orc', 8, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    goblin: new Person('Goblin', 3, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
+    ogr: new Person('Ogr', 9, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
+    skeleton: new Person('Skeleton', 5, 20, 10, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
+    lich: new Person('Lich', 12, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
 export { persons };
