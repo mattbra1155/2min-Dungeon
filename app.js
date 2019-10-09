@@ -11,7 +11,7 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
-
+console.log()
 
 // INIT
 level.changeRoom(1);

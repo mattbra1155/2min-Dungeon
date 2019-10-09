@@ -14,9 +14,41 @@
 
 /// ATTACK
 
-when click on button: 
+Player attack Monster:
+  dice roll to check if Player hits ->   dice roll < melee - enemy.dexterity = melee.result
+When melee.result is true calculate damage done to the Monster:
+  K6 dice roll + Player.strength + weapon dice roll - Monster.armor
 
--> check if person is alive
--> calculate if hit is true
--> 
+/// STATS 
 
+hp:
+1-20
+represents health points, if 0 the character dies.
+
+melee:
+1-100
+represents skill in fighting hand-to-hand combat, the more poitns the better precision and hit chance.
+
+ranged:
+represents skill with ranged weapons and throwing items, the more points the better hit chance.
+
+dexterity:
+represents the character ability to move out of harms way, becoming hard to hit. 
+
+strength:
+represents the physical ability of the character, adds dmg points to attacks.
+
+speed:
+represents the quickness which character move and acts. 
+
+initiative
+the more points more likely the character will act first in a turn. 
+
+attacks
+the amout of attacks each round the character can use.
+
+intelect
+represents the mental/magic skill of the character. the more points the better precision and hit change with spells.
+
+charisma:
+the overall look and smell of the character. More points can get discounts in shops and better results in presuasion rolls.

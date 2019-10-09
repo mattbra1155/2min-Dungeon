@@ -5,7 +5,7 @@ import { playerHealth, enemyHealth, screen } from '/ui.js'
 
 
 class Person {
-    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, description) {
+    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
         this.name = name;
         this.hp = hp;
         this.melee = melee;
@@ -20,6 +20,7 @@ class Person {
         this.weapon = weapon;
         this.alive = true;
         this.inventory = inventory;
+        this.armorPoints = armorPoints
         this.description = description;
     }
 
