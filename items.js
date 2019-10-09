@@ -6,11 +6,30 @@ class Item {
 };  
 
 class Weapon extends Item {
-    constructor(name, damage, description) {
+    constructor(name, type, description) {
         super(name, description);
-        this.damage = damage;
-        
+        this.type = type;
     }
+
+    damage() {
+        // k100 dice roll (Make it a global function?)
+        const diceRoll = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+        // depending on the weapon type roll damage
+        if (this.type === 'sword') {
+            const diceRollResult = diceRoll(1, 2);
+            return diceRollResult;
+        } else if (this.type === 'mace') {
+            const diceRollResult = diceRoll(1, 3);
+            return diceRollResult;
+        } else if (this.type === 'staff') {
+            const diceRollResult = diceRoll(1, 4);
+            return diceRollResult;
+        }
+
+    }
+       
+        
+    
 };
 
  class Armor extends Item {
@@ -35,15 +54,15 @@ class Utility extends Item {
 
 let items = {
     weapons: {
-        sword: new Weapon ('Old sword', 2, 'An old sword'), 
-        mace: new Weapon('Rusty mace', 1, 'A rusty mace'),
-        staff: new Weapon('Magic staff', 2, 'a magic staff with a blue stone on top')
+        sword: new Weapon ('Old sword', 'sword', 'An old sword'), 
+        mace: new Weapon('Rusty mace', 'mace', 'A rusty mace'),
+        staff: new Weapon('Magic staff', 'staff', 'a magic staff with a blue stone on top')
     },
     armors: {
-        chainmail: new Armor('Rusty chainmail', )
+        chainmail: new Armor('Rusty chainmail', 2, 'a worn chainmail that was used in battle' )
     },
     healingItems: {
-        smallHealthPotion: new Potion ('Small health potion', -1, 'A small healing potion that recovers 10hp')
+        smallHealthPotion: new Potion ('Small health potion', 2, 'A small healing potion that recovers 10hp')
     },
     utility: {
         torch: new Utility ('Torch','A torch that you can use to light dark areas. It also could be a weapon')

@@ -51,21 +51,17 @@ class Person {
         }
 
         // k100 dice roll
-        const diceRoll = (min, max) => {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+        const diceRoll = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
         // save dice roll result
         const diceRollResult = diceRoll(1, 100)
 
         // check if attack hits
         if (this.melee > diceRollResult) {
-            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`;
+            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage()} damage with ${this.weapon.name}`;
             feed.appendChild(feedRow);
-            console.log(`${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage} damage.`);
+            console.log(`${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage()} damage.`);
             // reduce health
-            enemy.hp = enemy.hp - this.weapon.damage;
+            enemy.hp = enemy.hp - this.weapon.damage();
             // update health
             updatePersonHealth();
         } else {
