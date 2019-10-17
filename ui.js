@@ -1,5 +1,5 @@
-import { level } from '/levels.js';
-import { persons } from '/characters.js';
+import { level, global, persons } from './index.js';
+
 
 class Ui {
     constructor() {
@@ -67,9 +67,6 @@ class Ui {
             
         });
         
-        
-
-
         const button = document.createElement('button');
         button.textContent = "Go again";
         button.setAttribute('id', 'winButton');
@@ -154,8 +151,8 @@ class Ui {
                 level.changeRoom(next(level.id));
                 attackButton.disabled = false;
                 let updatePersonHealth = () => {
-                    playerHealth.textContent = persons.player.hp;
-                    enemyHealth.textContent = level.monster.hp;
+                    global.playerHealth.textContent = persons.player.hp;
+                    global.enemyHealth.textContent = level.monster.hp;
                 }
                 updatePersonHealth();
                 // Clear feed each time new monster apperas 
@@ -192,10 +189,5 @@ class Ui {
 
 const screen = new Ui();
 
-/// UI
-const playerHealth = document.querySelector('#playerHp');
-const enemyHealth = document.querySelector('#monsterHp');
 
-
-
-export { playerHealth, enemyHealth, screen };
+export { screen };

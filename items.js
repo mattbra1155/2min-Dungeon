@@ -1,3 +1,4 @@
+import { global } from "./index.js";
 class Item {
     constructor(name, description) {
         this.name = name;
@@ -12,17 +13,15 @@ class Weapon extends Item {
     }
 
     damage() {
-        // k100 dice roll (Make it a global function?)
-        const diceRoll = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
         // depending on the weapon type roll damage
         if (this.type === 'sword') {
-            const diceRollResult = diceRoll(1, 2);
+            const diceRollResult = global.diceRoll(1, 2);
             return diceRollResult;
         } else if (this.type === 'mace') {
-            const diceRollResult = diceRoll(1, 3);
+            const diceRollResult = global.diceRoll(1, 3);
             return diceRollResult;
         } else if (this.type === 'staff') {
-            const diceRollResult = diceRoll(1, 4);
+            const diceRollResult = global.diceRoll(1, 4);
             return diceRollResult;
         }
 
