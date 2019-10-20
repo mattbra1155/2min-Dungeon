@@ -1,14 +1,14 @@
 
 /// TURN 
 
-// -1 Init 
+// 0. Init 
 
  check if Player in a fight, if not set to false (combat).
  if combat is false:
   -> attack button is disabled
   -> check room for items button is shown/enabled
 
-// 0. Player enters the Room
+// 1. Player enters the Room
 
   check if Room has a enemy:
     if true:
@@ -20,16 +20,16 @@
     if false:
     nothing changes
 
-
-
-//  initiative roll
+// 2. initiative roll
 
 if characters are 2 and more:
  -> roll initiative
  -> apply modifiers (wounded?, buff, debuff)
  -> higher initiative starts first this round
 
-// 1. 
+// 3. attack
+
+
 
 
 /// Change room scene

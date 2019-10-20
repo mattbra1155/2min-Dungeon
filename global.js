@@ -6,6 +6,7 @@ class Global {
         this.name = name;
         this.playerHealth = document.querySelector('#playerHp');
         this.enemyHealth = document.querySelector('#monsterHp');
+        this.combat = true;
     }
 
     diceRoll(min, max) {

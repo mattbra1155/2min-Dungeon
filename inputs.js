@@ -2,7 +2,7 @@ import {level, persons} from '/index.js';
 
 
 /// INPUTS
-const attackButton = document.querySelector('#attackButton');
+const attackButton = document.querySelector('#attackButtonOne');
 
 const attack = attackButton.addEventListener('click', e => {
     e.preventDefault;

@@ -23,6 +23,7 @@ class Person {
         this.inventory = inventory;
         this.armorPoints = armorPoints
         this.description = description;
+        this.turnActive = false;
     }
 
     checkIfAlive = (enemy) => {
