@@ -1,4 +1,36 @@
 
+/// TURN 
+
+// -1 Init 
+
+ check if Player in a fight, if not set to false (combat).
+ if combat is false:
+  -> attack button is disabled
+  -> check room for items button is shown/enabled
+
+// 0. Player enters the Room
+
+  check if Room has a enemy:
+    if true:
+    -> combat: true
+    -> attack button enabled
+    -> check for items button disabled
+    -> start round I
+    
+    if false:
+    nothing changes
+
+
+
+//  initiative roll
+
+if characters are 2 and more:
+ -> roll initiative
+ -> apply modifiers (wounded?, buff, debuff)
+ -> higher initiative starts first this round
+
+// 1. 
+
 
 /// Change room scene
 
@@ -9,8 +41,6 @@
   after clicking NEXT ROOM : 
   -> set next level name 
   -> set next level monster
-  
-
 
 /// ATTACK
 
@@ -18,6 +48,7 @@ Player attack Monster:
   dice roll to check if Player hits ->   dice roll < melee - enemy.dexterity = melee.result
 When melee.result is true calculate damage done to the Monster:
   K6 dice roll + Player.strength + weapon dice roll - Monster.armor
+
 
 /// STATS 
 
@@ -30,25 +61,33 @@ melee:
 represents skill in fighting hand-to-hand combat, the more poitns the better precision and hit chance.
 
 ranged:
+1-100
 represents skill with ranged weapons and throwing items, the more points the better hit chance.
 
 dexterity:
+1-100
 represents the character ability to move out of harms way, becoming hard to hit. 
 
 strength:
+1-10
 represents the physical ability of the character, adds dmg points to attacks.
 
 speed:
+1-10
 represents the quickness which character move and acts. 
 
-initiative
+initiative:
+1-100
 the more points more likely the character will act first in a turn. 
 
-attacks
+attacks:
+1-10
 the amout of attacks each round the character can use.
 
-intelect
+intelect:
+1-100
 represents the mental/magic skill of the character. the more points the better precision and hit change with spells.
 
 charisma:
+1-100
 the overall look and smell of the character. More points can get discounts in shops and better results in presuasion rolls.
