@@ -27,4 +27,4 @@ const attack = attackButton.addEventListener('click', e => {
     
 });
 
-export {attack}
+export {attack, attackButton}

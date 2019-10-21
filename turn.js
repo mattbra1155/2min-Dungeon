@@ -1,15 +1,15 @@
-import { global } from "index.js";
+import { global } from "/index.js";
 
 class Turn {
     constructor(name) {
         this.name = name;
-        turnNumber = 0
+        this.turnNumber = 0
     }
 
     checkRoom(monster) {
         if (monster.alive = true) {
             global.combat = true;
-            attackButton.style.disabled = "false";
+            attackButton.disabled = "false";
         };
     };
 
@@ -27,7 +27,8 @@ class Turn {
             return monster.turnActive = true;
         };
     };
-};
+
+}
 
 const turn = new Turn ('turn');
 

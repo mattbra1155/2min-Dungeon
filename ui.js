@@ -1,4 +1,4 @@
-import { level, global, persons } from './index.js';
+import {level, global, persons, attackButton } from './index.js';
 
 
 class Ui {
@@ -63,8 +63,7 @@ class Ui {
             const gatheredItem = document.createElement('li');
             gatheredItem.setAttribute('class', 'text--white');
             gatheredItem.textContent = element.name;
-            gatheredItemsList.appendChild(gatheredItem);
-            
+            gatheredItemsList.appendChild(gatheredItem); 
         });
         
         const button = document.createElement('button');
