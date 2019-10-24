@@ -1,4 +1,4 @@
-import { global, persons, attack, level, attackButton } from "/index.js";
+import { global, persons, attack, level, attackButton, screen } from "/index.js";
 
 class Turn {
     constructor(name) {
@@ -14,24 +14,60 @@ class Turn {
 
     turnNumberOne() {
         this.turnNumber++
+        const turn = document.querySelector('#turnNumber');
+        turn.textContent = this.turnNumber;
     };
 
     initiativeRoll(player, monster) {
         const monsterResult = global.diceRoll(1,100);
         const playerResult = global.diceRoll(1,100);
         
-        console.log(`monster result = ${monsterResult}`)
-        console.log(`player result = ${playerResult}`)
+        console.log(`monster result = ${monsterResult}`);
+        console.log(`player result = ${playerResult}`);
+        player.turnEnd = false;
+        monster.turnEnd = false;
 
         if (playerResult >= monsterResult) {
-            console.log(`player turn`)
-            return player.turnActive = true;
+            console.log(`player turn`);
+            player.turnActive = true;
             
-        } else {
-            console.log(`monster turn`)
-            return monster.turnActive = true;
-        };
+            this.playerTurn();
+
+        } else if ( monsterResult >= playerResult) {
+            console.log(`monster turn`);
+            monster.turnActive = true;
+            
+            this.monsterTurn();
+        }
     };
+
+    playerTurn() {
+        console.log(persons.player)
+        if (persons.player.alive === true) {
+            attackButton.disabled = false;
+            console.log(`waiting for player input`);
+        } 
+    };
+
+    monsterTurn() {
+        console.log(level.monster)
+        if (level.monster.alive === true) {
+            level.monster.attack(persons.player);
+            level.monster.checkIfAlive(persons.player);
+            level.monster.turnActive = false;
+            level.monster.turnEnd = true;
+            console.log(`end of monster turn`);
+            persons.player.turnActive = true;
+            console.log(`changed to player turn`);
+            //change to player turn
+            if (persons.player.turnEnd === false && persons.player.alive === true) {
+                this.playerTurn();
+            } else if (persons.player.turnEnd === true) {
+                this.runTurn();
+            }
+        }
+    };
+
 
     runTurn() {
         this.checkRoom(level.monster);
@@ -40,30 +76,9 @@ class Turn {
             this.turnNumberOne();
             console.log(`turn number: ${this.turnNumber}`)
             this.initiativeRoll(persons.player, level.monster);
-            //player turn
-            if (persons.player.alive === true && persons.player.turnActive === true) {
-                console.log(`player input`)
-                persons.player.attack(level.monster)
-                persons.player.checkIfAlive(level.monster)
-                persons.player.turnActive = false;
-                attackButton.disabled = true;
-                level.monster.turnActive = true;
-            };
-            //enemy turn
-            if (level.monster.alive === true && level.monster.turnActive === true) {
-                level.monster.attack(persons.player);
-                level.monster.checkIfAlive(persons.player);
-                level.monster.turnActive = false;
-                persons.player.turnActive = true;
-            }; 
-        }
-        if (persons.player.alive === true && level.monster.alive === true) {
-            this.runTurn();
-        }
-        
-    }
-
-}
+        };
+    };
+};
 
 const turn = new Turn ('turn');
 

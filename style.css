@@ -11,6 +11,10 @@
     color: white;
 }
 
+.text--center {
+    text-align: center;
+}
+
 .level__name {
     text-align: center;
 }

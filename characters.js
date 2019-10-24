@@ -1,7 +1,4 @@
-import { level } from '/index.js';
-import { items } from "/index.js";
-import { screen } from '/index.js'
-import { global } from './index.js';
+import { level, items, screen, global } from '/index.js';
 
 
 
@@ -24,6 +21,7 @@ class Person {
         this.armorPoints = armorPoints
         this.description = description;
         this.turnActive = false;
+        this.turnEnd = false;
     }
 
     checkIfAlive = (enemy) => {
@@ -31,8 +29,6 @@ class Person {
             enemy.alive = false;
             console.log(`${enemy.name} is dead`);
             screen.loseScreen();
-
-
         } else if (enemy === level.monster && enemy.hp <= 0) {
             enemy.alive = false;
             console.log(`${enemy.name} is dead`);
@@ -71,12 +67,9 @@ class Person {
             setTimeout(e => {
                 if(feed.childElementCount > 0) {
                     feed.firstChild.remove();
-                }
-                
+                } 
             }, 2000)
         };
-
-
     };
     //check item equiped
     inspectHoldItem() {
@@ -97,6 +90,7 @@ class Person {
         });
     }
 }
+
 
 const persons = {
     player: new Person('Player', 10, 100, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),

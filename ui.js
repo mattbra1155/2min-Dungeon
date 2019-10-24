@@ -22,7 +22,7 @@ class Ui {
             overlayscreen.setAttribute('class', 'overlay start-screen');
 
             const header = document.createElement('h1');
-            header.setAttribute('class', 'text--white');
+            header.setAttribute('class', 'text--white text--center');
             header.textContent = `2 MINUTE DUNGEON`;
             overlayscreen.appendChild(header);
 
@@ -38,7 +38,8 @@ class Ui {
             const startButton = document.querySelector('#startButton');
             startButton.addEventListener('click', e => {
                 e.preventDefault();
-                overlayscreen.remove();
+                overlayscreen.remove();  
+                turn.runTurn();
             });
         });
     }
@@ -157,6 +158,7 @@ class Ui {
                 // Clear feed each time new monster apperas 
                 this.clearFeed();
                 overlayscreen.remove();
+                turn.turnNumber = 0;
                 turn.runTurn();
             });
             
