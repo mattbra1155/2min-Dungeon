@@ -10,21 +10,10 @@ const attack = attackButton.addEventListener('click', e => {
     if (persons.player.alive) {
         persons.player.attack(level.monster)
         persons.player.checkIfAlive(level.monster)
-        
+        persons.player.turnActive = false;
         attackButton.disabled = true;
-        setTimeout(e => {
-            attackButton.disabled = false;
-        }, 500)
+        level.monster.turnActive = true;
     } 
-    //enemy turn
-    if (level.monster.alive) {
-        setTimeout(e => {
-            level.monster.attack(persons.player)
-            level.monster.checkIfAlive(persons.player)
-        }, 500)
-    }
-
-    
 });
 
 export {attack, attackButton}

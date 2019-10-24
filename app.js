@@ -21,3 +21,4 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 
+turn.runTurn();

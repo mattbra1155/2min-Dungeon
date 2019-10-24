@@ -1,4 +1,4 @@
-import {level, global, persons, attackButton } from './index.js';
+import {level, global, persons, attackButton, turn } from './index.js';
 
 
 class Ui {
@@ -157,6 +157,7 @@ class Ui {
                 // Clear feed each time new monster apperas 
                 this.clearFeed();
                 overlayscreen.remove();
+                turn.runTurn();
             });
             
             

@@ -50,7 +50,7 @@ class Person {
         global.updatePersonHealth();
 
         // dice roll
-        const diceRollResult = global.diceRoll(1, 100)
+        const diceRollResult = global.diceRoll(1, 100);
 
         // check if attack hits
         if (this.melee > diceRollResult) {
@@ -62,10 +62,10 @@ class Person {
             // update health
             global.updatePersonHealth();
         } else {
-            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and misses.`
+            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and misses.`;
             feed.appendChild(feedRow);
             console.log(`${this.name} rolls: ${diceRollResult} and misses.`)
-        }
+        };
 
         if(feed.childElementCount > 5) {
             setTimeout(e => {
@@ -74,37 +74,37 @@ class Person {
                 }
                 
             }, 2000)
-        }
+        };
 
 
     };
     //check item equiped
     inspectHoldItem() {
-        console.log(this.weapon.description)
+        console.log(this.weapon.description);
     };
     //check enemy itme equiped
     inspectEnemyWeapin(enemy) {
-        console.log(enemy.weapon.description)
+        console.log(enemy.weapon.description);
     };
     //check person description
     inspectPerson(person) {
-        console.log(person.description)
+        console.log(person.description);
     };
 
     showInventory() {
         this.inventory.forEach(element => {
-            console.log(element.name)
+            console.log(element.name);
         });
     }
 }
 
 const persons = {
     player: new Person('Player', 10, 100, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),
-    orc: new Person('Orc', 1, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
-    goblin: new Person('Goblin', 1, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
-    ogr: new Person('Ogr', 1, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
+    orc: new Person('Orc', 10, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    goblin: new Person('Goblin', 5, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
+    ogr: new Person('Ogr', 5, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
     skeleton: new Person('Skeleton', 5, 20, 10, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
-    lich: new Person('Lich', 1, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
+    lich: new Person('Lich', 5, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
 export { persons };

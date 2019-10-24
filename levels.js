@@ -1,5 +1,5 @@
-import {persons} from './index.js';
-import {screen} from './index.js';
+import {persons, screen} from './index.js';
+
 class Room { 
     constructor(id, name, monster) {
         this.id = id;
