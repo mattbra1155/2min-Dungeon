@@ -1,4 +1,4 @@
-import {level, persons, turn, screen} from '/index.js';
+import {level, persons, turn, screen} from './index.js';
 
 
 /// INPUTS
