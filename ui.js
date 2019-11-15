@@ -1,5 +1,5 @@
-import { level } from '/levels.js';
-import { persons } from '/characters.js';
+import {level, global, persons, attackButton, turn } from './index.js';
+
 
 class Ui {
     constructor() {
@@ -22,7 +22,7 @@ class Ui {
             overlayscreen.setAttribute('class', 'overlay start-screen');
 
             const header = document.createElement('h1');
-            header.setAttribute('class', 'text--white');
+            header.setAttribute('class', 'text--white text--center');
             header.textContent = `2 MINUTE DUNGEON`;
             overlayscreen.appendChild(header);
 
@@ -38,7 +38,8 @@ class Ui {
             const startButton = document.querySelector('#startButton');
             startButton.addEventListener('click', e => {
                 e.preventDefault();
-                overlayscreen.remove();
+                overlayscreen.remove();  
+                turn.runTurn();
             });
         });
     }
@@ -63,13 +64,9 @@ class Ui {
             const gatheredItem = document.createElement('li');
             gatheredItem.setAttribute('class', 'text--white');
             gatheredItem.textContent = element.name;
-            gatheredItemsList.appendChild(gatheredItem);
-            
+            gatheredItemsList.appendChild(gatheredItem); 
         });
         
-        
-
-
         const button = document.createElement('button');
         button.textContent = "Go again";
         button.setAttribute('id', 'winButton');
@@ -154,13 +151,15 @@ class Ui {
                 level.changeRoom(next(level.id));
                 attackButton.disabled = false;
                 let updatePersonHealth = () => {
-                    playerHealth.textContent = persons.player.hp;
-                    enemyHealth.textContent = level.monster.hp;
+                    global.playerHealth.textContent = persons.player.hp;
+                    global.enemyHealth.textContent = level.monster.hp;
                 }
                 updatePersonHealth();
                 // Clear feed each time new monster apperas 
                 this.clearFeed();
                 overlayscreen.remove();
+                turn.turnNumber = 0;
+                turn.runTurn();
             });
             
             
@@ -192,10 +191,5 @@ class Ui {
 
 const screen = new Ui();
 
-/// UI
-const playerHealth = document.querySelector('#playerHp');
-const enemyHealth = document.querySelector('#monsterHp');
 
-
-
-export { playerHealth, enemyHealth, screen };
+export { screen };
