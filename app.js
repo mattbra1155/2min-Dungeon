@@ -6,6 +6,7 @@ import {persons} from './index.js';
 import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js' 
+import {test } from './characters.js';
 
 
 console.log(persons)
@@ -20,3 +21,5 @@ global.updatePersonHealth();
 
 // Shows start screen
 screen.startScreen();
+
+console.log(persons.player.stats.hp)

@@ -13,16 +13,16 @@ class Global {
     };
 
     updatePersonHealth() {
-        this.playerHealth.textContent = persons.player.hp;
-        this.enemyHealth.textContent = level.monster.hp;
+        this.playerHealth.textContent = persons.player.stats.hp;
+        this.enemyHealth.textContent = level.monster.stats.hp;
     };
-    
+
     checkIfAlive(enemy) {
-        if (enemy === persons.player && enemy.hp <= 0) {
+        if (enemy === persons.player && enemy.stats.hp <= 0) {
             enemy.alive = false;
             console.log(`${enemy.name} is dead`);
             screen.loseScreen();
-        } else if (enemy === level.monster && enemy.hp <= 0) {
+        } else if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.alive = false;
             console.log(`${enemy.name} is dead`);
             screen.nextRoomScreen();
