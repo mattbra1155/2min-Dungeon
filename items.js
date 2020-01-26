@@ -10,7 +10,7 @@ class Weapon extends Item {
     constructor(name, type, description) {
         super(name, description);
         this.type = type;
-    }
+    };
 
     damage() {
         // depending on the weapon type roll damage
@@ -23,12 +23,9 @@ class Weapon extends Item {
         } else if (this.type === 'staff') {
             const diceRollResult = global.diceRoll(1, 4);
             return diceRollResult;
-        }
+        };
 
-    }
-       
-        
-    
+    };
 };
 
  class Armor extends Item {

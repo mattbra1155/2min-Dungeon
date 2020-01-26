@@ -1,6 +1,4 @@
-import { level, items, screen, global } from '/index.js';
-
-
+import { level, items, screen, global } from './index.js';
 
 class Person {
     constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
@@ -16,25 +14,14 @@ class Person {
         this.intelect = intelect;
         this.charisma = charisma;
         this.weapon = weapon;
-        this.alive = true;
         this.inventory = inventory;
         this.armorPoints = armorPoints
         this.description = description;
+        this.alive = true;
         this.turnActive = false;
-        this.turnEnd = false;
-    }
-
-    checkIfAlive = (enemy) => {
-        if (enemy === persons.player && enemy.hp <= 0) {
-            enemy.alive = false;
-            console.log(`${enemy.name} is dead`);
-            screen.loseScreen();
-        } else if (enemy === level.monster && enemy.hp <= 0) {
-            enemy.alive = false;
-            console.log(`${enemy.name} is dead`);
-            screen.nextRoomScreen();
         }
-    }
+
+
 
     attack(enemy) {
         // add text to feed
@@ -43,7 +30,7 @@ class Person {
         feedRow.setAttribute('class', 'feed__item');
 
         // update presons health on the ui
-        global.updatePersonHealth();
+        //global.updatePersonHealth();
 
         // dice roll
         const diceRollResult = global.diceRoll(1, 100);
@@ -71,34 +58,64 @@ class Person {
             }, 2000)
         };
     };
-    //check item equiped
-    inspectHoldItem() {
-        console.log(this.weapon.description);
-    };
-    //check enemy itme equiped
-    inspectEnemyWeapin(enemy) {
-        console.log(enemy.weapon.description);
-    };
-    //check person description
-    inspectPerson(person) {
-        console.log(person.description);
-    };
+};
 
+class Player extends Person {
+    constructor(
+        name,
+        hp,
+        melee,
+        ranged,
+        dexterity,
+        strength,
+        speed,
+        initiative,
+        attacks,
+        intelect,
+        charisma,
+        weapon,
+        inventory,
+        armorPoints,
+        description
+        ) {
+        super(
+        name,
+        hp,
+        melee,
+        ranged,
+        dexterity,
+        strength,
+        speed,
+        initiative,
+        attacks,
+        intelect,
+        charisma,
+        weapon,
+        inventory,
+        armorPoints,
+        description
+        );
+    }
     showInventory() {
         this.inventory.forEach(element => {
             console.log(element.name);
         });
+    };
+};
+
+class Monster extends Person {
+    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
+        super(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description);
     }
 }
 
-
 const persons = {
-    player: new Person('Player', 10, 100, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),
-    orc: new Person('Orc', 10, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
-    goblin: new Person('Goblin', 5, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
-    ogr: new Person('Ogr', 5, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
-    skeleton: new Person('Skeleton', 5, 20, 10, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
-    lich: new Person('Lich', 5, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
+    player: new Player('Player', 10, 100, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),
+    orc: new Monster('Orc', 10, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    goblin: new Monster('Goblin', 5, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
+    ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
+    skeleton: new Monster('Skeleton', 5, 20, 10, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
+    lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
 export { persons };

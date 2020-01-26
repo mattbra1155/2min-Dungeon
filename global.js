@@ -1,5 +1,4 @@
-import { persons } from "./characters.js";
-import { level } from "./levels.js";
+import { persons, level } from "./index.js";
 
 class Global {
     constructor(name) {
@@ -17,9 +16,20 @@ class Global {
         this.playerHealth.textContent = persons.player.hp;
         this.enemyHealth.textContent = level.monster.hp;
     };
+    
+    checkIfAlive(enemy) {
+        if (enemy === persons.player && enemy.hp <= 0) {
+            enemy.alive = false;
+            console.log(`${enemy.name} is dead`);
+            screen.loseScreen();
+        } else if (enemy === level.monster && enemy.hp <= 0) {
+            enemy.alive = false;
+            console.log(`${enemy.name} is dead`);
+            screen.nextRoomScreen();
+        }
+    }
 };
 
-
-let global = new Global("global");
+const global = new Global("global");
 
 export {global};
