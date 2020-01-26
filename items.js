@@ -9,21 +9,8 @@ class Item {
 class Weapon extends Item {
     constructor(name, type, description) {
         super(name, description);
+        this.damage = 0;
         this.type = type;
-    };
-
-    damage() {
-        // depending on the weapon type roll damage
-        if (this.type === 'sword') {
-            const diceRollResult = global.diceRoll(1, 2);
-            return diceRollResult;
-        } else if (this.type === 'mace') {
-            const diceRollResult = global.diceRoll(1, 3);
-            return diceRollResult;
-        } else if (this.type === 'staff') {
-            const diceRollResult = global.diceRoll(1, 4);
-            return diceRollResult;
-        };
 
     };
 };

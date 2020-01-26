@@ -1,13 +1,14 @@
 import { level, items, screen, global } from './index.js';
 
 class Person {
-    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
+    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
         this.name = name;
         this.hp = hp;
         this.melee = melee;
         this.ranged = ranged;
         this.dexterity = dexterity;
         this.strength = strength;
+        this.thoughtness = thoughtness;
         this.speed = speed;
         this.initiative = initiative;
         this.attacks = attacks;
@@ -33,21 +34,40 @@ class Person {
         //global.updatePersonHealth();
 
         // dice roll
-        const diceRollResult = global.diceRoll(1, 100);
+        const diceRollHitResult = global.diceRoll(1, 100);
 
         // check if attack hits
-        if (this.melee > diceRollResult) {
-            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage()} damage with ${this.weapon.name}`;
+        if (this.melee > diceRollHitResult) {
+
+            const diceRollBodyPartResult = global.diceRoll(1, 100);
+
+            console.log(`Body part hit result: ${diceRollBodyPartResult}`)
+            // TODO Where the strike hit //
+
+            // TODO add armorpoints
+            enemy.armorPoints = 1;
+            this.armorPoints = 1;
+            // Calculate damage
+            const damage = () => {
+                 return (this.strength - enemy.thoughtness) - enemy.armorPoints;
+            };
+            console.log(damage())
+            feedRow.textContent = `${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage with ${this.weapon.name}`;
+
             feed.appendChild(feedRow);
-            console.log(`${this.name} rolls: ${diceRollResult} and hit's for ${this.weapon.damage()} damage.`);
+
+            console.log(`${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage.`);
+
             // reduce health
-            enemy.hp = enemy.hp - this.weapon.damage();
+            enemy.hp = enemy.hp - damage();
             // update health
             global.updatePersonHealth();
+
+
         } else {
-            feedRow.textContent = `${this.name} rolls: ${diceRollResult} and misses.`;
+            feedRow.textContent = `${this.name} rolls: ${diceRollHitResult} and misses.`;
             feed.appendChild(feedRow);
-            console.log(`${this.name} rolls: ${diceRollResult} and misses.`)
+            console.log(`${this.name} rolls: ${diceRollHitResult} and misses.`)
         };
 
         if(feed.childElementCount > 5) {
@@ -61,41 +81,10 @@ class Person {
 };
 
 class Player extends Person {
-    constructor(
-        name,
-        hp,
-        melee,
-        ranged,
-        dexterity,
-        strength,
-        speed,
-        initiative,
-        attacks,
-        intelect,
-        charisma,
-        weapon,
-        inventory,
-        armorPoints,
-        description
-        ) {
-        super(
-        name,
-        hp,
-        melee,
-        ranged,
-        dexterity,
-        strength,
-        speed,
-        initiative,
-        attacks,
-        intelect,
-        charisma,
-        weapon,
-        inventory,
-        armorPoints,
-        description
-        );
-    }
+    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
+        super(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description);
+    };
+
     showInventory() {
         this.inventory.forEach(element => {
             console.log(element.name);
@@ -104,18 +93,18 @@ class Player extends Person {
 };
 
 class Monster extends Person {
-    constructor(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
-        super(name, hp, melee, ranged, dexterity, strength, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description);
+    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description) {
+        super(name, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, intelect, charisma, weapon, inventory, armorPoints, description);
     }
 }
 
 const persons = {
-    player: new Player('Player', 10, 100, 25, 10, 2, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s you the Player'),
-    orc: new Monster('Orc', 10, 25, 10, 10, 3, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
-    goblin: new Monster('Goblin', 5, 20, 10, 10, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
-    ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
-    skeleton: new Monster('Skeleton', 5, 20, 10, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
-    lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
+    player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion],'It\'s you the Player'),
+    orc: new Monster('Orc', 10, 25, 10, 10, 3, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    goblin: new Monster('Goblin', 5, 20, 10, 10, 2, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
+    ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
+    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
+    lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
 export { persons };

@@ -22,6 +22,8 @@ class Turn {
         const monsterResult = global.diceRoll(1,100);
         const playerResult = global.diceRoll(1,100);
     };
+
+    
 };
 
 const turn = new Turn ('turn');
