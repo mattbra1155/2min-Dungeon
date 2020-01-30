@@ -39,7 +39,7 @@ class Ui {
             startButton.addEventListener('click', e => {
                 e.preventDefault();
                 overlayscreen.remove();  
-                turn.runTurn();
+               /*  turn.runTurn(); */
             });
         });
     }
@@ -158,8 +158,8 @@ class Ui {
                 // Clear feed each time new monster apperas 
                 this.clearFeed();
                 overlayscreen.remove();
-                turn.turnNumber = 0;
-                turn.runTurn();
+                /* turn.turnNumber = 0;
+                turn.runTurn(); */
             });
             
             

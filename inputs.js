@@ -10,18 +10,20 @@ const attack = attackButton.addEventListener('click', e => {
 
     persons.player.attack(level.monster)
     attackButton.disabled = true;
+    global.updatePersonHealth();
     global.checkIfAlive(level.monster)
-    persons.player.turnActive = false;
-    persons.player.turnEnd = true;
-    console.log(`end of player turn`);
+    persons.player.isActive = false;
+    console.log(`end of Player turn`);
 
     //change to enemy turn
-    if (level.monster.turnEnd === false && level.monster.alive === true) {
-        console.log(`changed to monster turn`);
-        turn.monsterTurn();
-    }  else if (level.monster.turnEnd === true) {
-        turn.runTurn();
-    }
+    console.log(`changed to monster turn`);
+    level.monster.attack(persons.player)
+    global.updatePersonHealth();
+    global.checkIfAlive(level.monster);
+    level.monster.isActive = false;
+    attackButton.disabled = false;
+    console.log(`end of Monster turn`);
+    console.log(`changed to Player turn`);
 });
 
 export {attack, attackButton}
