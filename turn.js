@@ -3,7 +3,7 @@ import { global, persons, attack, level, attackButton, screen } from "./index.js
 class Turn {
     constructor(name) {
         this.name = name;
-        this.turnNumber = 0
+        this.turns = [];
     }
 
     checkRoom(monster) {

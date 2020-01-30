@@ -6,7 +6,7 @@ import {persons} from './index.js';
 import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js' 
-import {test } from './characters.js';
+
 
 
 console.log(persons)
@@ -14,7 +14,7 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
-console.log(turn)
+/* console.log(turn) */
 // INIT
 level.changeRoom(1);
 global.updatePersonHealth();
@@ -22,4 +22,4 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 
-console.log(persons.player.stats.hp)
+console.log(turn.turns)

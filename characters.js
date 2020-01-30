@@ -1,4 +1,5 @@
 import { level, items, screen, global } from './index.js';
+import { turn } from './turn.js';
 
 class Person {
 
@@ -55,6 +56,8 @@ class Person {
         this.alive = true;
         this.isActive = false; // is always false need to change
         } 
+    
+     
 
     attack(enemy) {
         // add text to feed
@@ -105,10 +108,16 @@ class Person {
                  return (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints;
             };
 
-            console.log(damage())
+            turn.turns.unshift(
+                {
+                    person: this,
+                    action: `${this.name} did something`
+                }
+            )
+
+            console.log(turn.turns)
 
             feedRow.textContent = `${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage with ${this.weapon.name}`;
-
             feed.appendChild(feedRow);
 
             console.log(`${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage.`);
