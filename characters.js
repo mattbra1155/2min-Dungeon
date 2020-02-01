@@ -41,7 +41,7 @@ class Person {
                 armor: 0,
                 item: ''
             },
-            "rigth leg": {
+            "right leg": {
                 name: 'Right leg',
                 armor: 0,
                 item: ''
@@ -60,13 +60,10 @@ class Person {
      
 
     attack(enemy) {
-        // add text to feed
+        // create a feed row for messages
         const feed = document.querySelector('#feedContainer');
         const feedRow = document.createElement('li');
         feedRow.setAttribute('class', 'feed__item');
-
-        // update presons health on the ui
-        //global.updatePersonHealth();
 
         // dice roll
         const diceRollHitResult = global.diceRoll(1, 100);
@@ -107,18 +104,15 @@ class Person {
             const damage = () => {
                  return (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints;
             };
-
+            // add action to the turn array
             turn.turns.unshift(
                 {
                     person: this,
-                    action: `${this.name} did something`
+                    action: `${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage with ${this.weapon.name}`
                 }
             )
 
-            console.log(turn.turns)
-
-            feedRow.textContent = `${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage with ${this.weapon.name}`;
-            feed.appendChild(feedRow);
+            console.log(turn.turns);
 
             console.log(`${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage.`);
 
@@ -127,10 +121,20 @@ class Person {
             // update health
 
         } else {
-            feedRow.textContent = `${this.name} rolls: ${diceRollHitResult} and misses.`;
-            feed.appendChild(feedRow);
+            // add action to the turn array
+            turn.turns.unshift(
+                {
+                    person: this,
+                    action: `${this.name} rolls: ${diceRollHitResult} and misses.`
+                }
+            );
             console.log(`${this.name} rolls: ${diceRollHitResult} and misses.`)
         };
+
+
+        feedRow.textContent = turn.turns[0].action;
+        feed.appendChild(feedRow)
+        console.log(turn.turns[0].action)
 
         if(feed.childElementCount > 5) {
             setTimeout(e => {
