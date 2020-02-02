@@ -7,18 +7,16 @@ class Item {
 };  
 
 class Weapon extends Item {
-    constructor(name, type, description) {
+    constructor(name,description, modifier = 0) {
         super(name, description);
-        this.damage = 0;
-        this.type = type;
-
+        this.modifier = modifier;
     };
 };
 
  class Armor extends Item {
-    constructor(name, damageReduction, description) {
+    constructor(name, armorPoints, description) {
         super(name, description)
-        this.damageReduction = damageReduction;
+        this.armorPoints = armorPoints;
     }
 };
 
@@ -35,11 +33,20 @@ class Utility extends Item {
     }
 }; 
 
+class RegularWeapon extends Weapon{
+    constructor(name, description, modifier) {
+        super(name, description, modifier)
+        this.damage = 0
+        
+    }
+}
+
+
 let items = {
     weapons: {
-        sword: new Weapon ('Old sword', 'sword', 'An old sword'), 
-        mace: new Weapon('Rusty mace', 'mace', 'A rusty mace'),
-        staff: new Weapon('Magic staff', 'staff', 'a magic staff with a blue stone on top')
+        sword: new RegularWeapon ('Old sword', 'An old rusty sword'), 
+        mace: new RegularWeapon('Rusty mace', 'A rusty mace'),
+        staff: new RegularWeapon('Magic staff','a magic staff with a blue stone on top')
     },
     armors: {
         chainmail: new Armor('Rusty chainmail', 2, 'a worn chainmail that was used in battle' ),

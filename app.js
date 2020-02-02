@@ -14,6 +14,7 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
+console.log(items.armors)
 /* console.log(turn) */
 // INIT
 level.changeRoom(1);
@@ -21,5 +22,10 @@ global.updatePersonHealth();
 
 // Shows start screen
 screen.startScreen();
+
+persons.player.armor['left arm'] = {
+    name: 'test armor',
+    armorPoints: 5
+}
 
 console.log(turn.turns)

@@ -23,7 +23,8 @@ class Global {
             console.log(`${enemy.name} is dead`);
             screen.loseScreen();
 
-        } else if (enemy === level.monster && enemy.stats.hp <= 0) {
+        } 
+        if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.alive = false;
             console.log(`${enemy.name} is dead`);
             screen.nextRoomScreen();

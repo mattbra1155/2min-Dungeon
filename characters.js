@@ -23,32 +23,40 @@ class Person {
         this.armor = {
             "head": {
                 name: 'Head',
-                armor: items.armors.helmet.damageReduction,
-                item: items.armors.helmet.name
+                item: items.armors.helmet,
+                
+                setArmorPoints() {    
+                    return this.item.armorPoints;
+                },
+                getArmorPoints() {
+                    return this.armorPoints = setArmorPoints();
+                },
+                armorPoints: getArmorPoints()
             },
             "right arm": {
                 name: 'Right arm',
-                armor: 0,
+                armorPoints: 0,
                 item: ''
             },
             "left arm": {
                 name: 'Left arm',
-                armor: 0,
+                armorPoints: 0,
                 item: ''
+                
             },
             "torso": {
                 name: 'Torso',
-                armor: 0,
+                armorPoints: 0,
                 item: ''
             },
             "right leg": {
                 name: 'Right leg',
-                armor: 0,
+                armorPoints: 0,
                 item: ''
             },
             "left leg": {
                 name: 'Left leg',
-                armor: 0,
+                armorPoints: 0,
                 item: ''
             }
         }
@@ -64,6 +72,7 @@ class Person {
         const feed = document.querySelector('#feedContainer');
         const feedRow = document.createElement('li');
         feedRow.setAttribute('class', 'feed__item');
+    
 
         // dice roll
         const diceRollHitResult = global.diceRoll(1, 100);
@@ -76,45 +85,47 @@ class Person {
             console.log(`Body part hit result: ${diceRollBodyPartResult}`)
 
             // TODO Where the strike hit //
-            const getBodyPartArmorPoints = () => {
+            const getBodyPartArmor = () => {
                 if (diceRollBodyPartResult >= 1 && diceRollBodyPartResult <= 15) {
                     console.log(`${this.name} hit ${enemy.name} in the Head` )
-                    return enemy.armor.head.armor
+                    return enemy.armor['head']
                 } else if (diceRollBodyPartResult >= 16 && diceRollBodyPartResult <= 35) {
                     console.log(`${this.name} hit ${enemy.name} in the Right arm` )
-                    return enemy.armor['right arm'].armor
+                    return enemy.armor['right arm']
                 } else if (diceRollBodyPartResult >= 36 && diceRollBodyPartResult <= 55) {
                     console.log(`${this.name} hit ${enemy.name} in the Left arm`)
-                    return enemy.armor['left arm'].armor
+                    return enemy.armor['left arm']
                 } else if (diceRollBodyPartResult >= 56 && diceRollBodyPartResult <= 80) {
                     console.log(`${this.name} hit ${enemy.name} in the Torso`)
-                    return enemy.armor.torso.armor
+                    return enemy.armor['torso']
                 } else if (diceRollBodyPartResult >= 81 && diceRollBodyPartResult <= 90) {
                     console.log(`${this.name} hit ${enemy.name} in the Right leg`)
-                    return enemy.armor['right leg'].armor
+                    return enemy.armor['right leg']
                 } else if (diceRollBodyPartResult >= 91 && diceRollBodyPartResult <= 100) {
                     console.log(`${this.name} hit ${enemy.name} in the Left leg`)
-                    return enemy.armor['left leg'].armor
+                    return enemy.armor['left leg']
                 };
             };
 
-            const enemyArmorPoints = getBodyPartArmorPoints();
+            const enemyArmorPoints = getBodyPartArmor().armorPoints;
+            const enemyArmorName = getBodyPartArmor().name;
 
+            console.log(enemyArmorName)
             // Calculate damage
             const damage = () => {
-                 return (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints;
+                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage + this.weapon.modifier);
+                 if (damagePoints < 0) {
+                     damagePoints = 0;
+                 };
+                 return damagePoints;
             };
             // add action to the turn array
             turn.turns.unshift(
                 {
                     person: this,
-                    action: `${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage with ${this.weapon.name}`
+                    action: `${this.name} rolls: ${diceRollHitResult} and hit's ${enemy.name} in ${enemyArmorName} for ${damage()} damage with ${this.weapon.name}`
                 }
             )
-
-            console.log(turn.turns);
-
-            console.log(`${this.name} rolls: ${diceRollHitResult} and hit's for ${damage()} damage.`);
 
             // reduce health
             enemy.stats.hp = enemy.stats.hp - damage();
@@ -128,20 +139,24 @@ class Person {
                     action: `${this.name} rolls: ${diceRollHitResult} and misses.`
                 }
             );
-            console.log(`${this.name} rolls: ${diceRollHitResult} and misses.`)
         };
 
+        console.log(`atribute ${this.name}`)
 
+        if (this.name === persons.player.name) {
+            feedRow.style.background = "blue";
+        } else {
+            feedRow.style.background = "red"
+        }
         feedRow.textContent = turn.turns[0].action;
         feed.appendChild(feedRow)
-        console.log(turn.turns[0].action)
 
         if(feed.childElementCount > 5) {
             setTimeout(e => {
                 if(feed.childElementCount > 0) {
                     feed.firstChild.remove();
                 } 
-            }, 2000)
+            }, 2000);
         };
     };
 };
@@ -178,10 +193,10 @@ const test = new Test ('Test player', 4, 12)
 
 const persons = {
     player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion],'It\'s you the Player'),
-    orc: new Monster('Orc', 10, 25, 10, 10, 3, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    orc: new Monster('Orc', 10, 100, 10, 10, 4, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
     goblin: new Monster('Goblin', 5, 20, 10, 10, 2, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
     ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
-    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 15, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
+    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 3, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
     lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 

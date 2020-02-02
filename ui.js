@@ -150,11 +150,8 @@ class Ui {
                 const next = (x = 1) => x + 1;
                 level.changeRoom(next(level.id));
                 attackButton.disabled = false;
-                let updatePersonHealth = () => {
-                    global.playerHealth.textContent = persons.player.hp;
-                    global.enemyHealth.textContent = level.monster.hp;
-                }
-                updatePersonHealth();
+                // udapte health of player and monster
+                global.updatePersonHealth();
                 // Clear feed each time new monster apperas 
                 this.clearFeed();
                 overlayscreen.remove();
@@ -162,8 +159,6 @@ class Ui {
                 turn.runTurn(); */
             });
             
-            
-
             const searchBody = document.querySelector('#searchBodyButton');
             searchBody.addEventListener('click', e => {
                 e.preventDefault();
