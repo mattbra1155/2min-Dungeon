@@ -1,10 +1,10 @@
-import {items} from './items.js'
+    import {items} from '/2min-Dungeon/items.js'
 
 
-export * from './characters.js';
-export * from './inputs.js';
-export * from './items.js';
-export * from './levels.js';
-export * from './ui.js';
-export * from './global.js';
-export * from './turn.js';
+export * from '/2min-Dungeon/characters.js';
+export * from '/2min-Dungeon/inputs.js';
+export * from '/2min-Dungeon/items.js';
+export * from '/2min-Dungeon/levels.js';
+export * from '/2min-Dungeon/ui.js';
+export * from '/2min-Dungeon/global.js';
+export * from '/2min-Dungeon/turn.js';
