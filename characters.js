@@ -1,4 +1,4 @@
-import { level, items, screen, global, turn } from './index.js';
+import {items, global, turn } from '/2min-Dungeon/index.js';
 
 class Person {
 

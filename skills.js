@@ -1,4 +1,4 @@
-import { global } from "./global.js";
+import { global } from "/2min-Dungeon/index.js";
 
 class Skill {
     constructor(name, damageMin, damageMax) {

@@ -1,4 +1,4 @@
-import { global } from "./index.js";
+
 class Item {
     constructor(name, description) {
         this.name = name;

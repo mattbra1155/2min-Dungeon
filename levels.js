@@ -1,4 +1,4 @@
-import {persons, screen} from './index.js';
+import {persons, screen} from '/2min-Dungeon/index.js';
 
 class Room { 
     constructor(id, name, monster) {

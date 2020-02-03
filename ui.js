@@ -1,4 +1,4 @@
-import {level, global, persons, attackButton, turn } from '/index.js';
+import {level, global, persons, attackButton } from '/2min-Dungeon/index.js';
 
 
 class Ui {

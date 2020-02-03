@@ -1,4 +1,4 @@
-import { global, persons, attack, level, attackButton, screen } from "./index.js";
+import { global, persons, level, attackButton } from "/2min-Dungeon/index.js";
 
 class Turn {
     constructor(name) {

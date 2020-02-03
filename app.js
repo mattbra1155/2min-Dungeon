@@ -1,11 +1,11 @@
 
-import {screen} from './index.js';
-import {items} from './index.js';
-import {level} from './index.js';
-import {persons} from './index.js';
-import {attack} from './index.js'
-import {global} from './index.js';
-import {turn} from './index.js' 
+import {screen} from '/2min-Dungeon/index.js';
+import {items} from '/2min-Dungeon/index.js';
+import {level} from '/2min-Dungeon/index.js';
+import {persons} from '/2min-Dungeon/index.js';
+import {attack} from '/2min-Dungeon/index.js'
+import {global} from '/2min-Dungeon/index.js';
+import {turn} from '/2min-Dungeon/index.js' 
 
 
 
