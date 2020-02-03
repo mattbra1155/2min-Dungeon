@@ -23,9 +23,6 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 
-persons.player.armor['left arm'] = {
-    name: 'test armor',
-    armorPoints: 5
-}
+persons.player.bodyPart['torso'].armor.item = items.armors.chainmail
 
 console.log(turn.turns)

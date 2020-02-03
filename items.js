@@ -50,7 +50,7 @@ let items = {
     },
     armors: {
         chainmail: new Armor('Rusty chainmail', 2, 'a worn chainmail that was used in battle' ),
-        helmet: new Armor('Rusty helmet', 1, 'an old and worn helmet' )
+        helmet: new Armor('Rusty helmet', 6, 'an old and worn helmet' )
     },
     healingItems: {
         smallHealthPotion: new Potion ('Small health potion', 2, 'A small healing potion that recovers 10hp')

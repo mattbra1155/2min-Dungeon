@@ -20,52 +20,84 @@ class Person {
         }
         this.weapon = weapon;
         this.inventory = inventory;
-        this.armor = {
+        this.bodyPart = {
             "head": {
                 name: 'Head',
-                item: items.armors.helmet,
-                
-                setArmorPoints() {    
-                    return this.item.armorPoints;
-                },
-                getArmorPoints() {
-                    return this.armorPoints = setArmorPoints();
-                },
-                armorPoints: getArmorPoints()
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             },
             "right arm": {
                 name: 'Right arm',
-                armorPoints: 0,
-                item: ''
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             },
             "left arm": {
                 name: 'Left arm',
-                armorPoints: 0,
-                item: ''
-                
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             },
             "torso": {
                 name: 'Torso',
-                armorPoints: 0,
-                item: ''
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             },
             "right leg": {
                 name: 'Right leg',
-                armorPoints: 0,
-                item: ''
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             },
             "left leg": {
                 name: 'Left leg',
-                armorPoints: 0,
-                item: ''
+                armor: {
+                    item: '',
+                    get armorPoints() {
+                        if (this.item === '') {
+                            return 0
+                        }
+                        return this.item.armorPoints;
+                    }
+                }
             }
         }
         this.description = description;
         this.alive = true;
         this.isActive = false; // is always false need to change
-        } 
-    
-     
+    };
 
     attack(enemy) {
         // create a feed row for messages
@@ -85,30 +117,30 @@ class Person {
             console.log(`Body part hit result: ${diceRollBodyPartResult}`)
 
             // TODO Where the strike hit //
-            const getBodyPartArmor = () => {
+            const getBodyPart = () => {
                 if (diceRollBodyPartResult >= 1 && diceRollBodyPartResult <= 15) {
                     console.log(`${this.name} hit ${enemy.name} in the Head` )
-                    return enemy.armor['head']
+                    return enemy.bodyPart['head']
                 } else if (diceRollBodyPartResult >= 16 && diceRollBodyPartResult <= 35) {
                     console.log(`${this.name} hit ${enemy.name} in the Right arm` )
-                    return enemy.armor['right arm']
+                    return enemy.bodyPart['right arm']
                 } else if (diceRollBodyPartResult >= 36 && diceRollBodyPartResult <= 55) {
                     console.log(`${this.name} hit ${enemy.name} in the Left arm`)
-                    return enemy.armor['left arm']
+                    return enemy.bodyPart['left arm']
                 } else if (diceRollBodyPartResult >= 56 && diceRollBodyPartResult <= 80) {
                     console.log(`${this.name} hit ${enemy.name} in the Torso`)
-                    return enemy.armor['torso']
+                    return enemy.bodyPart['torso']
                 } else if (diceRollBodyPartResult >= 81 && diceRollBodyPartResult <= 90) {
                     console.log(`${this.name} hit ${enemy.name} in the Right leg`)
-                    return enemy.armor['right leg']
+                    return enemy.bodyPart['right leg']
                 } else if (diceRollBodyPartResult >= 91 && diceRollBodyPartResult <= 100) {
                     console.log(`${this.name} hit ${enemy.name} in the Left leg`)
-                    return enemy.armor['left leg']
+                    return enemy.bodyPart['left leg']
                 };
             };
 
-            const enemyArmorPoints = getBodyPartArmor().armorPoints;
-            const enemyArmorName = getBodyPartArmor().name;
+            const enemyArmorPoints = getBodyPart().armor.armorPoints;
+            const enemyArmorName = getBodyPart().name;
 
             console.log(enemyArmorName)
             // Calculate damage
