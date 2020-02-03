@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import {level, persons, turn, global} from './index.js';
-=======
 import {level, persons, turn, screen} from './index.js';
->>>>>>> 053c0c05aa23ceb83850dbb12b5397ffcd716010
 
 
 /// INPUTS

@@ -1,5 +1,4 @@
-import { level, items, screen, global } from './index.js';
-import { turn } from './turn.js';
+import { level, items, screen, global, turn } from './index.js';
 
 class Person {
 
