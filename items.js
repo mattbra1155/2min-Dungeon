@@ -18,6 +18,18 @@ class Weapon extends Item {
         super(name, description)
         this.armorPoints = armorPoints;
     }
+
+    equipItem(item) {
+
+        let playerBodyPartKeys = Object.keys(persons.player.bodyPart);
+    
+        const getBodyPart = playerBodyPartKeys.filter( (playerBodyPart) => { 
+            if (playerBodyPart === this.bodyPart) {
+                return playerBodyPart
+            };
+        });
+        persons.player.bodyPart[getBodyPart].armor.item = item
+    };
 };
 
 class Potion extends Item {
@@ -53,7 +65,8 @@ class TorsoArmor extends Armor {
         this.bodyPart = bodyPart
     }
 
-}
+
+};
 
 let items = {
     weapons: {

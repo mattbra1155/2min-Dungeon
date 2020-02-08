@@ -198,27 +198,11 @@ class Player extends Person {
     };
 
     showInventory() {
-        this.inventory.forEach(element => {
-            console.log(element.name);
+        this.inventory.forEach(item => {
+            console.log(item.name);
         });
     };
 
-    equipItem(item) {
-
-        let playerBodyPartKeys = Object.keys(this.bodyPart);
-    
-        const getBodyPart = playerBodyPartKeys.filter( (playerBodyPart) => {
-            if (playerBodyPart !== item.bodyPart) {
-                return console.log('the item is not fitting');
-            };
-
-            return playerBodyPart
-        });
-
-        console.log(getBodyPart)
-
-        persons.player.bodyPart[getBodyPart].armor.item = item
-    };
 };
 
 class Monster extends Person {
@@ -228,7 +212,7 @@ class Monster extends Person {
 }
 
 const persons = {
-    player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion],'It\'s you the Player'),
+    player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion, items.armors.torso.studedLeather],'It\'s you the Player'),
     orc: new Monster('Orc', 10, 100, 10, 10, 4, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
     goblin: new Monster('Goblin', 5, 20, 10, 10, 2, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
     ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),

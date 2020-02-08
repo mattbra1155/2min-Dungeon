@@ -5,7 +5,7 @@ import {level} from './index.js';
 import {persons} from './index.js';
 import {attack} from './index.js'
 import {global} from './index.js';
-import {turn} from './index.js' 
+import {turn} from './index.js';
 
 
 
@@ -22,7 +22,8 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 
-persons.player.equipItem(items.armors.torso.studedLeather)
+//persons.player.equipItem(items.armors.torso.studedLeather)
+
+//console.log(persons.player.inventory)
 
 //localStorage.setItem("player", JSON.stringify(persons.player))
-
