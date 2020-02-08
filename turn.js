@@ -7,7 +7,7 @@ class Turn {
     }
 
     checkRoom(monster) {
-        if (monster.alive = true) {
+        if (monster.isAlive = true) {
             global.combat = true;
         };
     };
@@ -30,7 +30,7 @@ class Turn {
         global.checkIfAlive(level.monster)
         persons.player.isActive = false;
         console.log(`end of Player turn`);
-    }
+    };
 
     enemyTurn() {
         console.log(`changed to monster turn`);
@@ -41,7 +41,7 @@ class Turn {
         attackButton.disabled = false;
         console.log(`end of Monster turn`);
         console.log(`changed to Player turn`);
-    }
+    };
 
     
 };

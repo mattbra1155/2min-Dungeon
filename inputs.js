@@ -8,13 +8,13 @@ const attack = attackButton.addEventListener('click', e => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (persons.player.alive) {
+    if (persons.player.isAlive) {
         turn.playerTurn();
     }
     
 
     //change to enemy turn
-    if (level.monster.alive) {
+    if (level.monster.isAlive) {
         const attackDelay = setTimeout(() => turn.enemyTurn(), 1500);
     }
 

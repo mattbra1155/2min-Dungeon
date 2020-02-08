@@ -95,7 +95,7 @@ class Person {
             }
         }
         this.description = description;
-        this.alive = true;
+        this.isAlive = true;
         this.isActive = false; // is always false need to change
     };
 

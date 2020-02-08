@@ -37,10 +37,8 @@ class RegularWeapon extends Weapon{
     constructor(name, description, modifier) {
         super(name, description, modifier)
         this.damage = 0
-        
     }
 }
-
 
 let items = {
     weapons: {

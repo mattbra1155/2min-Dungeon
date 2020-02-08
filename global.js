@@ -1,4 +1,4 @@
-import { persons, level, screen } from "./index.js";
+import { persons, level, screen, items } from "./index.js";
 
 class Global {
     constructor(name) {
@@ -19,18 +19,18 @@ class Global {
 
     checkIfAlive(enemy) {
         if (enemy === persons.player && enemy.stats.hp <= 0) {
-            enemy.alive = false;
+            enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
             screen.loseScreen();
-
         } 
         if (enemy === level.monster && enemy.stats.hp <= 0) {
-            enemy.alive = false;
+            enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
             screen.nextRoomScreen();
-
         };
     };
+
+
 };
 
 const global = new Global("global");
