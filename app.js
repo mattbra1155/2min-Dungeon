@@ -14,8 +14,7 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
-console.log(items.armors)
-/* console.log(turn) */
+console.log(turn.turns)
 // INIT
 level.changeRoom(1);
 global.updatePersonHealth();
@@ -23,6 +22,7 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 
-persons.player.bodyPart['torso'].armor.item = items.armors.chainmail
+persons.player.equipItem(items.armors.torso.studedLeather)
 
-console.log(turn.turns)
+//localStorage.setItem("player", JSON.stringify(persons.player))
+

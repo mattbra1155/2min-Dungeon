@@ -1,5 +1,4 @@
-import { level, items, screen, global } from './index.js';
-import { turn } from './turn.js';
+import { level, items, screen, global, turn } from './index.js';
 
 class Person {
 
@@ -203,6 +202,23 @@ class Player extends Person {
             console.log(element.name);
         });
     };
+
+    equipItem(item) {
+
+        let playerBodyPartKeys = Object.keys(this.bodyPart);
+    
+        const getBodyPart = playerBodyPartKeys.filter( (playerBodyPart) => {
+            if (playerBodyPart !== item.bodyPart) {
+                return console.log('the item is not fitting');
+            };
+
+            return playerBodyPart
+        });
+
+        console.log(getBodyPart)
+
+        persons.player.bodyPart[getBodyPart].armor.item = item
+    };
 };
 
 class Monster extends Person {
@@ -210,18 +226,6 @@ class Monster extends Person {
         super(name, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, intelect, charisma, weapon, inventory, description);
     }
 }
-
-class Test {
-    constructor(name, test, hp, ) {
-        this.name = name;
-        this.stats = {
-            test: test,
-            hp: hp
-        }
-    }
-}
-
-const test = new Test ('Test player', 4, 12)
 
 const persons = {
     player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion],'It\'s you the Player'),
@@ -232,4 +236,4 @@ const persons = {
     lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
-export { persons, test };
+export { persons };
