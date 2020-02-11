@@ -203,6 +203,22 @@ class Player extends Person {
         });
     };
 
+    equipItem(item) {
+
+        let playerBodyPartKeys = Object.keys(persons.player.bodyPart);
+    
+        const getBodyPart = playerBodyPartKeys.find( (playerBodyPart) => { 
+            if (playerBodyPart === item.bodyPart) {
+                return playerBodyPart
+            }
+        });
+        this.bodyPart[getBodyPart].armor.item = item
+    };
+
+    pickUpItem(item) {
+        this.inventory.push(item)
+    }
+
 };
 
 class Monster extends Person {
@@ -212,8 +228,8 @@ class Monster extends Person {
 }
 
 const persons = {
-    player: new Player('Player', 10, 100, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons.sword,[items.weapons.sword, items.utility.torch, items.healingItems.smallHealthPotion, items.armors.torso.studedLeather],'It\'s you the Player'),
-    orc: new Monster('Orc', 10, 100, 10, 10, 4, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
+    player: new Player('Player', 10, 33, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons[0],[items.weapons[0], items.utility.torch, items.healingItems.smallHealthPotion],'It\'s you the Player'),
+    orc: new Monster('Orc', 10, 33, 10, 10, 4, 2, 2, 15, 1, 10, 10, items.weapons.mace,  [items.weapons.mace, items.utility.torch, items.healingItems.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
     goblin: new Monster('Goblin', 5, 20, 10, 10, 2, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.healingItems.smallHealthPotion], 'He looks skiny and crazy'),
     ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
     skeleton: new Monster('Skeleton', 5, 20, 10, 2, 3, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),

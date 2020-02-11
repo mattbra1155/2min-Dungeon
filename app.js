@@ -1,11 +1,12 @@
 
 import {screen} from './index.js';
-import {items} from './index.js';
+import {items, ArmorGenerator} from './index.js';
 import {level} from './index.js';
 import {persons} from './index.js';
 import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js';
+/* import {popInventory} from './index.js'; */
 
 
 
@@ -14,15 +15,22 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
-console.log(turn.turns)
 // INIT
 level.changeRoom(1);
 global.updatePersonHealth();
 
 // Shows start screen
 screen.startScreen();
+global.populateInventory();
 
-//persons.player.equipItem(items.armors.torso.studedLeather)
+const createdItem = new ArmorGenerator('chainmail', 'old', 2, 'torso') 
+console.log(createdItem)
+
+persons.player.pickUpItem(createdItem)
+
+persons.player.equipItem(createdItem)
+
+console.log(persons.player.inventory)
 
 //console.log(persons.player.inventory)
 

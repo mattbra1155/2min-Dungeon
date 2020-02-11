@@ -18,27 +18,7 @@ const attack = attackButton.addEventListener('click', e => {
     }
 });
 
-const inventoryList = document.querySelector('#inventoryList');
-persons.player.inventory.forEach(item => {
-    const inventoryItem = document.createElement('li');
-    inventoryItem.setAttribute('class', 'inventory__item');
-    inventoryItem.textContent = item.name; 
-    inventoryList.appendChild(inventoryItem);
-
-    const equipButton = document.createElement('button');
-    equipButton.setAttribute('class', 'button');
-    equipButton.setAttribute('value', item.name)
-    equipButton.textContent = "equip"
-
-    equipButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        item.equipItem(item);
-        console.log(persons.player.bodyPart)
-    });
-    inventoryItem.appendChild(equipButton);
-
-}); 
-
+/* const inventoryList = document.querySelector('#inventoryList');
+ */
 
 export {attack, attackButton}
