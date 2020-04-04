@@ -1,8 +1,10 @@
 import { persons } from "./index.js";
+
 class Item {
-    constructor(name, description) {
+    constructor(id, name, description) {
         this.name = name;
         this.description = description;
+        this.id = id;
     };
 };  
 
@@ -14,16 +16,17 @@ class Weapon extends Item {
 };
 
  class Armor extends Item {
-    constructor(name,description, armorPoints, bodyPart ) {
+    constructor(name, description, modifier, bodyPart ) {
         super(name, description)
-        this.armorPoints = armorPoints;
+        this.modifier = modifier;
+        this.bodyPart = bodyPart;
     }; 
 };
 
 class Potion extends Item {
-    constructor(name, heal, description) {
+    constructor(name, modifier, description) {
         super(name, description)
-        this.heal = heal;
+        this.modifier = modifier;
     };
 };
 
@@ -47,20 +50,166 @@ class MagicWeapon extends Weapon {
     };
 };
 
-class TorsoArmor extends Armor {
-    constructor(name, description, armorPoints, bodyPart) {
-        super(name, description, armorPoints)
-        this.bodyPart = bodyPart
+class ItemGenerator {
+    constructor() {};
+
+    createItem() {
+
+        const chooseItemFromArray = (array) => {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        /// check type - weapon, armor, potion, utility
+        const getType = () => {
+            const types = Object.keys(itemMods.names); 
+            const result = chooseItemFromArray(types)
+
+            return result
+        };
+        // save result
+        const getTypeResult = getType();
+        
+        /// choose name
+        const getName = (type) => {
+            const names = itemMods.names[type];
+            if (type === 'armor') {
+
+                // extract keys
+                const bodyParts = Object.keys(names)
+                // choose body part
+                const bodyPartsResult = chooseItemFromArray(bodyParts);
+                // extract choosen body part and show it's array
+                const armorNames = itemMods.names.armor[bodyPartsResult];
+                // choose armor name
+                const armorNamesResult = chooseItemFromArray(armorNames);
+                
+                const result = {
+                    name: armorNamesResult,
+                    bodyPart: bodyPartsResult
+                }
+                return result
+
+            } else {
+                const result = chooseItemFromArray(names);
+                return result
+            };
+        };
+
+        const getNameResult = getName(getTypeResult)
+
+        /// choose modifier
+        const getModifier = (type) => {
+            const modifierType = itemMods.modifiers[type];
+            const modifier = chooseItemFromArray(modifierType)
+
+            return modifier
+        };
+
+        const getModifierResult = getModifier(getTypeResult)
+
+        /// result           
+
+        if(getTypeResult === 'armor') {
+            const item = {
+                name: `${getModifierResult.name} ${getNameResult.name}`,
+                description: `It's a ${getModifierResult.name} ${getNameResult.name}`,
+                type: getTypeResult,
+                bodyPart: getNameResult.bodyPart,
+                modifier: getModifierResult.name,
+                modifierVal: getModifierResult.modifier
+            }
+            return item;
+        } else {
+            const item = {
+                name: `${getModifierResult.name} ${getNameResult}`,
+                description: `It's a ${getModifierResult.name} ${getNameResult}`,
+                type: getTypeResult,
+                modifier: getModifierResult.name,
+                modifierVal: getModifierResult.modifier
+            }
+            return item;
+        }
     };
 };
 
-class ArmorGenerator {
-    constructor(name, description, armorPoints, bodyPart) {
-        this.name = name;
-        this.description = description;
-        this.armorPoints = armorPoints;
-        this.bodyPart = bodyPart;
-    }
+const itemMods = {
+    names: {
+        weapon: ['sword', 'axe', 'mace', 'spear', 'staff'],
+        armor: {
+            head: ['skull cap', 'iron helmet'],
+            hands: ['leather glove', 'chain glove', 'plate glove'],
+            torso: ['chainmail', 'chainshirt', 'leather tunic', 'plate armor'],
+            legs: ['leather shoes', 'leather boots', 'chain boots', 'plate boots']
+        },
+        potion: ['health potion', 'mana potion'],
+        utility: ['torch']
+    },
+    modifiers: {
+        weapon: [
+            {
+                name: 'rusty',
+                modifier: -1
+            },
+            {
+                name: 'standard',
+                modifier: 0
+            },
+            {
+                name: 'new',
+                modifier: 1
+            },
+            {
+                name: 'sharp',
+                modifier: 2
+            }
+        ],
+        armor: [
+            {
+                name: 'old',
+                modifier: -1
+            },
+            {
+                name: 'standard',
+                modifier: 0
+            },
+            {
+                name: 'good quality',
+                modifier: 1
+            },
+            {
+                name: 'high quality',
+                modifier: 2
+            }
+        ],
+        potion: [
+            {
+                name: 'weak',
+                modifier: -1
+            },
+            {
+                name: 'standard',
+                modifier: 0
+            },
+            {
+                name: 'strong',
+                modifier: 1
+            }
+        ],
+        utility: [
+            {
+                name: 'used',
+                modifier: -10
+            },
+            {
+                name: 'standard',
+                modifier: 0
+            },
+            {
+                name: 'good quality',
+                modifier: 10
+            }
+        ]
+    },
 }
 
 let items = {
@@ -72,24 +221,17 @@ let items = {
         new MagicWeapon('Magic mace', 'Heavy magic mace', 0, 1)
     ],
     armors: {
-        "head": [
-            new Armor('Rusty helmet', 'an old and worn helmet', 6 ),
-        ],
-        "right arm": [],
-        "left arm": [],
-        "torso": [
-            new Armor('Rusty chainmail','a worn chainmail that was used in battle', 2, 'torso'),
-            new TorsoArmor('Studded leather', 'test', 2, "torso")
-        ],
-        "right leg": [],
-        "left leg": [] 
+        "head": [ new Armor('Rusty helmet', 'an old and worn helmet', 6 )],
+        "hands": [],
+        "torso": [],
+        "legs": []
     },
-    healingItems: {
-        smallHealthPotion: new Potion ('Small health potion', 2, 'A small healing potion that recovers 10hp')
-    },
-    utility: {
-        torch: new Utility ('Torch','A torch that you can use to light dark areas. It also could be a weapon')
-    } 
+    potions: [
+        new Potion ('Small health potion', 2, 'A small healing potion that recovers 10hp')
+    ],
+    utility: [
+        new Utility ('Torch','A torch that you can use to light dark areas. It also could be a weapon')
+    ]
 }
 
-export {items, ArmorGenerator}
+export {items, ItemGenerator}

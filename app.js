@@ -1,6 +1,6 @@
 
 import {screen} from './index.js';
-import {items, ArmorGenerator} from './index.js';
+import {items, ItemGenerator} from './index.js';
 import {level} from './index.js';
 import {persons} from './index.js';
 import {attack} from './index.js'
@@ -21,17 +21,53 @@ global.updatePersonHealth();
 
 // Shows start screen
 screen.startScreen();
-global.populateInventory();
+/* global.populateInventory(); */
 
-const createdItem = new ArmorGenerator('chainmail', 'old', 2, 'torso') 
-console.log(createdItem)
+const itemGenerator = new ItemGenerator();
+console.log(itemGenerator)
+console.log(itemGenerator.createItem());
 
-persons.player.pickUpItem(createdItem)
+const fillItems = () => {
+    const item = itemGenerator.createItem()
 
-persons.player.equipItem(createdItem)
+    switch (item.type) {
+        case 'weapon':
+            items.weapons.push(item)
+            break;
+        case 'potion': 
+            items.potions.push(item)
+            break;
+        case 'utility': 
+            items.utility.push(item)
+            break;
+        case 'armor':
+            switch (item.bodyPart) {
+                case 'head':
+                    items.armors.head.push(item);
+                    break;
+                case 'hands':
+                    items.armors.hands.push(item);
+                    break;
+                case 'torso':
+                    items.armors.torso.push(item);
+                    break;
+                case 'legs':
+                    items.armors.legs.push(item);
+                    break;
+            }
+    }
+}
 
-console.log(persons.player.inventory)
+const createItems = setInterval( fillItems, 100)
+fillItems();
 
-//console.log(persons.player.inventory)
+const stopCreating = () => {
+    clearInterval(createItems)
+    console.log(items)
+}
 
-//localStorage.setItem("player", JSON.stringify(persons.player))
+setTimeout(stopCreating, 5000)
+    
+    
+    
+

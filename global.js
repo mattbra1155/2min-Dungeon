@@ -29,7 +29,7 @@ class Global {
             screen.nextRoomScreen();
         };
     };
-    populateInventory() {
+    /* populateInventory() {
         persons.player.inventory.forEach(item => {
             const inventoryItem = document.createElement('li');
             inventoryItem.setAttribute('class', 'inventory__item');
@@ -50,7 +50,7 @@ class Global {
             inventoryItem.appendChild(equipButton);
         
         });
-    };
+    }; */
 
 
 };
