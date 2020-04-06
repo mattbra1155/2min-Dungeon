@@ -2,8 +2,9 @@ import { level, items, screen, global, turn } from './index.js';
 
 class Person {
 
-    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, description) {
+    constructor(name, race, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, inteligence, willPower, charisma, weapon, inventory, description) {
         this.name = name;
+        this.race = 'standard';
         this.stats = {
             hp: hp,
             melee: melee,
@@ -14,7 +15,8 @@ class Person {
             speed: speed,
             initiative: initiative,
             attacks: attacks,
-            intelect: intelect,
+            inteligence: inteligence,
+            willPower: willPower,
             charisma: charisma
         }
         this.weapon = weapon;
@@ -193,8 +195,8 @@ class Person {
 };
 
 class Player extends Person {
-    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, description) {
-        super(name, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, intelect, charisma, weapon, inventory, description);
+    constructor(name, race, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, inteligence, charisma, weapon, inventory, description) {
+        super(name, race, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, inteligence, charisma, weapon, inventory, description);
     };
 
     showInventory() {
@@ -221,10 +223,14 @@ class Player extends Person {
 };
 
 class Monster extends Person {
-    constructor(name, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, intelect, charisma, weapon, inventory, description) {
-        super(name, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, intelect, charisma, weapon, inventory, description);
+    constructor(name, race, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, inteligence, charisma, weapon, inventory, description) {
+        super(name, race, hp, melee, ranged, dexterity, strength, thoughtness, speed, initiative, attacks, inteligence, charisma, weapon, inventory, description);
     }
+
+
 }
+
+
 
 const persons = {
     player: new Player('Player', 10, 33, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons[0],[items.weapons[0], items.utility.torch, items.potions.smallHealthPotion],'It\'s you the Player'),
@@ -235,4 +241,4 @@ const persons = {
     lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
-export { persons };
+export { persons, Person, Player, Monster};

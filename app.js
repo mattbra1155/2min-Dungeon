@@ -1,12 +1,14 @@
 
 import {screen} from './index.js';
-import {items, ItemGenerator} from './index.js';
+import {items} from './index.js';
 import {level} from './index.js';
 import {persons} from './index.js';
 import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js';
-/* import {popInventory} from './index.js'; */
+import {itemGenerator} from './index.js'
+import {CharacterGenerator ,races} from './index.js'
+
 
 
 
@@ -15,6 +17,9 @@ console.log(items)
 console.log(level)
 console.log(attack)
 console.log(screen)
+console.log(races[0].stats)
+console.log(races[1].stats)
+console.log(itemGenerator)
 // INIT
 level.changeRoom(1);
 global.updatePersonHealth();
@@ -22,10 +27,6 @@ global.updatePersonHealth();
 // Shows start screen
 screen.startScreen();
 /* global.populateInventory(); */
-
-const itemGenerator = new ItemGenerator();
-console.log(itemGenerator)
-console.log(itemGenerator.createItem());
 
 const fillItems = () => {
     const item = itemGenerator.createItem()
@@ -68,6 +69,6 @@ const stopCreating = () => {
 
 setTimeout(stopCreating, 5000)
     
-    
-    
+const player = new CharacterGenerator().createPlayer();
 
+console.log(player)
