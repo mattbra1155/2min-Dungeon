@@ -1,4 +1,5 @@
 import {level, global, persons, attackButton, turn } from './index.js';
+import { ItemGenerator } from './generators/itemGenerator.js';
 
 
 class Ui {
@@ -161,6 +162,20 @@ class Ui {
             
             const searchBody = document.querySelector('#searchBodyButton');
             searchBody.addEventListener('click', e => {
+                const item = new ItemGenerator().createItem();
+                // Hide button to make space for text
+                searchBody.style.display = 'none';
+                // Add item to Player inventory
+                if (level.monster.inventory != '') {
+                    persons.player.inventory.push(item);
+                    console.log(`You found a ${item.name}`);
+                    console.log(persons.player.inventory);
+                    SearchBodyText.textContent = `You found a ${item.name}`;
+                } else {
+                    SearchBodyText.textContent = `${level.monster.name} had nothing`;
+                }; 
+
+               /*  OLD WORKING METHOD
                 e.preventDefault();
                 // Choose random item key from Object
                 const keys = Object.values(level.monster.inventory);
@@ -175,14 +190,63 @@ class Ui {
                     SearchBodyText.textContent = `You found a ${newItems.name}`;
                 } else {
                     SearchBodyText.textContent = `${level.monster.name} had nothing`;
-                };
+                }; */
             })
         } else {
             // If level.id > 5 it's the last level, so show winScreen instead of next screen
             this.winScreen();
         }
     };
-}
+
+    inventory() {
+        const inventoryPage = document.querySelector('#inventory');
+        const inventoryButton = document.querySelector('#inventoryButton');
+        const inventoryList = document.querySelector('#inventoryList')
+        const inventoryCloseButton = document.querySelector('#inventoryCloseButton');
+        
+        const showInventory = () => {
+            const createItemList = (item) => {
+                // item row
+                const listItem = document.createElement('li');
+                listItem.setAttribute('class', 'inventory__item')
+                listItem.textContent = item.name
+                inventoryList.appendChild(listItem);
+
+                // action button for row
+                const useButton = document.createElement('button');
+                useButton.setAttribute('class', 'item__button')
+                switch (item.type) {
+                    case 'armor': 
+                        useButton.textContent = 'Wear';
+                        break;
+                    case 'weapon':
+                        useButton.textContent = 'Equip';
+                        break;
+                    case 'potion':
+                        useButton.textContent = 'Use';
+                        break;
+                    case 'utility':
+                        useButton.textContent = 'Equip';
+                        break;
+                };
+                useButton.addEventListener('click', () => persons.player.equipItem(item));
+                listItem.appendChild(useButton);
+            };
+
+            inventoryPage.style.display = 'flex';
+            persons.player.inventory.forEach( item => createItemList(item))
+        };
+
+        const closeInventory = () => {
+            const inventoryItems = document.querySelectorAll('.inventory__item');
+            inventoryItems.forEach( item => item.remove())
+            inventoryPage.style.display = 'none';
+        };
+
+        inventoryButton.addEventListener('click', showInventory);
+        inventoryCloseButton.addEventListener('click', closeInventory);
+    };
+};
 
 const screen = new Ui();
 

@@ -12,6 +12,10 @@ class Global {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
+    diceRollK2 = () => global.diceRoll(1,2);
+    diceRollK3 = () =>  global.diceRoll(1,3);
+    diceRollK10 = () => global.diceRoll(1,10);
+
     updatePersonHealth() {
         this.playerHealth.textContent = persons.player.stats.hp;
         this.enemyHealth.textContent = level.monster.stats.hp;

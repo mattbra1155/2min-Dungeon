@@ -1,17 +1,18 @@
 import { persons } from "./index.js";
 
 class Item {
-    constructor(id, name, description) {
+    constructor(id, name, description, type) {
         this.name = name;
         this.description = description;
+        this.type = type
         this.id = id;
     };
 };  
 
 class Weapon extends Item {
-    constructor(name,description, modifier = 0) {
+    constructor(name,description, damage = 0) {
         super(name, description);
-        this.modifier = modifier;
+        this.damage = damage;
     };
 };
 
@@ -26,7 +27,6 @@ class Weapon extends Item {
 class Potion extends Item {
     constructor(name, modifier, description) {
         super(name, description)
-        this.modifier = modifier;
     };
 };
 
@@ -36,29 +36,15 @@ class Utility extends Item {
     };
 }; 
 
-class RegularWeapon extends Weapon {
-    constructor(name, description, modifier) {
-        super(name, description, modifier)
-        this.damage = 0
-    };
-};
-
-class MagicWeapon extends Weapon {
-    constructor(name, description, damage, modifier ) {
-        super(name, description, modifier)
-        this.damage = damage
-    };
-};
-
 
 
 let items = {
     weapons: [
-        new RegularWeapon('Old sword', 'An old rusty sword'), 
-        new RegularWeapon('Rusty mace', 'A rusty mace'),
-        new RegularWeapon('Magic staff','a magic staff with a blue stone on top'),
-        new MagicWeapon('Magic sword', 'Sword imbuded with some sort of magic', 0, 1),
-        new MagicWeapon('Magic mace', 'Heavy magic mace', 0, 1)
+        new Weapon('Old sword', 'An old rusty sword'), 
+        new Weapon('Rusty mace', 'A rusty mace'),
+        new Weapon('Magic staff','a magic staff with a blue stone on top'),
+        new Weapon('Magic sword', 'Sword imbuded with some sort of magic', 0),
+        new Weapon('Magic mace', 'Heavy magic mace', 0)
     ],
     armors: {
         "head": [ new Armor('Rusty helmet', 'an old and worn helmet', 6 )],
@@ -74,4 +60,4 @@ let items = {
     ]
 }
 
-export {items}
+export {Weapon, Armor, Potion, Utility, items}

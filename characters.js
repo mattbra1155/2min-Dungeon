@@ -4,7 +4,7 @@ class Person {
 
     constructor(name, race, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, inteligence, willPower, charisma, weapon, inventory, description) {
         this.name = name;
-        this.race = 'standard';
+        this.race = race;
         this.stats = {
             hp: hp,
             melee: melee,
@@ -146,7 +146,7 @@ class Person {
             console.log(enemyArmorName)
             // Calculate damage
             const damage = () => {
-                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage + this.weapon.modifier);
+                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.modifier + this.weapon.modifier);
                  if (damagePoints < 0) {
                      damagePoints = 0;
                  };
@@ -206,14 +206,35 @@ class Player extends Person {
     };
 
     equipItem(item) {
-        let playerBodyPartKeys = Object.keys(this.bodyPart);
+
+        switch (item.type) {
+            case 'armor':
+                let playerBodyPartKeys = Object.keys(this.bodyPart);
     
-        const getBodyPart = playerBodyPartKeys.find( (playerBodyPart) => { 
-            if (playerBodyPart === item.bodyPart) {
-                return playerBodyPart
-            }
-        });
-        this.bodyPart[getBodyPart].armor.item = item
+                const getBodyPart = playerBodyPartKeys.find( (playerBodyPart) => { 
+                    if (playerBodyPart === item.bodyPart) {
+                        return playerBodyPart
+                    }
+                });
+                this.bodyPart[getBodyPart].armor.item = item
+                break;
+
+            case 'weapon': 
+                this.weapon = item;
+                break;
+
+            case 'potion':
+                //todo 
+                this.stats.hp += item.modifier;
+                break;
+            
+            case 'utility': 
+                //todo
+                this.weapon = item
+        }
+
+        console.log(this)
+        
     };
 
     pickUpItem(item) {
@@ -233,12 +254,12 @@ class Monster extends Person {
 
 
 const persons = {
-    player: new Player('Player', 10, 33, 25, 10, 5, 3, 3, 25, 1, 20, 20, items.weapons[0],[items.weapons[0], items.utility.torch, items.potions.smallHealthPotion],'It\'s you the Player'),
-    orc: new Monster('Orc', 10, 33, 10, 10, 4, 2, 2, 15, 1, 10, 10, items.weapons[0],  [items.weapons.mace, items.utility.torch, items.potions.smallHealthPotion], 'It\'s an Orc, he carries a weapon'),
-    goblin: new Monster('Goblin', 5, 20, 10, 10, 2, 1, 2, 10, 1, 10, 10, items.weapons.sword, [items.weapons.sword, items.potions.smallHealthPotion], 'He looks skiny and crazy'),
-    ogr: new Monster('Ogr', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 10, items.weapons.mace, [items.weapons.mace], `a big and bulky Ogr. Looks intimidating`),
-    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 3, 2, 2, 10, 1, 10, 0, items.weapons.mace, [], `It's a reanimated skeleton`),
-    lich: new Monster('Lich', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 10, items.weapons.staff, [items.weapons.staff], `A powerfull Lich wearing thick and decorative robes with different symbols`)
+    player: new Player('Player','human', 10, 100, 25, 10, 5, 3, 3, 25, 1,20, 20, 20, items.weapons[0],[items.weapons[0]],'It\'s you the Player'),
+    orc: new Monster('Orc','human', 10, 33, 10, 10, 4, 2, 2, 15, 1, 10, 20, 10, items.weapons[0],[items.weapons[0]], 'It\'s an Orc, he carries a weapon'),
+    goblin: new Monster('Goblin','human', 5, 20, 10, 10, 2, 1, 2, 10, 1, 20, 10, 10, items.weapons[1],[items.weapons[0]], 'He looks skiny and crazy'),
+    ogr: new Monster('Ogr','human', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 20, 10, items.weapons[4], [items.weapons[0]], `a big and bulky Ogr. Looks intimidating`),
+    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 3, 2, 2, 10, 1, 10, 20, 0, items.weapons[4], [items.weapons[0]], `It's a reanimated skeleton`),
+    lich: new Monster('Lich','human', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 20, 10, items.weapons[2], [items.weapons[0]], `A powerfull Lich wearing thick and decorative robes with different symbols`)
 }
 
 export { persons, Person, Player, Monster};

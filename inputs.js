@@ -1,4 +1,4 @@
-import {level, persons, turn} from './index.js';
+import {level, persons, turn, screen} from './index.js';
 
 
 /// INPUTS
@@ -18,7 +18,9 @@ const attack = attackButton.addEventListener('click', e => {
     }
 });
 
-/* const inventoryList = document.querySelector('#inventoryList');
- */
+// show inventory page
+screen.inventory();
+
+
 
 export {attack, attackButton}

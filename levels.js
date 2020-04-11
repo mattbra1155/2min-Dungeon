@@ -6,6 +6,7 @@ class Room {
         this.name = name;
         this.monster = monster;
     }
+
     // change room by selecting an ID
     changeRoom(id) {
 
