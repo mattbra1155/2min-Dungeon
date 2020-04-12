@@ -8,41 +8,173 @@ class CharacterGenerator extends Player {
     };
 
     createPlayer() {
-        // NAME
-        this.name = 'test player'
-        this.race = 'human'
 
-        // ROLL STATS
-        const getRaceObject = (race = this.race) => races.find(elem => elem.name === race);
+        let character = {
+            name: '',
+            race: 'human',
+            stats: '',
+            weapon: '',
+            inventory: [],
+            description: ''
 
-        const getStats = () => {
-            const getStats = getRaceObject().stats;
-            const getModifiers = getRaceObject().statModifiers;
-            
-            const result = Object.keys(getStats).concat(Object.keys(getModifiers))
-                .reduce((sum, key) => {
-                    sum[key] = getStats[key] + getModifiers[key];
-                    return sum
-                }, {})
-
-            return result
         };
-        this.stats = getStats(this.race);
 
+        this.race = 'human'
+ 
+
+        const charName = document.querySelector('#characterName');
+        const charBio = document.querySelector('#characterBio');
+        const charClass = document.querySelector('#charcterClass');
+        const charStats = document.querySelector('#statList');
+        const charInventory = document.querySelector('#charInventory');
+        const charWeapon = document.querySelector('#charWeapon');
+        const GenerateStatsButton = document.querySelector('#generateStatsButton');
+        const ConfirmNameButton = document.querySelector('#confirmNameButton');
+        const createPlayerButton = document.querySelector('#createPlayerButton')
+
+        // NAME
+        const getName = () => {
+            return charName.value
+        };
+
+        // RACE
+        const getRace = (race = this.race) => races.find(elem => elem.name === race);
+
+
+        // STATS
+        const getStats = () => {
+
+            const raceStats = () => {
+
+                if (this.race === 'human') {
+                    const stats = {
+                        'hp': global.diceRollK3(),
+                        'melee': global.diceRollK10() * 2,
+                        'ranged': global.diceRollK10() * 2,
+                        'dexterity': global.diceRollK10(),
+                        'strength': global.diceRollK3(),
+                        'thoughtness': global.diceRollK3(),
+                        'speed': global.diceRollK3(),
+                        'initiative': global.diceRollK10() * 2,
+                        'attacks': 1,
+                        'inteligence': global.diceRollK10() * 2,
+                        'will power': global.diceRollK10() * 2,
+                        'charisma': global.diceRollK10() * 2,
+                    };
+    
+                    return stats;
+
+                } else if (this.race === 'dwarf') {
+                    const stats = {
+                        'hp': global.diceRollK3(),
+                        'melee': global.diceRollK10() * 2,
+                        'ranged': global.diceRollK10() * 2,
+                        'dexterity': global.diceRollK10(),
+                        'strength': global.diceRollK3(),
+                        'thoughtness': global.diceRollK3(),
+                        'speed': global.diceRollK2(),
+                        'initiative': global.diceRollK10() * 2,
+                        'attacks': 1,
+                        'inteligence': global.diceRollK10() * 2,
+                        'will power': global.diceRollK10() * 2,
+                        'charisma': global.diceRollK10() * 2,
+                    };
+    
+                    return stats;
+                };
+            };
+
+            const stats = raceStats();
+            const modifiers = getRace().statModifiers;
+
+            // combine generated stats with race bonus
+            const computeStats = Object.keys(stats).concat(Object.keys(modifiers))
+                .reduce((sum, key) => {
+                    sum[key] = stats[key] + modifiers[key];
+                    return sum
+                }, {});
+
+
+            const populateStatFileds = () => {
+
+                // if statItem's exists - remove from DOM
+                const statItem = document.querySelectorAll('.stat__item');
+                statItem.forEach( elem => elem.remove() )
+
+                // create statItem's and append to DOM
+                Object.entries(computeStats).forEach( ([key, value]) => {
+                    const statItem = document.createElement('div')
+                    statItem.setAttribute('class', 'stat__item')
+
+                    const statName = document.createElement('div')
+                    statName.setAttribute('class', 'stat__name')
+                    statName.textContent = key
+
+                    const statValue = document.createElement('div')
+                    statValue.setAttribute('class', 'stat__value')
+                    statValue.textContent = value
+
+                    statItem.appendChild(statName);
+                    statItem.appendChild(statValue)
+
+                    charStats.appendChild(statItem)
+                });
+            };
+
+            populateStatFileds();
+           
+            return computeStats
+        };
+
+        GenerateStatsButton.addEventListener('click', (event) => {
+            // todo
+            character.stats = getStats()
+            
+        });
+        
         // ROLL SKILLS
         // todo
 
-        // CHOOSE WEAPONS
-        
-        // OTHER
+        // DESCRIPTION 
+        // todo
+        const getDescription = () => {
+            return this.description = charBio.value
+        };
+
+        // INVENTORY
+        // todo
         this.inventory = [];
-        this.description = getRaceObject().description;
 
-
-
+        // CHOOSE WEAPONS
+        // todo
+        
         // FINAL OBJECT RETURN
-        return this
+        createPlayerButton.addEventListener('click', (event) => {
+            
+            character.name = getName(),
+            character.race = 'human',
+            character.weapon = '',
+            character.inventory = [],
+            character.description= getDescription()
+
+            console.log(character)
+            
+    
+            const player = new Player();
+            player.name = character.name;
+            player.race = character.race;
+            player.stats = character.stats;
+            player.weapon = character.weapon;
+            player.inventory = character.inventory;
+            player.description = character.description;
+
+            console.log(player)
+            //store created player stats in localstorage (need to assign to Player class later)
+            localStorage.setItem('player', JSON.stringify(player))
+            return player
+        });
     };
+
 } 
 
 class MonsterGenerator extends Monster {

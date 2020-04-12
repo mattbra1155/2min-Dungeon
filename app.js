@@ -7,8 +7,8 @@ import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js';
 import {ItemGenerator} from './index.js'
-import {CharacterGenerator, MonsterGenerator,races} from './index.js'
-
+import {CharacterGenerator, MonsterGenerator, races} from './index.js'
+import { Player } from './characters.js';
 
 
 console.log(persons)
@@ -23,17 +23,33 @@ global.updatePersonHealth();
 
 // Shows start screen
 screen.startScreen();
+
+
     
-const player = new CharacterGenerator().createPlayer();
+const createPlayer = new CharacterGenerator().createPlayer();
 
-const monster = new MonsterGenerator().createMonster();
+const createMonster = new MonsterGenerator().createMonster();
 
-const item = new ItemGenerator().createItem('armor')
+const createItem = new ItemGenerator().createItem('weapon')
 
-console.log(item)
+persons.player.inventory.push(createItem);
 
-persons.player.inventory.push(item);
+console.log(createPlayer);
+console.log(createMonster);
+console.log(createItem);
 
-console.log(item)
-console.log(player);
-console.log(monster);
+const getSavedPlayer = () => {
+    const playerClass = new Player()
+    const savedPlayer = localStorage.getItem('player');
+    const parsed = JSON.parse(savedPlayer);
+    // rebuild the object from data saved in Localstorage
+    const rebuildObject = Object.assign(playerClass, parsed);
+
+    return rebuildObject
+}
+
+const player = getSavedPlayer();
+
+player.pickUpItem(createItem)
+
+console.log(player)

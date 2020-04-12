@@ -174,23 +174,6 @@ class Ui {
                 } else {
                     SearchBodyText.textContent = `${level.monster.name} had nothing`;
                 }; 
-
-               /*  OLD WORKING METHOD
-                e.preventDefault();
-                // Choose random item key from Object
-                const keys = Object.values(level.monster.inventory);
-                const newItems = keys[Math.floor(Math.random() * keys.length)];
-                // Hide button to make space for text
-                searchBody.style.display = 'none';
-                // Add item to Player inventory
-                if (level.monster.inventory != '') {
-                    persons.player.inventory.push(newItems);
-                    console.log(`You found a ${newItems.name}`);
-                    console.log(persons.player.inventory);
-                    SearchBodyText.textContent = `You found a ${newItems.name}`;
-                } else {
-                    SearchBodyText.textContent = `${level.monster.name} had nothing`;
-                }; */
             })
         } else {
             // If level.id > 5 it's the last level, so show winScreen instead of next screen
@@ -246,6 +229,8 @@ class Ui {
         inventoryButton.addEventListener('click', showInventory);
         inventoryCloseButton.addEventListener('click', closeInventory);
     };
+
+    
 };
 
 const screen = new Ui();

@@ -98,7 +98,7 @@ class ItemGenerator {
 
         // pass the function to a variable
         const createdItem = getItemObject(); 
-        console.log(createdItem);
+
 
         if (category === 'weapon') {
             const item = new Weapon();
@@ -107,6 +107,8 @@ class ItemGenerator {
             item.type = createdItem.type;
             item.description = createdItem.description;
             this.modifier = createdItem.modifier;
+
+            localStorage.setItem('weapon', JSON.stringify(item))
             
             return item;
         }

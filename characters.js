@@ -6,18 +6,18 @@ class Person {
         this.name = name;
         this.race = race;
         this.stats = {
-            hp: hp,
-            melee: melee,
-            ranged: ranged,
-            dexterity: dexterity,
-            strength: strength,
-            thoughtness: thoughtness,
-            speed: speed,
-            initiative: initiative,
-            attacks: attacks,
-            inteligence: inteligence,
-            willPower: willPower,
-            charisma: charisma
+            'hp': hp,
+            'melee': melee,
+            'ranged': ranged,
+            'dexterity': dexterity,
+            'strength': strength,
+            'thoughtness': thoughtness,
+            'speed': speed,
+            'initiative': initiative,
+            'attacks': attacks,
+            'inteligence': inteligence,
+            'will power': willPower,
+            'charisma': charisma
         }
         this.weapon = weapon;
         this.inventory = inventory;
