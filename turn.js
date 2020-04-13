@@ -16,6 +16,7 @@ class Turn {
         this.turnNumber++
         const turn = document.querySelector('#turnNumber');
         turn.textContent = this.turnNumber;
+        
     };
 
     initiativeRoll(player, monster) {
@@ -24,6 +25,7 @@ class Turn {
     };
 
     playerTurn() {
+        console.log(persons.player)
         persons.player.attack(level.monster)
         attackButton.disabled = true;
         global.updatePersonHealth();
@@ -33,10 +35,11 @@ class Turn {
     };
 
     enemyTurn() {
+        console.log(persons.player)
         console.log(`changed to monster turn`);
         level.monster.attack(persons.player)
         global.updatePersonHealth();
-        global.checkIfAlive(level.monster);
+        global.checkIfAlive(persons.player);
         level.monster.isActive = false;
         attackButton.disabled = false;
         console.log(`end of Monster turn`);

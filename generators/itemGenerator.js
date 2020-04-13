@@ -89,7 +89,8 @@ class ItemGenerator {
                 type: getItem.type,
                 description: getDescription(),
                 modifier: getModifier(),
-                id: getItem.id
+                id: getItem.id,
+                category: category
             };
 
             return item;
@@ -106,7 +107,9 @@ class ItemGenerator {
             item.damage = createdItem.mainValue;
             item.type = createdItem.type;
             item.description = createdItem.description;
-            this.modifier = createdItem.modifier;
+            item.modifier = createdItem.modifier;
+            item.category = createdItem.category
+
 
             localStorage.setItem('weapon', JSON.stringify(item))
             
@@ -120,6 +123,7 @@ class ItemGenerator {
             item.type = createdItem.type;
             item.modifier = createdItem.modifier;
             item.description = createdItem.description;
+            item.category = createdItem.category
             
             return item;
         }
@@ -129,6 +133,7 @@ class ItemGenerator {
             item.baseValue = createdItem.mainValue;
             item.type = createdItem.type;
             item.description = createdItem.description;
+            item.category = createdItem.category
 
             return item;
         }
@@ -138,6 +143,7 @@ class ItemGenerator {
             item.baseValue = createdItem.mainValue;
             item.type = createdItem.type;
             item.description = createdItem.description;
+            item.category = createdItem.category
 
             return item;
         }

@@ -45,21 +45,33 @@
             <div class="character-sheet">
                 <h2 class="header">Character creation sheet</h2>
                 <div class="character-sheet__item character__name">
-                    <label for="playerName">Name</label>
+                    <label for="playerName" class="header ">Name</label>
                     <input type="text" name="playerName" id="characterName" />
                     <button id="confirmNameButton" class="confirm">Confirm</button>
+                </div>
+                <div class="character-sheet__item character__race">
+                    <h2 class="header">Race</h2>
+                    <div class="race__item">
+                        <label for="human">Human</label>
+                        <input type="radio" name="playerRace" value="human" class="item__input">
+                    </div>
+                    <div class="race__item">
+                        <label for="dwarf">Dwarf</label>
+                        <input type="radio" name="playerRace" value="dwarf" class="item__input">
+                    </div>
+
                 </div>
                 <div class="character-sheet__item character__class">
                     <h2 class="header">Class</h2>
                     <p id="characterClass" class="text">Warrior</p>
                 </div>
                 <div class="character-sheet__item character__bio">
-                    <label for="bio">Bio</label>
-                    <textarea type="text" name="bio" id="characterBio"></textarea>
+                    <label for="bio" class="header">Bio</label>
+                    <textarea type="text" name="bio" id="characterBio" rows="5"></textarea>
                 </div>
                 <div class="character-sheet__item character__stats">
                     <h2 class="header">Stats</h2>
-                    <button id="generateStatsButton">Roll dice</button>
+                    <button id="generateStatsButton" class="button action__button">Roll dice</button>
                     <div id="statList" class="stat__list">
                     </div>
                 </div>

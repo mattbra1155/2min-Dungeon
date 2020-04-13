@@ -1,5 +1,6 @@
 import {level, global, persons, attackButton, turn } from './index.js';
-import { ItemGenerator } from './generators/itemGenerator.js';
+import { ItemGenerator, CharacterGenerator } from './index.js';
+import { sceneEngine } from './levels.js';
 
 
 class Ui {
@@ -40,7 +41,8 @@ class Ui {
             startButton.addEventListener('click', e => {
                 e.preventDefault();
                 overlayscreen.remove();  
-               /*  turn.runTurn(); */
+                this.characterCreation();
+               
             });
         });
     }
@@ -87,6 +89,8 @@ class Ui {
     };
 
     loseScreen() {
+        
+
         const overlayscreen = document.createElement('div');
         overlayscreen.setAttribute('class', 'overlay lose-screen');
 
@@ -109,7 +113,11 @@ class Ui {
             e.preventDefault();
             window.location.reload(true);
             overlayscreen.remove();
+            
+            // if dead remove player
+            localStorage.removeItem('player');
         });
+
 
     };
 
@@ -162,15 +170,27 @@ class Ui {
             
             const searchBody = document.querySelector('#searchBodyButton');
             searchBody.addEventListener('click', e => {
-                const item = new ItemGenerator().createItem();
+                const rollLoot = () => {
+                    const roll = global.diceRoll(1,100)
+                    if (roll > 51) {
+                        const item = new ItemGenerator().createItem('weapon');
+                        return item;
+                    } else {
+                        const item = new ItemGenerator().createItem('armor');
+                        return item;
+                    }
+                }
+
+                const savedItem = rollLoot();
+                
                 // Hide button to make space for text
                 searchBody.style.display = 'none';
                 // Add item to Player inventory
                 if (level.monster.inventory != '') {
-                    persons.player.inventory.push(item);
-                    console.log(`You found a ${item.name}`);
+                    persons.player.inventory.push(savedItem);
+                    console.log(`You found a ${savedItem.name}`);
                     console.log(persons.player.inventory);
-                    SearchBodyText.textContent = `You found a ${item.name}`;
+                    SearchBodyText.textContent = `You found a ${savedItem.name}`;
                 } else {
                     SearchBodyText.textContent = `${level.monster.name} had nothing`;
                 }; 
@@ -198,7 +218,7 @@ class Ui {
                 // action button for row
                 const useButton = document.createElement('button');
                 useButton.setAttribute('class', 'item__button')
-                switch (item.type) {
+                switch (item.category) {
                     case 'armor': 
                         useButton.textContent = 'Wear';
                         break;
@@ -228,6 +248,18 @@ class Ui {
 
         inventoryButton.addEventListener('click', showInventory);
         inventoryCloseButton.addEventListener('click', closeInventory);
+    };
+
+    characterCreation() {
+        const characterCreationScreen = document.querySelector('#characterGenerator');
+
+        if (localStorage.getItem('player')) {
+            level.changeRoom(1);
+        } else {
+            characterCreationScreen.style.display = 'flex';
+            const createPlayer = new CharacterGenerator().createPlayer();
+            console.log(createPlayer)
+        };
     };
 
     

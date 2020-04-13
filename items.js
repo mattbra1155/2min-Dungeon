@@ -1,38 +1,39 @@
 import { persons } from "./index.js";
 
 class Item {
-    constructor(id, name, description, type) {
+    constructor(id, name, description, type, category) {
         this.name = name;
         this.description = description;
         this.type = type
         this.id = id;
+        this.category = category;
     };
 };  
 
 class Weapon extends Item {
-    constructor(name,description, damage = 0) {
-        super(name, description);
+    constructor(name,description, damage = 0, category) {
+        super(name, description, category);
         this.damage = damage;
     };
 };
 
  class Armor extends Item {
-    constructor(name, description, modifier, bodyPart ) {
-        super(name, description)
+    constructor(name, description, modifier, bodyPart, category ) {
+        super(name, description, category)
         this.modifier = modifier;
         this.bodyPart = bodyPart;
     }; 
 };
 
 class Potion extends Item {
-    constructor(name, modifier, description) {
-        super(name, description)
+    constructor(name, modifier, description, category) {
+        super(name, description, category)
     };
 };
 
 class Utility extends Item {
-    constructor(name, description) {
-        super(name, description)
+    constructor(name, description, category) {
+        super(name, description, category)
     };
 }; 
 

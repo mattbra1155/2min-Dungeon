@@ -10,6 +10,7 @@ const attack = attackButton.addEventListener('click', e => {
 
     if (persons.player.isAlive) {
         turn.playerTurn();
+
     }
     
     //change to enemy turn

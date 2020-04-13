@@ -1,5 +1,6 @@
 import {Person, Player, Monster, global, races} from '../index.js';
 import { bestiary } from './bestiary.js';
+import { ItemGenerator } from './itemGenerator.js';
 
 
 class CharacterGenerator extends Player {
@@ -11,18 +12,17 @@ class CharacterGenerator extends Player {
 
         let character = {
             name: '',
-            race: 'human',
+            race: '',
             stats: '',
             weapon: '',
             inventory: [],
             description: ''
 
         };
-
-        this.race = 'human'
  
-
+        const characterCreationScreen = document.querySelector('#characterGenerator');
         const charName = document.querySelector('#characterName');
+        const charRace = document.querySelectorAll('.item__input[name="playerRace"]')
         const charBio = document.querySelector('#characterBio');
         const charClass = document.querySelector('#charcterClass');
         const charStats = document.querySelector('#statList');
@@ -38,15 +38,30 @@ class CharacterGenerator extends Player {
         };
 
         // RACE
-        const getRace = (race = this.race) => races.find(elem => elem.name === race);
+         const getRace = () => {
+            const result = races.find(elem => elem.name === event.target.value)
+            console.log(`fired: ${event.target.value}`)
+            console.log(result)
+            return result
+        }; 
 
+        const charRaceArray = Array.from(charRace);
+
+        charRaceArray.forEach( elem => elem.addEventListener('change', (event) => {
+            const savedRace = getRace();
+
+            character.race = savedRace
+
+            console.log(character.race)
+
+        }))
 
         // STATS
         const getStats = () => {
 
             const raceStats = () => {
-
-                if (this.race === 'human') {
+                console.log(character)
+                if (character.race.name === 'human') {
                     const stats = {
                         'hp': global.diceRollK3(),
                         'melee': global.diceRollK10() * 2,
@@ -64,7 +79,7 @@ class CharacterGenerator extends Player {
     
                     return stats;
 
-                } else if (this.race === 'dwarf') {
+                } else if (character.race.name === 'dwarf') {
                     const stats = {
                         'hp': global.diceRollK3(),
                         'melee': global.diceRollK10() * 2,
@@ -85,7 +100,7 @@ class CharacterGenerator extends Player {
             };
 
             const stats = raceStats();
-            const modifiers = getRace().statModifiers;
+            const modifiers = character.race.statModifiers;
 
             // combine generated stats with race bonus
             const computeStats = Object.keys(stats).concat(Object.keys(modifiers))
@@ -146,33 +161,42 @@ class CharacterGenerator extends Player {
         this.inventory = [];
 
         // CHOOSE WEAPONS
-        // todo
+        const getWeapon = new ItemGenerator().createItem('weapon');
         
         // FINAL OBJECT RETURN
-        createPlayerButton.addEventListener('click', (event) => {
+        createPlayerButton.addEventListener('click',(event) => {
             
-            character.name = getName(),
-            character.race = 'human',
-            character.weapon = '',
-            character.inventory = [],
-            character.description= getDescription()
+            character.name = getName();
+            character.weapon = getWeapon;
+            character.inventory = [];
+            character.description= getDescription();
 
             console.log(character)
             
     
             const player = new Player();
             player.name = character.name;
-            player.race = character.race;
+            player.race = character.race.name;
             player.stats = character.stats;
             player.weapon = character.weapon;
             player.inventory = character.inventory;
             player.description = character.description;
 
-            console.log(player)
+            console.log(player);
             //store created player stats in localstorage (need to assign to Player class later)
-            localStorage.setItem('player', JSON.stringify(player))
-            return player
+            localStorage.setItem('player', JSON.stringify(player));
+
+            if (player.stats === '' && player.name === '') {
+                alert('first finish creating your character!')
+            } else {
+                characterCreationScreen.remove();
+                global.updatePersonHealth();
+            }
+            
+
+            return result;
         });
+       
     };
 
 } 
@@ -183,14 +207,13 @@ class MonsterGenerator extends Monster {
     };
 
     createMonster() {
-
         const monster = bestiary[Math.floor(Math.random() * bestiary.length)];
         Object.assign(this, monster);
 
-        return this
-    }
+        return this;
+    };
 
-}
+};
 
 
 

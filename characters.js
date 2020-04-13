@@ -146,7 +146,7 @@ class Person {
             console.log(enemyArmorName)
             // Calculate damage
             const damage = () => {
-                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.modifier + this.weapon.modifier);
+                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage);
                  if (damagePoints < 0) {
                      damagePoints = 0;
                  };
@@ -251,10 +251,8 @@ class Monster extends Person {
 
 }
 
-
-
 const persons = {
-    player: new Player('Player','human', 10, 100, 25, 10, 5, 3, 3, 25, 1,20, 20, 20, items.weapons[0],[items.weapons[0]],'It\'s you the Player'),
+    player: '',
     orc: new Monster('Orc','human', 10, 33, 10, 10, 4, 2, 2, 15, 1, 10, 20, 10, items.weapons[0],[items.weapons[0]], 'It\'s an Orc, he carries a weapon'),
     goblin: new Monster('Goblin','human', 5, 20, 10, 10, 2, 1, 2, 10, 1, 20, 10, 10, items.weapons[1],[items.weapons[0]], 'He looks skiny and crazy'),
     ogr: new Monster('Ogr','human', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 20, 10, items.weapons[4], [items.weapons[0]], `a big and bulky Ogr. Looks intimidating`),

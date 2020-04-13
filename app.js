@@ -7,8 +7,9 @@ import {attack} from './index.js'
 import {global} from './index.js';
 import {turn} from './index.js';
 import {ItemGenerator} from './index.js'
-import {CharacterGenerator, MonsterGenerator, races} from './index.js'
-import { Player } from './characters.js';
+import {MonsterGenerator} from './index.js'
+import {sceneEngine} from './index.js'
+
 
 
 console.log(persons)
@@ -18,38 +19,15 @@ console.log(attack)
 console.log(screen)
 
 // INIT
-level.changeRoom(1);
-global.updatePersonHealth();
-
 // Shows start screen
-screen.startScreen();
 
+const sceneManger = sceneEngine.sceneManager()
 
-    
-const createPlayer = new CharacterGenerator().createPlayer();
+console.log(sceneManger)
+//screen.startScreen();
 
-const createMonster = new MonsterGenerator().createMonster();
+const newItem = new ItemGenerator().createItem('weapon')
 
-const createItem = new ItemGenerator().createItem('weapon')
+console.log(newItem)
 
-persons.player.inventory.push(createItem);
-
-console.log(createPlayer);
-console.log(createMonster);
-console.log(createItem);
-
-const getSavedPlayer = () => {
-    const playerClass = new Player()
-    const savedPlayer = localStorage.getItem('player');
-    const parsed = JSON.parse(savedPlayer);
-    // rebuild the object from data saved in Localstorage
-    const rebuildObject = Object.assign(playerClass, parsed);
-
-    return rebuildObject
-}
-
-const player = getSavedPlayer();
-
-player.pickUpItem(createItem)
-
-console.log(player)
+// SET LEVEL 

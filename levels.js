@@ -1,4 +1,94 @@
-import {persons, screen} from './index.js';
+import {persons, screen, MonsterGenerator, Player} from './index.js';
+import { global } from './global.js';
+import { CharacterGenerator } from './generators/characterGenerator.js';
+
+class SceneEngine {
+    constructor() {}
+
+    sceneManager() {
+        // start screen
+
+        screen.startScreen()
+
+        // craete player
+        if (localStorage.getItem('player')) {
+            const createPlayer = new CharacterGenerator().createPlayer();
+
+            return createPlayer;
+        } else {
+            // load level
+            return this.createScene('level')
+        }
+    }
+
+    createScene(type) {
+        const attackbutton = document.querySelector('#attackButtonOne');
+        const playerHealth = document.querySelector('#playerHp');
+        const enemyHealth = document.querySelector('#monsterHp');
+        attackbutton.disabled = true;
+        if (type === 'level') {
+
+            // import player
+            const getSavedPlayer = () => {
+                const playerClass = new Player()
+                const savedPlayer = localStorage.getItem('player');
+                const parsed = JSON.parse(savedPlayer);
+                // rebuild the object from data saved in Localstorage
+                const rebuildObject = Object.assign(playerClass, parsed);
+
+                return rebuildObject;
+            }
+
+            persons.player = getSavedPlayer();
+
+            // create monster
+            const monster = new MonsterGenerator().createMonster();
+
+            console.log(monster)
+
+            // create descripton
+            const description = () => {
+                const generateDescription = `lorem ipsum`;
+            }
+
+            // create loot table??
+            // todo
+
+            // update health
+            playerHealth.textContent = persons.player.stats.hp;
+            enemyHealth.textContent = monster.stats.hp;
+
+            // enable buttons
+            attackbutton.disabled = false;
+
+            // create next scene button 
+            // todo
+
+            // return
+
+            const level = {
+                player: player,
+                monster: monster,
+                description: description,
+                id: 33,
+            };
+
+            return level;
+        }
+        if (type === 'screen') {
+
+            // unload all assets
+
+            // create screen
+
+            // show message/description
+
+            // create next scene button
+
+            return screen;
+        };
+    };
+};
 
 class Room { 
     constructor(id, name, monster) {
@@ -53,4 +143,6 @@ const level3 = new Room (3 ,'Third level', persons.ogr);
 const level4 = new Room (4 ,'Fourth level', persons.skeleton);
 const level5 = new Room (5 ,'Fifth level', persons.lich);
 
-export {level}
+const sceneEngine = new SceneEngine()
+
+export {level, sceneEngine}

@@ -1,8 +1,9 @@
+/* MIXINS */
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  /*     font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem; */
   font-family: 'Press Start 2P', cursive;
   /*     font-family: 'Roboto', sans-serif;
  */
@@ -130,7 +131,7 @@
 
 /* CHARACTER CREATOR */
 .character-generator {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -151,10 +152,41 @@
   height: 100%;
 }
 
+.character-sheet .header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
 .character-sheet__item {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.character-sheet__item .item__input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+}
+
+.character-sheet__item .item__input:checked {
+  border: 6px solid black;
+}
+
+.character__race {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .stat__list {
