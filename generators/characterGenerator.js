@@ -1,6 +1,7 @@
-import {Person, Player, Monster, global, races} from '../index.js';
+import { Player, Monster, global, races} from '../index.js';
 import { bestiary } from './bestiary.js';
 import { ItemGenerator } from './itemGenerator.js';
+import { sceneEngine } from '../scenes.js';
 
 
 class CharacterGenerator extends Player {
@@ -19,6 +20,9 @@ class CharacterGenerator extends Player {
             description: ''
 
         };
+        // make the page visible
+        document.querySelector("#characterGenerator").style.display = "flex"
+
  
         const characterCreationScreen = document.querySelector('#characterGenerator');
         const charName = document.querySelector('#characterName');
@@ -40,8 +44,6 @@ class CharacterGenerator extends Player {
         // RACE
          const getRace = () => {
             const result = races.find(elem => elem.name === event.target.value)
-            console.log(`fired: ${event.target.value}`)
-            console.log(result)
             return result
         }; 
 
@@ -52,15 +54,13 @@ class CharacterGenerator extends Player {
 
             character.race = savedRace
 
-            console.log(character.race)
-
         }))
 
         // STATS
         const getStats = () => {
 
             const raceStats = () => {
-                console.log(character)
+
                 if (character.race.name === 'human') {
                     const stats = {
                         'hp': global.diceRollK3(),
@@ -170,10 +170,7 @@ class CharacterGenerator extends Player {
             character.weapon = getWeapon;
             character.inventory = [];
             character.description= getDescription();
-
-            console.log(character)
-            
-    
+        
             const player = new Player();
             player.name = character.name;
             player.race = character.race.name;
@@ -186,15 +183,15 @@ class CharacterGenerator extends Player {
             //store created player stats in localstorage (need to assign to Player class later)
             localStorage.setItem('player', JSON.stringify(player));
 
-            if (player.stats === '' && player.name === '') {
+            if (player.stats === '' || player.name === '') {
                 alert('first finish creating your character!')
             } else {
                 characterCreationScreen.remove();
                 global.updatePersonHealth();
             }
-            
 
-            return result;
+            sceneEngine.sceneManager('nextLevel');
+            
         });
        
     };
@@ -208,14 +205,15 @@ class MonsterGenerator extends Monster {
 
     createMonster() {
         const monster = bestiary[Math.floor(Math.random() * bestiary.length)];
-        Object.assign(this, monster);
 
-        return this;
+        const getMonsterClass = new Monster();
+
+        Object.assign(getMonsterClass, monster );
+
+        return getMonsterClass;
     };
 
 };
-
-
 
 
 export {CharacterGenerator, MonsterGenerator};

@@ -1,4 +1,4 @@
-import { global, persons, attack, level, attackButton, screen } from "./index.js";
+import { sceneEngine, global, attackButton } from "./index.js";
 
 class Turn {
     constructor(name) {
@@ -25,26 +25,30 @@ class Turn {
     };
 
     playerTurn() {
-        console.log(persons.player)
-        persons.player.attack(level.monster)
+        const level = sceneEngine.currentScene;
+
+        console.log(level.player)
+        level.player.attack(level.monster)
         attackButton.disabled = true;
         global.updatePersonHealth();
         global.checkIfAlive(level.monster)
-        persons.player.isActive = false;
+        level.player.isActive = false;
         console.log(`end of Player turn`);
     };
 
     enemyTurn() {
-        console.log(persons.player)
+        const level = sceneEngine.currentScene;
+        
+        console.log(level.player)
         console.log(`changed to monster turn`);
-        level.monster.attack(persons.player)
+        level.monster.attack(level.player)
         global.updatePersonHealth();
-        global.checkIfAlive(persons.player);
+        global.checkIfAlive(level.player);
         level.monster.isActive = false;
         attackButton.disabled = false;
         console.log(`end of Monster turn`);
         console.log(`changed to Player turn`);
-    };
+    }; 
 
     
 };

@@ -1,5 +1,3 @@
-import { persons } from "./index.js";
-
 class Item {
     constructor(id, name, description, type, category) {
         this.name = name;

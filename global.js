@@ -1,4 +1,4 @@
-import { persons, level, screen, items } from "./index.js";
+import {  } from "./index.js";
 
 class Global {
     constructor(name) {
@@ -17,24 +17,24 @@ class Global {
     diceRollK10 = () => global.diceRoll(1,10);
 
     updatePersonHealth() {
-        this.playerHealth.textContent = persons.player.stats.hp;
-        this.enemyHealth.textContent = level.monster.stats.hp;
+        /* this.playerHealth.textContent = persons.player.stats.hp;
+        this.enemyHealth.textContent = level.monster.stats.hp; */
     };
 
     checkIfAlive(enemy) {
-        if (enemy === persons.player && enemy.stats.hp <= 0) {
+       /*  if (enemy === persons.player && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
-            screen.loseScreen();
+
         } 
         if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
-            screen.nextRoomScreen();
-        };
+
+        }; */
     };
     populateInventory() {
-        persons.player.inventory.forEach(item => {
+       /*  persons.player.inventory.forEach(item => {
             const inventoryItem = document.createElement('li');
             inventoryItem.setAttribute('class', 'inventory__item');
             inventoryItem.textContent = item.name; 
@@ -53,7 +53,7 @@ class Global {
             });
             inventoryItem.appendChild(equipButton);
         
-        });
+        }); */
     };
 
 

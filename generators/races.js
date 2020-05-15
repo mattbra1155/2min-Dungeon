@@ -65,7 +65,6 @@ const races = [
         description: 'dwarf description'
     }
 ]
-console.log(races)
 
 
 export { races }

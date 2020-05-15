@@ -1,8 +1,6 @@
-export * from './items.js';
-
-export * from './characters.js';
-export * from './levels.js';
-export * from './ui.js';
+export * from './models/items.js';
+export * from './models/characters.js';
+export * from './scenes.js';
 export * from './inputs.js';
 export * from './global.js';
 export * from './turn.js';

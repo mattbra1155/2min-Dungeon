@@ -1,4 +1,4 @@
-import { level, items, screen, global, turn } from './index.js';
+import { sceneEngine , global, turn } from '../index.js';
 
 class Person {
 
@@ -106,7 +106,8 @@ class Person {
         const feedRow = document.createElement('li');
         feedRow.setAttribute('class', 'feed__item');
     
-
+        const level = sceneEngine.currentScene;
+        
         // dice roll
         const diceRollHitResult = global.diceRoll(1, 100);
 
@@ -176,7 +177,7 @@ class Person {
 
         console.log(`atribute ${this.name}`)
 
-        if (this.name === persons.player.name) {
+        if (this.name === level.player.name) {
             feedRow.style.background = "blue";
         } else {
             feedRow.style.background = "red"
@@ -251,13 +252,5 @@ class Monster extends Person {
 
 }
 
-const persons = {
-    player: '',
-    orc: new Monster('Orc','human', 10, 33, 10, 10, 4, 2, 2, 15, 1, 10, 20, 10, items.weapons[0],[items.weapons[0]], 'It\'s an Orc, he carries a weapon'),
-    goblin: new Monster('Goblin','human', 5, 20, 10, 10, 2, 1, 2, 10, 1, 20, 10, 10, items.weapons[1],[items.weapons[0]], 'He looks skiny and crazy'),
-    ogr: new Monster('Ogr','human', 5, 24, 10, 13, 3, 2, 2, 14, 1, 10, 20, 10, items.weapons[4], [items.weapons[0]], `a big and bulky Ogr. Looks intimidating`),
-    skeleton: new Monster('Skeleton', 5, 20, 10, 2, 3, 2, 2, 10, 1, 10, 20, 0, items.weapons[4], [items.weapons[0]], `It's a reanimated skeleton`),
-    lich: new Monster('Lich','human', 5, 35, 25, 15, 3, 3, 3, 25, 2, 40, 20, 10, items.weapons[2], [items.weapons[0]], `A powerfull Lich wearing thick and decorative robes with different symbols`)
-}
 
-export { persons, Person, Player, Monster};
+export {Person, Player, Monster};
