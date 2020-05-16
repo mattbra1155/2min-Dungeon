@@ -20,7 +20,8 @@ class SceneEngine {
             case 'nextLevel':
                 console.log(`Next level`);
                 const level = this.createScene('level');
-                this.currentScene = level
+                this.currentScene = level;
+                this.inventory();
                 console.log(level);
                 break;
             case 'defeat':
@@ -91,7 +92,7 @@ class SceneEngine {
             // enable buttons
             attackbutton.disabled = false;
             
-            return level;
+            return level
         }
         if (type === 'screen') {
 
@@ -112,6 +113,9 @@ class SceneEngine {
         const inventoryButton = document.querySelector('#inventoryButton');
         const inventoryList = document.querySelector('#inventoryList')
         const inventoryCloseButton = document.querySelector('#inventoryCloseButton');
+        
+
+        const level = this.currentScene;
         
         const showInventory = () => {
             const createItemList = (item) => {
@@ -138,12 +142,23 @@ class SceneEngine {
                         useButton.textContent = 'Equip';
                         break;
                 };
-                //useButton.addEventListener('click', () => persons.player.equipItem(item));
+                useButton.addEventListener('click', (event) => {
+                    console.log(item)
+                    //if item === weapon push(level.player.weapon)
+                    // if item === armor push(level.player.armor)
+                    level.player.inventory.push(level.player.weapon)
+                    level.player.equipItem(item);
+                    // removes the item from inventory DOM not Player's inventory
+                    event.path[1].remove();
+                    
+                    console.log(level.player)
+                });
+
                 listItem.appendChild(useButton);
             };
 
             inventoryPage.style.display = 'flex';
-            //persons.player.inventory.forEach( item => createItemList(item))
+            level.player.inventory.forEach( item => createItemList(item))
         };
 
         const closeInventory = () => {

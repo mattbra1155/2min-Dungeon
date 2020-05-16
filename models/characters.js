@@ -25,73 +25,43 @@ class Person {
             "head": {
                 name: 'Head',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             },
             "right arm": {
                 name: 'Right arm',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             },
             "left arm": {
                 name: 'Left arm',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             },
             "torso": {
                 name: 'Torso',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             },
             "right leg": {
                 name: 'Right leg',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             },
             "left leg": {
                 name: 'Left leg',
                 armor: {
-                    item: '',
-                    get armorPoints() {
-                        if (this.item === '') {
-                            return 0
-                        }
-                        return this.item.armorPoints;
-                    }
+                    armorPoints: 0,
+                    item: {}
                 }
             }
         }
@@ -141,10 +111,13 @@ class Person {
                 };
             };
 
-            const enemyArmorPoints = getBodyPart().armor.armorPoints;
-            const enemyArmorName = getBodyPart().name;
+            console.log(this.bodyPart)
 
-            console.log(enemyArmorName)
+            const savedBodyPart = getBodyPart()
+
+            const enemyArmorPoints = savedBodyPart.armor.armorPoints;
+            const enemyArmorName = savedBodyPart.name;
+
             // Calculate damage
             const damage = () => {
                  let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage);
@@ -174,8 +147,6 @@ class Person {
                 }
             );
         };
-
-        console.log(`atribute ${this.name}`)
 
         if (this.name === level.player.name) {
             feedRow.style.background = "blue";
@@ -207,8 +178,7 @@ class Player extends Person {
     };
 
     equipItem(item) {
-
-        switch (item.type) {
+        switch (item.category) {
             case 'armor':
                 let playerBodyPartKeys = Object.keys(this.bodyPart);
     
@@ -217,7 +187,8 @@ class Player extends Person {
                         return playerBodyPart
                     }
                 });
-                this.bodyPart[getBodyPart].armor.item = item
+                this.bodyPart[getBodyPart].armor.item = item;
+                this.bodyPart[getBodyPart].armor.armorPoints = item.armorPoints;
                 break;
 
             case 'weapon': 

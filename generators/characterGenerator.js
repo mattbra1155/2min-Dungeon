@@ -158,7 +158,15 @@ class CharacterGenerator extends Player {
 
         // INVENTORY
         // todo
-        this.inventory = [];
+        const getInventory = () => {
+            const addWeapon = new ItemGenerator().createItem('weapon');
+            const addArmor = new ItemGenerator().createItem('armor');
+            const newInv = character.inventory.push(addWeapon, addWeapon, addArmor);
+            console.log(newInv)
+            console.log(character.inventory)
+            return character.inventory
+        }
+
 
         // CHOOSE WEAPONS
         const getWeapon = new ItemGenerator().createItem('weapon');
@@ -168,7 +176,7 @@ class CharacterGenerator extends Player {
             
             character.name = getName();
             character.weapon = getWeapon;
-            character.inventory = [];
+            character.inventory = getInventory();
             character.description= getDescription();
         
             const player = new Player();
@@ -178,19 +186,21 @@ class CharacterGenerator extends Player {
             player.weapon = character.weapon;
             player.inventory = character.inventory;
             player.description = character.description;
+            player.bodyPart.torso.armor = new ItemGenerator().createItem('armor')
 
-            console.log(player);
+            console.log(player.inventory);
             //store created player stats in localstorage (need to assign to Player class later)
             localStorage.setItem('player', JSON.stringify(player));
 
             if (player.stats === '' || player.name === '') {
                 alert('first finish creating your character!')
             } else {
+                sceneEngine.sceneManager('nextLevel');
                 characterCreationScreen.remove();
                 global.updatePersonHealth();
             }
 
-            sceneEngine.sceneManager('nextLevel');
+            
             
         });
        
@@ -205,6 +215,8 @@ class MonsterGenerator extends Monster {
 
     createMonster() {
         const monster = bestiary[Math.floor(Math.random() * bestiary.length)];
+
+        monster.weapon = new ItemGenerator().createItem('weapon');
 
         const getMonsterClass = new Monster();
 

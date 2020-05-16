@@ -1,4 +1,4 @@
-import {  } from "./index.js";
+import { sceneEngine, attackButton } from "./index.js";
 
 class Global {
     constructor(name) {
@@ -17,24 +17,27 @@ class Global {
     diceRollK10 = () => global.diceRoll(1,10);
 
     updatePersonHealth() {
-        /* this.playerHealth.textContent = persons.player.stats.hp;
-        this.enemyHealth.textContent = level.monster.stats.hp; */
+        const level = sceneEngine.currentScene;
+        this.playerHealth.textContent = level.player.stats.hp;
+        this.enemyHealth.textContent = level.monster.stats.hp; 
     };
 
     checkIfAlive(enemy) {
-       /*  if (enemy === persons.player && enemy.stats.hp <= 0) {
+        const level = sceneEngine.currentScene;
+         if (enemy === level.player && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
-
+            attackButton.disable = true;
+            
         } 
         if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
 
-        }; */
+        }; 
     };
     populateInventory() {
-       /*  persons.player.inventory.forEach(item => {
+       /*  level.player.inventory.forEach(item => {
             const inventoryItem = document.createElement('li');
             inventoryItem.setAttribute('class', 'inventory__item');
             inventoryItem.textContent = item.name; 
