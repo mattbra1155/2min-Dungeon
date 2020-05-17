@@ -153,7 +153,7 @@ class CharacterGenerator extends Player {
         // DESCRIPTION 
         // todo
         const getDescription = () => {
-            return this.description = charBio.value
+            return character.description = charBio.value
         };
 
         // INVENTORY
@@ -161,8 +161,7 @@ class CharacterGenerator extends Player {
         const getInventory = () => {
             const addWeapon = new ItemGenerator().createItem('weapon');
             const addArmor = new ItemGenerator().createItem('armor');
-            const newInv = character.inventory.push(addWeapon, addWeapon, addArmor);
-            console.log(newInv)
+            character.inventory.push(addWeapon, addArmor);
             console.log(character.inventory)
             return character.inventory
         }
@@ -173,35 +172,34 @@ class CharacterGenerator extends Player {
         
         // FINAL OBJECT RETURN
         createPlayerButton.addEventListener('click',(event) => {
-            
-            character.name = getName();
-            character.weapon = getWeapon;
-            character.inventory = getInventory();
-            character.description= getDescription();
-        
-            const player = new Player();
-            player.name = character.name;
-            player.race = character.race.name;
-            player.stats = character.stats;
-            player.weapon = character.weapon;
-            player.inventory = character.inventory;
-            player.description = character.description;
-            player.bodyPart.torso.armor.item = new ItemGenerator().createItem('armor')
-            
-            console.log(player.inventory);
-            //store created player stats in localstorage (need to assign to Player class later)
-            localStorage.setItem('player', JSON.stringify(player));
 
-            if (player.stats === '' || player.name === '') {
+            character.name = getName();
+
+            if (character.stats === '' || character.name === '') {
                 alert('first finish creating your character!')
+                
             } else {
+
+                character.weapon = getWeapon;
+                character.inventory = getInventory();
+                character.description= getDescription();
+
+                const player = new Player();
+                player.name = character.name;
+                player.race = character.race.name;
+                player.stats = character.stats;
+                player.weapon = character.weapon;
+                player.inventory = character.inventory;
+                player.description = character.description;
+                
+                console.log(player.inventory);
+                //store created player stats in localstorage (need to assign to Player class later)
+                localStorage.setItem('player', JSON.stringify(player));
                 sceneEngine.sceneManager('nextLevel');
                 characterCreationScreen.remove();
                 global.updatePersonHealth();
             }
 
-            
-            
         });
        
     };

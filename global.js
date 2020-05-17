@@ -28,12 +28,19 @@ class Global {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
             attackButton.disabled = true;
+            sceneEngine.sceneManager("defeat");
+            localStorage.removeItem('player');
             
         } 
         if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
             attackButton.disabled = true;
+            
+            const parsedPlayer = JSON.stringify(level.player);
+            localStorage.setItem('player', parsedPlayer)
+
+            sceneEngine.sceneManager("win")
 
         }; 
     };

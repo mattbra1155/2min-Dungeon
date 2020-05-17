@@ -1,5 +1,6 @@
 import { MonsterGenerator, Player, CharacterGenerator } from './index.js';
-import {ItemGenerator } from './index.js'
+import { ItemGenerator } from './generators/itemGenerator.js';
+import { Weapon, Armor, Utility, Potion } from './models/items.js';
 
 class SceneEngine {
     constructor(currentScene) {
@@ -21,12 +22,20 @@ class SceneEngine {
             case 'nextLevel':
                 console.log(`Next level`);
                 const level = this.createScene('level');
+                document.querySelectorAll(".feed__item").forEach(item => item.remove())
                 this.currentScene = level;
                 this.inventory();
                 console.log(level);
                 break;
             case 'defeat':
                 console.log(`Defeat`);
+                const defeat = this.createScene('screen');
+                this.currentScene = defeat;
+                break;
+            case 'win':
+                console.log(`Cleard level`);
+                const win = this.createScene('win');
+                this.currentScene = win;
                 break;
         };
     };
@@ -71,8 +80,6 @@ class SceneEngine {
             // unload player
             // remove monster
 
-            // return
-
             const level = {
                 name: `level ${this.currentSceneId}`,
                 player: getSavedPlayer(),
@@ -80,6 +87,10 @@ class SceneEngine {
                 description: description(),
                 id: 33,
             };
+
+            // SAVE LEVEL
+            const savedLevel = JSON.stringify(level);
+            localStorage.setItem(`${level.name}`, savedLevel);
 
             // UPDATE SCENE DETAILS
 
@@ -92,20 +103,108 @@ class SceneEngine {
 
             // enable buttons
             attackbutton.disabled = false;
-            level.player.inventory.push(new ItemGenerator().createItem('armor'));
+
+            // return
             return level
         }
-        if (type === 'screen') {
+        if (type === 'win') {
+
+            //this.currentSceneId++
 
             // unload all assets
-
+            console.log(this)
             // create screen
+            const body = document.querySelector("body")
+            const background = document.createElement("div");
+            const header = document.createElement("h2");
+            const paragraf = document.createElement("p");
+            const button = document.createElement("button");
+
+            const getSavedLevel = () => {
+                const getLevel = localStorage.getItem(`level ${this.currentSceneId}`)
+                const parse = JSON.parse(getLevel);
+                return parse
+            }
+
+            console.log(getSavedLevel())
+
+
+            const getSavedPlayer = () => {
+                const playerClass = new Player()
+                const savedPlayer = localStorage.getItem('player');
+                const parsed = JSON.parse(savedPlayer);
+                // rebuild the object from data saved in Localstorage
+                const rebuildObject = Object.assign(playerClass, parsed);
+
+                return rebuildObject;
+            } 
+
+
+            const win = {
+                player: getSavedPlayer(),
+                monster: getSavedLevel().monster,
+                levelName: getSavedLevel().name,
+                //loot: loot
+            }
 
             // show message/description
+            background.setAttribute("id", 'winScreen');
+            background.setAttribute("class", 'overlay');
 
+            body.appendChild(background);
+
+            header.setAttribute('class', 'header text--white');
+            header.textContent = `You defeated the ${win.monster.name}`
+
+            background.appendChild(header)
+
+            paragraf.setAttribute('class', 'text text--white');
+            paragraf.textContent = `loot the corpse`
+
+            background.appendChild(paragraf)
             // create next scene button
+            button.setAttribute('class', 'button action__button');
+            button.textContent = `Loot`;
 
-            return screen;
+            background.appendChild(button)
+
+            const roolRandomItem = () => {
+                const rollLoot = () => {
+                    const item = new ItemGenerator().createItem('weapon');
+
+                    return item
+                }
+
+                const dropedItem = rollLoot();
+
+                win.player.inventory.push(dropedItem);
+
+                paragraf.textContent = `You found a ${dropedItem.name}!`
+                // save player 
+                const parsedPlayer = JSON.stringify(win.player);
+                localStorage.setItem('player', parsedPlayer)
+
+                console.log(win.player)
+
+
+                button.removeEventListener('click', roolRandomItem);
+
+                button.textContent = `Venture deeper into the dungeon`
+
+                button.addEventListener("click", event => {
+                    console.log("CLICK")
+                    background.remove();
+                    sceneEngine.sceneManager("nextLevel");
+                })
+
+            }
+
+            button.addEventListener('click', roolRandomItem)
+            
+
+            console.log(win)
+
+            return win;
         };
     };
 
@@ -144,6 +243,11 @@ class SceneEngine {
                         break;
                 };
                 useButton.addEventListener('click', (event) => {
+
+                    const removeInventoryList = () => {
+                        const inventoryItems = document.querySelectorAll('.inventory__item');
+                        inventoryItems.forEach( item => item.remove())
+                    }
                     // check the item category
                     if (item.category === 'weapon') {
                         if (level.player.weapon !== '') {
@@ -151,41 +255,65 @@ class SceneEngine {
                             level.player.inventory.push(level.player.weapon);
                         }
                         // remove all item form DOM inventory to update it
-                        const inventoryItems = document.querySelectorAll('.inventory__item');
-                        inventoryItems.forEach( item => item.remove())
+                        removeInventoryList();
                     }
                     if (item.category === 'armor') {
                         if (level.player.bodyPart[item.bodyPart].armor.item !== '') {
                             level.player.inventory.push(level.player.bodyPart[item.bodyPart].armor.item)
                         }
-                        const inventoryItems = document.querySelectorAll('.inventory__item');
-                        inventoryItems.forEach( item => item.remove())
+                        removeInventoryList();
                     }
                     // remove equiped item from inventory, return a new array without the equiped item
                     const updatedInventory = level.player.inventory.filter( elem => elem !== item )
                     // equip item on character
                     level.player.equipItem(item);
-                    // removes the item from inventory DOM not Player's inventory
-                    event.path[1].remove();
                     // rerender the inventory with the item from character in the inventory and the equiped item removed from inventory
                     updatedInventory.forEach( item => createItemList(item))
                     // assign the updated inventory to the player inventory
                     level.player.inventory = updatedInventory;
-                    
-                    console.log(level.player)
                 });
 
                 listItem.appendChild(useButton);
             };
-
+            inventoryButton.disabled = true;
             inventoryPage.style.display = 'flex';
-            level.player.inventory.forEach( item => createItemList(item))
+
+            /// NOT WORKING PROPERLY - ITEM in INVENTORY IS NOT A CLASS
+            level.player.inventory.forEach( item => {
+                switch (item.category) {
+                    case "weapon":
+                        const weapon = new Weapon();
+                        Object.assign(weapon, item )
+                        console.log(weapon)
+                        createItemList(weapon)
+                        break;
+                    case 'armor':
+                        const armor = new Armor();
+                        Object.assign(armor, item )
+                        createItemList(armor)
+                        break;
+                    case 'potion':
+                        const potion = new Potion();
+                        Object.assign(potion, item )
+                        createItemList(potion)
+                        break;
+                    case 'utility':
+                        const utility = new Utility();
+                        Object.assign(utility, item )
+                        createItemList(utility)
+                        break;
+
+                }
+                
+            })
+            console.log(level.player.inventory)
         };
 
         const closeInventory = () => {
             const inventoryItems = document.querySelectorAll('.inventory__item');
             inventoryItems.forEach( item => item.remove())
             inventoryPage.style.display = 'none';
+            inventoryButton.disabled = false;
         };
 
         inventoryButton.addEventListener('click', showInventory);

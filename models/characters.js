@@ -112,8 +112,6 @@ class Person {
                 };
             };
 
-            console.log(this.bodyPart)
-
             const savedBodyPart = getBodyPart()
 
             const enemyArmorPoints = savedBodyPart.armor.armorPoints;
