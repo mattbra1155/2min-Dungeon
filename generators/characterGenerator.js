@@ -186,8 +186,8 @@ class CharacterGenerator extends Player {
             player.weapon = character.weapon;
             player.inventory = character.inventory;
             player.description = character.description;
-            player.bodyPart.torso.armor = new ItemGenerator().createItem('armor')
-
+            player.bodyPart.torso.armor.item = new ItemGenerator().createItem('armor')
+            
             console.log(player.inventory);
             //store created player stats in localstorage (need to assign to Player class later)
             localStorage.setItem('player', JSON.stringify(player));

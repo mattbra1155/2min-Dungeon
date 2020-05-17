@@ -1,4 +1,5 @@
 import { MonsterGenerator, Player, CharacterGenerator } from './index.js';
+import {ItemGenerator } from './index.js'
 
 class SceneEngine {
     constructor(currentScene) {
@@ -38,7 +39,7 @@ class SceneEngine {
         attackbutton.disabled = true;
 
         if (type === 'level') {
-
+            
             this.currentSceneId++
 
             // import player
@@ -91,7 +92,7 @@ class SceneEngine {
 
             // enable buttons
             attackbutton.disabled = false;
-            
+            level.player.inventory.push(new ItemGenerator().createItem('armor'));
             return level
         }
         if (type === 'screen') {
@@ -143,13 +144,33 @@ class SceneEngine {
                         break;
                 };
                 useButton.addEventListener('click', (event) => {
-                    console.log(item)
-                    //if item === weapon push(level.player.weapon)
-                    // if item === armor push(level.player.armor)
-                    level.player.inventory.push(level.player.weapon)
+                    // check the item category
+                    if (item.category === 'weapon') {
+                        if (level.player.weapon !== '') {
+                            // get the item that is already in use from character
+                            level.player.inventory.push(level.player.weapon);
+                        }
+                        // remove all item form DOM inventory to update it
+                        const inventoryItems = document.querySelectorAll('.inventory__item');
+                        inventoryItems.forEach( item => item.remove())
+                    }
+                    if (item.category === 'armor') {
+                        if (level.player.bodyPart[item.bodyPart].armor.item !== '') {
+                            level.player.inventory.push(level.player.bodyPart[item.bodyPart].armor.item)
+                        }
+                        const inventoryItems = document.querySelectorAll('.inventory__item');
+                        inventoryItems.forEach( item => item.remove())
+                    }
+                    // remove equiped item from inventory, return a new array without the equiped item
+                    const updatedInventory = level.player.inventory.filter( elem => elem !== item )
+                    // equip item on character
                     level.player.equipItem(item);
                     // removes the item from inventory DOM not Player's inventory
                     event.path[1].remove();
+                    // rerender the inventory with the item from character in the inventory and the equiped item removed from inventory
+                    updatedInventory.forEach( item => createItemList(item))
+                    // assign the updated inventory to the player inventory
+                    level.player.inventory = updatedInventory;
                     
                     console.log(level.player)
                 });

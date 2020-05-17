@@ -14,13 +14,13 @@ const attack = attackButton.addEventListener('click', e => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (level.player.isAlive) {
+    if (level.player.isAlive && level.monster.isAlive) {
         turn.playerTurn();
     }
     
     
     //change to enemy turn
-    if (level.monster.isAlive) {
+    if (level.monster.isAlive && level.player.isAlive) {
         const attackDelay = setTimeout(() => turn.enemyTurn(), 1200);
     } 
 });

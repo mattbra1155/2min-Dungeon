@@ -26,48 +26,49 @@ class Person {
                 name: 'Head',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             },
             "right arm": {
                 name: 'Right arm',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             },
             "left arm": {
                 name: 'Left arm',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             },
             "torso": {
                 name: 'Torso',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             },
             "right leg": {
                 name: 'Right leg',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             },
             "left leg": {
                 name: 'Left leg',
                 armor: {
                     armorPoints: 0,
-                    item: {}
+                    item: ''
                 }
             }
         }
         this.description = description;
         this.isAlive = true;
-        this.isActive = false; // is always false need to change
+        this.isActive = false; // does nothing for now
+    
     };
 
     attack(enemy) {
@@ -171,12 +172,6 @@ class Player extends Person {
         super(name, race, hp, melee, ranged, dexterity, strength, thoughtness , speed, initiative, attacks, inteligence, charisma, weapon, inventory, description);
     };
 
-    showInventory() {
-        this.inventory.forEach(item => {
-            console.log(item.name);
-        });
-    };
-
     equipItem(item) {
         switch (item.category) {
             case 'armor':
@@ -203,10 +198,7 @@ class Player extends Person {
             case 'utility': 
                 //todo
                 this.weapon = item
-        }
-
-        console.log(this)
-        
+        }        
     };
 
     pickUpItem(item) {

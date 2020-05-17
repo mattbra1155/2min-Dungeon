@@ -44,8 +44,9 @@ class Turn {
         level.monster.attack(level.player)
         level.monster.isActive = false;
         global.updatePersonHealth();
-        global.checkIfAlive(level.player);
         attackButton.disabled = false;
+        global.checkIfAlive(level.player);
+        level.player.isActive = true;
         console.log(`end of Monster turn`);
         console.log(`changed to Player turn`);
     }; 

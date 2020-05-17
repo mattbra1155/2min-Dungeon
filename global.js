@@ -27,12 +27,13 @@ class Global {
          if (enemy === level.player && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
-            attackButton.disable = true;
+            attackButton.disabled = true;
             
         } 
         if (enemy === level.monster && enemy.stats.hp <= 0) {
             enemy.isAlive = false;
             console.log(`${enemy.name} is dead`);
+            attackButton.disabled = true;
 
         }; 
     };
