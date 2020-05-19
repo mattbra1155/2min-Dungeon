@@ -11,9 +11,6 @@
 6. Added health potion, that heal the PLAYER
 7. Health check if player or monster is alive
 
-** IMPORTANT **
-attackRoll() === randomNumber  -> is the same if randomNumber is after attackRoll();
-
 -------------------
 
 14.08.2019
@@ -61,3 +58,20 @@ attackRoll() === randomNumber  -> is the same if randomNumber is after attackRol
 14.09.2019
 
 1. changed const variables from upperCase to lowerCase
+
+////////
+
+MARCH 2020
+
+1. Redesigned the game
+2. Added stats
+
+APRIL 2020 
+
+1. Added Scene system
+2. Created Item, Level and Monster generators
+3. Added Bestiary and Races
+
+MAY 2020
+
+1. Complete the Game loop (infinite for now);
