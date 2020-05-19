@@ -274,7 +274,7 @@ class SceneEngine {
 
              background.style.display = 'flex';
 
-             button.addEventListener('click', () => { window.location.href = "/2min-Dungeon/"})
+             button.addEventListener('click', () => { window.location.href = "https://mattbra1155.github.io/2min-Dungeon/"})
         }
     };
 
