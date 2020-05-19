@@ -28,7 +28,7 @@ class SceneEngine {
                 break;
             case 'defeat':
                 console.log(`Defeat`);
-                const defeat = this.createScene('screen');
+                const defeat = this.createScene('defeat');
                 this.currentScene = defeat;
                 break;
             case 'win':
@@ -233,6 +233,24 @@ class SceneEngine {
         };
 
         if (type === 'defeat') {
+
+            const getSavedLevel = () => {
+                const getLevel = localStorage.getItem(`level ${this.currentSceneId}`)
+                const parse = JSON.parse(getLevel);
+                return parse
+            }
+
+            console.log(getSavedLevel())
+
+            const level = getSavedLevel();
+
+            console.log( 'in defeat')
+            const body = document.querySelector("body")
+            const background = document.createElement("div");
+            const header = document.createElement("h2");
+            const paragraf = document.createElement("p");
+            const button = document.createElement("button");
+
              // show message/description
              background.setAttribute("id", 'defeatScreen');
              background.setAttribute("class", 'overlay');
@@ -240,7 +258,7 @@ class SceneEngine {
              body.appendChild(background);
  
              header.setAttribute('class', 'header text--white');
-             header.textContent = `You were slain by ${win.monster.name}`
+             header.textContent = `You were slain by ${level.monster.name}`
  
              background.appendChild(header)
  
