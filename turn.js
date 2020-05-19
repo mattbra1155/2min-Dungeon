@@ -1,4 +1,4 @@
-import { global, persons, level, attackButton } from "/2min-Dungeon/index.js";
+import { sceneEngine, global, attackButton } from "./index.js";
 
 class Turn {
     constructor(name) {
@@ -7,7 +7,7 @@ class Turn {
     }
 
     checkRoom(monster) {
-        if (monster.alive = true) {
+        if (monster.isAlive = true) {
             global.combat = true;
         };
     };
@@ -16,6 +16,7 @@ class Turn {
         this.turnNumber++
         const turn = document.querySelector('#turnNumber');
         turn.textContent = this.turnNumber;
+        
     };
 
     initiativeRoll(player, monster) {
@@ -24,24 +25,31 @@ class Turn {
     };
 
     playerTurn() {
-        persons.player.attack(level.monster)
+        const level = sceneEngine.currentScene;
+
+        console.log(level.player)
+        level.player.attack(level.monster)
         attackButton.disabled = true;
+        level.player.isActive = false;
         global.updatePersonHealth();
         global.checkIfAlive(level.monster)
-        persons.player.isActive = false;
         console.log(`end of Player turn`);
-    }
+    };
 
     enemyTurn() {
+        const level = sceneEngine.currentScene;
+        
+        console.log(level.monster)
         console.log(`changed to monster turn`);
-        level.monster.attack(persons.player)
-        global.updatePersonHealth();
-        global.checkIfAlive(level.monster);
+        level.monster.attack(level.player)
         level.monster.isActive = false;
+        global.updatePersonHealth();
         attackButton.disabled = false;
+        global.checkIfAlive(level.player);
+        level.player.isActive = true;
         console.log(`end of Monster turn`);
         console.log(`changed to Player turn`);
-    }
+    }; 
 
     
 };

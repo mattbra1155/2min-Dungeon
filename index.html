@@ -1,45 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto&display=swap"
+            rel="stylesheet"
+        />
 
-    <title>Js RPG</title>
-</head>
-<body>
-    <main id="app">
-        <h2 id='levelName' class="level__name">Level TEST</h2>
-        <h3 id="turnNumber" class="text--center"></h3>
-        <div class="health__display">
-            <div class="player-hp">
-                <h2>Player</h2>
-                <p id="playerHp" class="health--player">0</p>
+        <title>Js RPG</title>
+    </head>
+    <body>
+        <main id="app">
+            <h2 id="levelName" class="level__name">Level TEST</h2>
+            <h3 id="turnNumber" class="text--center"></h3>
+            <div class="health__display">
+                <div class="player-hp">
+                    <h2>Player</h2>
+                    <p id="playerHp" class="health--player">0</p>
+                </div>
+                <div class="monster-hp">
+                    <h2 id="monsterName">Monster</h2>
+                    <p id="monsterHp" class="health--monster">0</p>
+                </div>
             </div>
-            <div class="monster-hp">
-                <h2 id="monsterName">Monster</h2>
-                <p id="monsterHp" class="health--monster">0</p>
+
+            <div id="feed" class="feed">
+                <ul id="feedContainer" class="feed__container"></ul>
             </div>
-        </div>
 
-        <div id="feed" class="feed">
-            <ul id="feedContainer" class="feed__container"></ul>
-        </div>
-
-        <div class="user-interface">
-            <button id="attackButtonOne" type="button" class="action__button">Attack1</button>
-        </div>
+            <div class="user-interface">
+                <button id="attackButtonOne" type="button" class="action__button">Attack1</button>
+                <button id="inventoryButton" type="button" class="action__button">Inventory</button>
+            </div>
+        </main>
         <div id="inventory" class="inventory">
             <h2>Inventory</h2>
+            <button id="inventoryCloseButton" class="close">Close Inventory</button>
             <ul id="inventoryList" class="inventory__list"></ul>
         </div>
-    </main>
+        <div id="characterGenerator" class="character-generator">
+            <div class="character-sheet">
+                <h2 class="header">Character creation sheet</h2>
+                <div class="character-sheet__item character__name">
+                    <label for="playerName" class="header ">Name</label>
+                    <input type="text" name="playerName" id="characterName" />
+                    <button id="confirmNameButton" class="confirm">Confirm</button>
+                </div>
+                <div class="character-sheet__item character__race">
+                    <h2 class="header">Race</h2>
+                    <div class="race__item">
+                        <label for="human">Human</label>
+                        <input type="radio" name="playerRace" value="human" class="item__input">
+                    </div>
+                    <div class="race__item">
+                        <label for="dwarf">Dwarf</label>
+                        <input type="radio" name="playerRace" value="dwarf" class="item__input">
+                    </div>
 
-    <script type="module" src="app.js"></script>
+                </div>
+                <div class="character-sheet__item character__class">
+                    <h2 class="header">Class</h2>
+                    <p id="characterClass" class="text">Warrior</p>
+                </div>
+                <div class="character-sheet__item character__bio">
+                    <label for="bio" class="header">Bio</label>
+                    <textarea type="text" name="bio" id="characterBio" rows="5"></textarea>
+                </div>
+                <div class="character-sheet__item character__stats">
+                    <h2 class="header">Stats</h2>
+                    <button id="generateStatsButton" class="button action__button">Roll dice</button>
+                    <div id="statList" class="stat__list">
+                    </div>
+                </div>
+                <div class="character-sheet__item character__inventory">
+                    <h2 class="header">Inventory</h2>
+                    <div id="charInventory" class="inventory"></div>
+                </div>
+                <div class="character-sheet__item character__weapon">
+                    <h2 class="header">Weapon</h2>
+                    <div id="charWeapon" class="weapon"></div>
+                </div>
+                
+            </div>
+            <button id="createPlayerButton" class="button action__button">Create</button>
+        </div>
 
-    
-</body>
+        <script type="module" src="app.js"></script>
+    </body>
 </html>
