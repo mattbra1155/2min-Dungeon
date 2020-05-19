@@ -116,10 +116,12 @@ class Person {
 
             const enemyArmorPoints = savedBodyPart.armor.armorPoints;
             const enemyArmorName = savedBodyPart.name;
+            const damageDiceRoll = global.diceRoll(1,6);
+            console.log(damageDiceRoll)
 
             // Calculate damage
             const damage = () => {
-                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage);
+                 let damagePoints = (this.stats.strength - enemy.stats.thoughtness) - enemyArmorPoints + (this.weapon.damage + damageDiceRoll)
                  if (damagePoints < 0) {
                      damagePoints = 0;
                  };

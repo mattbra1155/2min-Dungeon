@@ -1,5 +1,26 @@
 const bestiary = [
     {
+        name: 'Lesser Goblin',
+        stats: {
+            hp: 5,
+            melee: 25,
+            ranged: 25,
+            dexterity: 24,
+            strength: 2,
+            thoughtness: 2,
+            speed: 4,
+            initiative: 40, 
+            attacks: 1,
+            inteligence: 18,
+            willPower: 18,
+            charisma: 18
+        },
+        level: 1,
+        type: 'humanoid',
+        weapon: '',
+        description: 'Goblins are by far the most common of the goblinoid races (i.e., lesser Goblins, Hobgoblins, Orcs, Black Orcs, and Snotlings). They love to inflict pain and suffering on other creatures, and squabble amongst themselves if they have no one else to fight. Lacking fighting discipline, they make very poor warriors and often run away at the first opportunity. In spite of their numbers, Goblins are so disunited and undisciplined that they rarely present anything other than a transitory threat to Human settlements. Their favorite mounts are Wolves or Boars.'
+    },
+    {
         name: 'Goblin',
         stats: {
             hp: 7,

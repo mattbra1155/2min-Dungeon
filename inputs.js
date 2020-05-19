@@ -6,6 +6,7 @@ import { sceneEngine, turn } from './index.js';
 const attackButton = document.querySelector('#attackButtonOne');
 const inventoryButton = document.querySelector("#inventoryButton");
 const inventoryScreen = document.querySelector('#inventory')
+const inventoryCloseButton = document.querySelector('#inventoryCloseButton');
 
 const attack = attackButton.addEventListener('click', e => {
 
@@ -25,9 +26,7 @@ const attack = attackButton.addEventListener('click', e => {
     } 
 });
 
-// OPEN INVENTORY
+inventoryButton.addEventListener('click', sceneEngine.showInventory);
+inventoryCloseButton.addEventListener('click', sceneEngine.closeInventory);
 
-/* inventoryButton.addEventListener('click', event => {
-   console.log( sceneEngine.inventory())
-}); */
 export {attack, attackButton}

@@ -24,7 +24,6 @@ class SceneEngine {
                 const level = this.createScene('level');
                 document.querySelectorAll(".feed__item").forEach(item => item.remove())
                 this.currentScene = level;
-                this.inventory();
                 console.log(level);
                 break;
             case 'defeat':
@@ -58,12 +57,35 @@ class SceneEngine {
                 const parsed = JSON.parse(savedPlayer);
                 // rebuild the object from data saved in Localstorage
                 const rebuildObject = Object.assign(playerClass, parsed);
+                // rebuild object from inventory to add CLASS
+                const updatedInv = rebuildObject.inventory.map( item => {
+                    switch (item.category) {
+                        case "weapon":
+                            const weapon = new Weapon();
+                            Object.assign(weapon, item );
+                            return weapon;
+                        case 'armor':
+                            const armor = new Armor();
+                            Object.assign(armor, item );
+                            return armor;
+                        case 'potion':
+                            const potion = new Potion();
+                            Object.assign(potion, item );
+                            return potion;
+                        case 'utility':
+                            const utility = new Utility();
+                            Object.assign(utility, item );
+                            return utility;
+                    }
+                })
 
+                rebuildObject.inventory = updatedInv;
                 return rebuildObject;
             }
-
+           
             // create monster
-            const monster = new MonsterGenerator().createMonster();
+            /// MONSTER IS NOT GENERATING IT JUST UPDATES THE BESTAIRY VALUES!!!!
+            const generateMonster = () => new MonsterGenerator().createMonster();
 
             // create descripton
             const description = () => {
@@ -83,10 +105,14 @@ class SceneEngine {
             const level = {
                 name: `level ${this.currentSceneId}`,
                 player: getSavedPlayer(),
-                monster: monster,
+                monster: generateMonster(),
                 description: description(),
-                id: 33,
+                id: this.currentSceneId,
             };
+
+            console.log(level.player)
+
+             
 
             // SAVE LEVEL
             const savedLevel = JSON.stringify(level);
@@ -196,7 +222,6 @@ class SceneEngine {
                     background.remove();
                     sceneEngine.sceneManager("nextLevel");
                 })
-
             }
 
             button.addEventListener('click', roolRandomItem)
@@ -206,118 +231,120 @@ class SceneEngine {
 
             return win;
         };
+
+        if (type === 'defeat') {
+             // show message/description
+             background.setAttribute("id", 'defeatScreen');
+             background.setAttribute("class", 'overlay');
+ 
+             body.appendChild(background);
+ 
+             header.setAttribute('class', 'header text--white');
+             header.textContent = `You were slain by ${win.monster.name}`
+ 
+             background.appendChild(header)
+ 
+             paragraf.setAttribute('class', 'text text--white');
+             paragraf.textContent = `Try your luck again?`
+ 
+             background.appendChild(paragraf)
+             // create next scene button
+             button.setAttribute('class', 'button action__button');
+             button.textContent = `Create character!`;
+ 
+             background.appendChild(button)
+
+             background.style.display = 'flex';
+
+             button.addEventListener('click', () => { window.location.href = "/"})
+        }
     };
 
-    inventory() {
+    showInventory() {
+
         const inventoryPage = document.querySelector('#inventory');
         const inventoryButton = document.querySelector('#inventoryButton');
         const inventoryList = document.querySelector('#inventoryList')
         const inventoryCloseButton = document.querySelector('#inventoryCloseButton');
         
 
-        const level = this.currentScene;
-        
-        const showInventory = () => {
-            const createItemList = (item) => {
-                // item row
-                const listItem = document.createElement('li');
-                listItem.setAttribute('class', 'inventory__item')
-                listItem.textContent = item.name
-                inventoryList.appendChild(listItem);
+        const level = sceneEngine.currentScene;
 
-                // action button for row
-                const useButton = document.createElement('button');
-                useButton.setAttribute('class', 'item__button')
-                switch (item.category) {
-                    case 'armor': 
-                        useButton.textContent = 'Wear';
-                        break;
-                    case 'weapon':
-                        useButton.textContent = 'Equip';
-                        break;
-                    case 'potion':
-                        useButton.textContent = 'Use';
-                        break;
-                    case 'utility':
-                        useButton.textContent = 'Equip';
-                        break;
-                };
-                useButton.addEventListener('click', (event) => {
-
-                    const removeInventoryList = () => {
-                        const inventoryItems = document.querySelectorAll('.inventory__item');
-                        inventoryItems.forEach( item => item.remove())
-                    }
-                    // check the item category
-                    if (item.category === 'weapon') {
-                        if (level.player.weapon !== '') {
-                            // get the item that is already in use from character
-                            level.player.inventory.push(level.player.weapon);
-                        }
-                        // remove all item form DOM inventory to update it
-                        removeInventoryList();
-                    }
-                    if (item.category === 'armor') {
-                        if (level.player.bodyPart[item.bodyPart].armor.item !== '') {
-                            level.player.inventory.push(level.player.bodyPart[item.bodyPart].armor.item)
-                        }
-                        removeInventoryList();
-                    }
-                    // remove equiped item from inventory, return a new array without the equiped item
-                    const updatedInventory = level.player.inventory.filter( elem => elem !== item )
-                    // equip item on character
-                    level.player.equipItem(item);
-                    // rerender the inventory with the item from character in the inventory and the equiped item removed from inventory
-                    updatedInventory.forEach( item => createItemList(item))
-                    // assign the updated inventory to the player inventory
-                    level.player.inventory = updatedInventory;
-                });
-
-                listItem.appendChild(useButton);
-            };
-            inventoryButton.disabled = true;
-            inventoryPage.style.display = 'flex';
-
-            /// NOT WORKING PROPERLY - ITEM in INVENTORY IS NOT A CLASS
-            level.player.inventory.forEach( item => {
-                switch (item.category) {
-                    case "weapon":
-                        const weapon = new Weapon();
-                        Object.assign(weapon, item )
-                        console.log(weapon)
-                        createItemList(weapon)
-                        break;
-                    case 'armor':
-                        const armor = new Armor();
-                        Object.assign(armor, item )
-                        createItemList(armor)
-                        break;
-                    case 'potion':
-                        const potion = new Potion();
-                        Object.assign(potion, item )
-                        createItemList(potion)
-                        break;
-                    case 'utility':
-                        const utility = new Utility();
-                        Object.assign(utility, item )
-                        createItemList(utility)
-                        break;
-
-                }
-                
-            })
+        const createItemList = (item) => {
+            // item row
             console.log(level.player.inventory)
+            const listItem = document.createElement('li');
+            listItem.setAttribute('class', 'inventory__item')
+            listItem.textContent = item.name
+            inventoryList.appendChild(listItem);
+
+            // action button for row
+            const useButton = document.createElement('button');
+            useButton.setAttribute('class', 'item__button')
+            switch (item.category) {
+                case 'armor': 
+                    useButton.textContent = 'Wear';
+                    break;
+                case 'weapon':
+                    useButton.textContent = 'Equip';
+                    break;
+                case 'potion':
+                    useButton.textContent = 'Use';
+                    break;
+                case 'utility':
+                    useButton.textContent = 'Equip';
+                    break;
+            };
+            useButton.addEventListener('click', (event) => {
+
+                const removeInventoryList = () => {
+                    const inventoryItems = document.querySelectorAll('.inventory__item');
+                    inventoryItems.forEach( item => item.remove())
+                }
+                // check the item category
+                if (item.category === 'weapon') {
+                    if (level.player.weapon !== '') {
+                        // get the item that is already in use from character
+                        level.player.inventory.push(level.player.weapon);
+                    }
+                    // remove all item form DOM inventory to update it
+                    removeInventoryList();
+                }
+                if (item.category === 'armor') {
+                    if (level.player.bodyPart[item.bodyPart].armor.item !== '') {
+                        level.player.inventory.push(level.player.bodyPart[item.bodyPart].armor.item)
+                    }
+                    removeInventoryList();
+                }
+                // remove equiped item from inventory, return a new array without the equiped item
+                const updatedInventory = level.player.inventory.filter( elem => elem !== item )
+                // equip item on character
+                level.player.equipItem(item);
+
+                // assign the updated inventory to the player inventory
+                level.player.inventory = updatedInventory;
+
+                // rerender the inventory with the item from character in the inventory and the equiped item removed from inventory
+                level.player.inventory.forEach( item => createItemList(item))
+            });
+
+            listItem.appendChild(useButton);
         };
 
-        const closeInventory = () => {
-            const inventoryItems = document.querySelectorAll('.inventory__item');
-            inventoryItems.forEach( item => item.remove())
-            inventoryPage.style.display = 'none';
-            inventoryButton.disabled = false;
-        };
 
-        inventoryButton.addEventListener('click', showInventory);
-        inventoryCloseButton.addEventListener('click', closeInventory);
+        inventoryButton.disabled = true;
+        inventoryPage.style.display = 'flex';
+        level.player.inventory.forEach( item => createItemList(item) )
+        console.log(level.player.inventory)
+    };
+
+
+    closeInventory() {
+        const inventoryPage = document.querySelector('#inventory');
+        const inventoryItems = document.querySelectorAll('.inventory__item');
+        inventoryItems.forEach( item => item.remove())
+        inventoryPage.style.display = 'none';
+        inventoryButton.disabled = false;
     };
 
     startScreen() {

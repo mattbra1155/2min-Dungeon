@@ -159,10 +159,10 @@ class CharacterGenerator extends Player {
         // INVENTORY
         // todo
         const getInventory = () => {
-            const addWeapon = new ItemGenerator().createItem('weapon');
+           /*  const addWeapon = new ItemGenerator().createItem('weapon');
             const addArmor = new ItemGenerator().createItem('armor');
             character.inventory.push(addWeapon, addArmor);
-            console.log(character.inventory)
+            console.log(character.inventory) */
             return character.inventory
         }
 
