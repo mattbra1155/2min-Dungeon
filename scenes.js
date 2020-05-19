@@ -274,7 +274,7 @@ class SceneEngine {
 
              background.style.display = 'flex';
 
-             button.addEventListener('click', () => { window.location.href = "./"})
+             button.addEventListener('click', () => { window.location.href = "/2min-Dungeon/"})
         }
     };
 
