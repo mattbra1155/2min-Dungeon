@@ -20,10 +20,10 @@ export default {
     name: 'TopBar',
     computed: {
         player() {
-            return this.$store.getters['player/getPlayer']
+            return this.$store.getters['player/getPlayer'].name
         },
         enemy() {
-            return this.$store.getters['enemy/getEnemy']
+            return this.$store.getters['enemy/getEnemy'].name
         },
         scene() {
             return this.$store.getters.getScene

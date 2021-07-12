@@ -50,15 +50,32 @@
                 </div>
             </div>
             <div class="m-form__row o-characterGenerator__row">
+                <h2 class="o-characterGenerator__header">Class</h2>
                 <div class="m-form__column">
-                    <h2 class="o-characterGenerator__header">Class</h2>
-                    <input
-                        type="radio"
-                        name="class"
-                        value="warrior"
-                        class="item__input"
-                        v-model="character.class"
-                    />
+                    <div class="m-form__item">
+                        <label for="class">
+                            Warrior
+                            <input
+                                type="radio"
+                                name="class"
+                                value="warrior"
+                                class="item__input"
+                                v-model="character.class"
+                            />
+                        </label>
+                    </div>
+                    <div class="m-form__item">
+                        <label for="class">
+                            Mage
+                            <input
+                                type="radio"
+                                name="class"
+                                value="mage"
+                                class="item__input"
+                                v-model="character.class"
+                            />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="m-form__row o-characterGenerator__row">
@@ -85,7 +102,18 @@
                     >
                         Roll dice
                     </button>
-                    <div id="statList" class="stat__list"></div>
+                    <div id="statList" class="o-characterGenerator__statList">
+                        <div
+                            v-for="(value, key, index) in character.stats"
+                            class="o-characterGenerator__statItem"
+                            :key="index"
+                        >
+                            <p class="a-text">
+                                {{ key }}
+                            </p>
+                            <p class="a-text">{{ value }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="m-form__row o-characterGenerator__row ">
@@ -123,53 +151,59 @@ export default {
         return {
             isActive: false,
             character: {
-                name: '',
-                race: '',
-                class: '',
-                bio: '',
                 stats: {}
             }
+        }
+    },
+    computed: {
+        playerData() {
+            return this.$store.getters['player/getPlayer']
         }
     },
     methods: {
         createPlayer() {
             console.log('create')
+            this.$store.dispatch('player/create', this.character)
         },
         rollStats(race) {
             if (race === 'human') {
                 this.character.stats = {
-                    hp: diceRollK3(),
-                    melee: diceRollK10() * 2,
-                    ranged: diceRollK10() * 2,
-                    dexterity: diceRollK10(),
-                    strength: diceRollK3(),
-                    thoughtness: diceRollK3(),
-                    speed: diceRollK3(),
-                    initiative: diceRollK10() * 2,
+                    hp: diceRollK3() + 4,
+                    melee: diceRollK10() * 2 + 20,
+                    ranged: diceRollK10() * 2 + 20,
+                    dexterity: diceRollK10() + 20,
+                    strength: diceRollK3() + 1,
+                    thoughtness: diceRollK3() + 1,
+                    speed: diceRollK3() + 2,
+                    initiative: diceRollK10() * 2 + 20,
                     attacks: 1,
-                    inteligence: diceRollK10() * 2,
-                    'will power': diceRollK10() * 2,
-                    charisma: diceRollK10() * 2
+                    inteligence: diceRollK10() * 2 + 20,
+                    'will power': diceRollK10() * 2 + 20,
+                    charisma: diceRollK10() * 2 + 20
                 }
             }
             if (race === 'dwarf') {
                 this.character.stats = {
-                    hp: diceRollK3(),
-                    melee: diceRollK10() * 2,
-                    ranged: diceRollK10() * 2,
-                    dexterity: diceRollK10(),
-                    strength: diceRollK3(),
-                    thoughtness: diceRollK3(),
-                    speed: diceRollK2(),
-                    initiative: diceRollK10() * 2,
+                    hp: diceRollK3() + 5,
+                    melee: diceRollK10() * 2 + 30,
+                    ranged: diceRollK10() * 2 + 10,
+                    dexterity: diceRollK10() + 10,
+                    strength: diceRollK3() + 1,
+                    thoughtness: diceRollK3() + 2,
+                    speed: diceRollK2() + 2,
+                    initiative: diceRollK10() * 2 + 10,
                     attacks: 1,
-                    inteligence: diceRollK10() * 2,
-                    'will power': diceRollK10() * 2,
-                    charisma: diceRollK10() * 2
+                    inteligence: diceRollK10() * 2 + 20,
+                    'will power': diceRollK10() * 2 + 40,
+                    charisma: diceRollK10() * 2 + 10
                 }
             }
-
-            console.log(this.character)
+        }
+    },
+    mounted() {
+        console.log(this.playerData)
+        if (this.playerData) {
+            this.character = this.playerData
         }
     }
 }
