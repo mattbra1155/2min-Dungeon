@@ -1,5 +1,5 @@
 <template>
-    <div class="user-interface">
+    <div class="o-interface">
         <button id="attackButtonOne" type="button" class="action__button" @click="attack">
             Attack1
         </button>

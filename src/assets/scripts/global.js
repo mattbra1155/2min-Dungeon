@@ -1,4 +1,4 @@
-import { sceneEngine, attackButton } from './index.js'
+// import { sceneEngine, attackButton } from './index.js'
 
 class Global {
     constructor(name) {
@@ -7,14 +7,6 @@ class Global {
         this.enemyHealth = document.querySelector('#monsterHp')
         this.combat = true
     }
-
-    diceRoll(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min
-    }
-
-    diceRollK2 = () => global.diceRoll(1, 2)
-    diceRollK3 = () => global.diceRoll(1, 3)
-    diceRollK10 = () => global.diceRoll(1, 10)
 
     updatePersonHealth() {
         const level = sceneEngine.currentScene

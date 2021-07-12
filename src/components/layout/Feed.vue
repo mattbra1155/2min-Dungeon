@@ -1,18 +1,13 @@
 <template>
-  <div id="feed" class="feed">
-    <ul id="feedContainer" class="feed__container"></ul>
-  </div>
+    <div id="feed" class="o-feed">
+        <ul id="feedContainer" class="o-feed__container">
+          <div class="o-feed__item"></div>
+        </ul>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "Feed"
-};
+    name: 'Feed'
+}
 </script>
-
-<style lang="sass" scoped>
-
- #feed 
-   background: red
- 
-</style>
