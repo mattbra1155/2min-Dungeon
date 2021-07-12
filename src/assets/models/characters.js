@@ -1,4 +1,4 @@
-import { sceneEngine, global, turn } from '../index.js'
+import { sceneEngine, global, turn } from '../scripts/index.js'
 
 class Person {
     constructor(
@@ -202,7 +202,7 @@ class Person {
         feed.appendChild(feedRow)
 
         if (feed.childElementCount > 5) {
-            setTimeout(e => {
+            setTimeout(() => {
                 if (feed.childElementCount > 0) {
                     feed.firstChild.remove()
                 }
@@ -252,7 +252,7 @@ class Player extends Person {
 
     equipItem(item) {
         switch (item.category) {
-            case 'armor':
+            case 'armor': {
                 let playerBodyPartKeys = Object.keys(this.bodyPart)
 
                 const getBodyPart = playerBodyPartKeys.find(playerBodyPart => {
@@ -263,7 +263,7 @@ class Player extends Person {
                 this.bodyPart[getBodyPart].armor.item = item
                 this.bodyPart[getBodyPart].armor.armorPoints = item.armorPoints
                 break
-
+            }
             case 'weapon':
                 this.weapon = item
                 break

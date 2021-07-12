@@ -1,7 +1,7 @@
-import { Player, Monster, global, races } from '../index.js'
+import { Player, Monster, global, races } from '../scripts/index.js'
 import { bestiary } from './bestiary.js'
 import { ItemGenerator } from './itemGenerator.js'
-import { sceneEngine } from '../../../old/scenes.js'
+import { sceneEngine } from '../scripts/scenes.js'
 
 class CharacterGenerator extends Player {
     constructor(
@@ -64,14 +64,14 @@ class CharacterGenerator extends Player {
             '.item__input[name="playerRace"]'
         )
         const charBio = document.querySelector('#characterBio')
-        const charClass = document.querySelector('#charcterClass')
+        // const charClass = document.querySelector('#charcterClass')
         const charStats = document.querySelector('#statList')
-        const charInventory = document.querySelector('#charInventory')
-        const charWeapon = document.querySelector('#charWeapon')
+        // const charInventory = document.querySelector('#charInventory')
+        // const charWeapon = document.querySelector('#charWeapon')
         const GenerateStatsButton = document.querySelector(
             '#generateStatsButton'
         )
-        const ConfirmNameButton = document.querySelector('#confirmNameButton')
+        // const ConfirmNameButton = document.querySelector('#confirmNameButton')
         const createPlayerButton = document.querySelector('#createPlayerButton')
 
         // NAME
@@ -88,7 +88,7 @@ class CharacterGenerator extends Player {
         const charRaceArray = Array.from(charRace)
 
         charRaceArray.forEach(elem =>
-            elem.addEventListener('change', event => {
+            elem.addEventListener('change', () => {
                 const savedRace = getRace()
 
                 character.race = savedRace
@@ -176,7 +176,7 @@ class CharacterGenerator extends Player {
             return computeStats
         }
 
-        GenerateStatsButton.addEventListener('click', event => {
+        GenerateStatsButton.addEventListener('click', () => {
             // todo
             character.stats = getStats()
         })
@@ -204,7 +204,7 @@ class CharacterGenerator extends Player {
         const getWeapon = new ItemGenerator().createItem('weapon')
 
         // FINAL OBJECT RETURN
-        createPlayerButton.addEventListener('click', event => {
+        createPlayerButton.addEventListener('click', () => {
             character.name = getName()
 
             if (character.stats === '' || character.name === '') {

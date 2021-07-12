@@ -1,84 +1,85 @@
-import {Weapon, Armor, Potion, Utility} from '../index.js'
+import { Weapon, Armor, Potion, Utility } from '../scripts/index.js'
 class ItemGenerator {
     constructor(category) {
         this.category = category
-    };
+    }
 
     createItem(category) {
         const getItemObject = () => {
-            
-            const getCategories = itemMods[category];
-        
-            const getItem = getCategories.item[Math.floor(Math.random() * getCategories.item.length)];
+            const getCategories = itemMods[category]
+
+            const getItem =
+                getCategories.item[
+                    Math.floor(Math.random() * getCategories.item.length)
+                ]
 
             const getModifier = () => {
                 if (category === 'armor') {
-                    const modifier = getItem.modifiers;
+                    const modifier = getItem.modifiers
                     return modifier
-
-                } else if (category === 'weapon'){
-                    const type = getCategories.type.find( cat => cat.name === getItem.type);
-                    const modifier = type.modifiers;
+                } else if (category === 'weapon') {
+                    const type = getCategories.type.find(
+                        cat => cat.name === getItem.type
+                    )
+                    const modifier = type.modifiers
                     return modifier
                 } else {
                     return null
-                };
-            };
+                }
+            }
 
             const getDescription = () => {
                 if (getItem.description) {
-                    const description = getItem.description;
+                    const description = getItem.description
                     return description
                 } else {
                     if (itemPrefix.name === 'regular') {
-                        const description = `This is a ${getItem.name}. Nothing out of the ordinary`;
+                        const description = `This is a ${getItem.name}. Nothing out of the ordinary`
                         return description
                     } else {
-                        const description = `This is a ${getItem.name}. It is ${itemPrefix.name}`;
+                        const description = `This is a ${getItem.name}. It is ${itemPrefix.name}`
                         return description
                     }
-                    
-                    
-                };
-            };
+                }
+            }
 
             const getPrefix = () => {
-                const prefix = getCategories.prefix[Math.floor(Math.random() * getCategories.prefix.length)];
-                return prefix;
-            };
+                const prefix =
+                    getCategories.prefix[
+                        Math.floor(Math.random() * getCategories.prefix.length)
+                    ]
+                return prefix
+            }
 
-            const itemPrefix = getPrefix();
+            const itemPrefix = getPrefix()
 
             const getMainValue = () => {
                 if (category === 'weapon') {
-                    const damage = getItem.damage + itemPrefix.modifier;
-                    return damage;
-
+                    const damage = getItem.damage + itemPrefix.modifier
+                    return damage
                 } else if (category === 'armor') {
-                    let armorPoints = getItem.armorPoints + itemPrefix.modifier;
+                    let armorPoints = getItem.armorPoints + itemPrefix.modifier
                     if (armorPoints <= 0) {
-                        armorPoints = 0;
+                        armorPoints = 0
                     }
-                    return armorPoints;
-
+                    return armorPoints
                 } else if (category === 'potion') {
-                    const baseValue = getItem.baseValue;
-                    return baseValue;
-
+                    const baseValue = getItem.baseValue
+                    return baseValue
                 } else if (category === 'utility') {
-                    const baseValue = getItem.baseValue;
-                    return baseValue;
+                    const baseValue = getItem.baseValue
+                    return baseValue
                 }
-            };
+            }
 
-            const itemMainValue = getMainValue();
+            const itemMainValue = getMainValue()
 
             const getBodyPart = () => {
-                const bodyPart = getItem.bodyPart;
-                return bodyPart;
-            };
+                const bodyPart = getItem.bodyPart
+                return bodyPart
+            }
 
-            const itemBodyPart = getBodyPart();
+            const itemBodyPart = getBodyPart()
 
             // create a object from all data
             const item = {
@@ -91,104 +92,100 @@ class ItemGenerator {
                 modifier: getModifier(),
                 id: getItem.id,
                 category: category
-            };
+            }
 
-            return item;
-        };
-
+            return item
+        }
 
         // pass the function to a variable
-        const createdItem = getItemObject(); 
-
+        const createdItem = getItemObject()
 
         if (category === 'weapon') {
-            const item = new Weapon();
-            item.name = createdItem.name;
-            item.damage = createdItem.mainValue;
-            item.type = createdItem.type;
-            item.description = createdItem.description;
-            item.modifier = createdItem.modifier;
+            const item = new Weapon()
+            item.name = createdItem.name
+            item.damage = createdItem.mainValue
+            item.type = createdItem.type
+            item.description = createdItem.description
+            item.modifier = createdItem.modifier
             item.category = createdItem.category
-
 
             localStorage.setItem('weapon', JSON.stringify(item))
-            
-            return item;
+
+            return item
         }
         if (category === 'armor') {
-            const item = new Armor();
-            item.name = createdItem.name;
-            item.armorPoints = createdItem.mainValue;
-            item.bodyPart = createdItem.bodyPart;
-            item.type = createdItem.type;
-            item.modifier = createdItem.modifier;
-            item.description = createdItem.description;
+            const item = new Armor()
+            item.name = createdItem.name
+            item.armorPoints = createdItem.mainValue
+            item.bodyPart = createdItem.bodyPart
+            item.type = createdItem.type
+            item.modifier = createdItem.modifier
+            item.description = createdItem.description
             item.category = createdItem.category
-            
-            return item;
+
+            return item
         }
         if (category === 'potion') {
-            const item = new Potion();
-            item.name = createdItem.name;
-            item.baseValue = createdItem.mainValue;
-            item.type = createdItem.type;
-            item.description = createdItem.description;
+            const item = new Potion()
+            item.name = createdItem.name
+            item.baseValue = createdItem.mainValue
+            item.type = createdItem.type
+            item.description = createdItem.description
             item.category = createdItem.category
 
-            return item;
+            return item
         }
         if (category === 'utility') {
-            const item = new Utility();
-            item.name = createdItem.name;
-            item.baseValue = createdItem.mainValue;
-            item.type = createdItem.type;
-            item.description = createdItem.description;
+            const item = new Utility()
+            item.name = createdItem.name
+            item.baseValue = createdItem.mainValue
+            item.type = createdItem.type
+            item.description = createdItem.description
             item.category = createdItem.category
 
-            return item;
+            return item
         }
-
     }
-};
+}
 
 const itemMods = {
-    weapon: { 
+    weapon: {
         type: [
             {
                 name: 'one handed',
                 modifiers: {
                     initiative: 0,
                     melee: 0
-                },
+                }
             },
             {
                 name: 'two handed',
                 modifiers: {
                     initiative: -10,
-                    melee: 0,
-                },
+                    melee: 0
+                }
             },
             {
                 name: 'knife',
                 modifiers: {
                     initiative: 10,
-                    melee: 0,
-                },
+                    melee: 0
+                }
             },
             {
                 name: 'spear',
                 modifiers: {
                     initiative: 10,
-                    melee: 0,
-                },
+                    melee: 0
+                }
             },
             {
                 name: 'staff',
                 modifiers: {
                     initiative: 0,
-                    melee: 0,
-                },
-            },
+                    melee: 0
+                }
+            }
         ],
         item: [
             {
@@ -221,9 +218,8 @@ const itemMods = {
                 damage: 0,
                 type: 'staff'
             }
-            
         ],
-       prefix: [ 
+        prefix: [
             {
                 name: 'old',
                 modifier: -1
@@ -246,16 +242,15 @@ const itemMods = {
         type: [
             {
                 name: 'leather',
-                armorPoints: 0,
+                armorPoints: 0
             },
             {
                 name: 'chainmail',
-                armorPoints: 1,
-
+                armorPoints: 1
             },
             {
                 name: 'plate',
-                armorPoints: 2,
+                armorPoints: 2
             }
         ],
         item: [
@@ -384,9 +379,9 @@ const itemMods = {
                 armorPoints: 2,
                 modifiers: {},
                 type: 'plate'
-            },
+            }
         ],
-        prefix: [ 
+        prefix: [
             {
                 name: 'old',
                 modifier: -1
@@ -408,7 +403,7 @@ const itemMods = {
     potion: {
         type: [
             {
-                name: 'healing',
+                name: 'healing'
             }
         ],
         item: [
@@ -436,10 +431,10 @@ const itemMods = {
     utility: {
         type: [
             {
-                name: 'light source',
+                name: 'light source'
             },
             {
-                name: 'lockpick',
+                name: 'lockpick'
             }
         ],
         item: [
@@ -453,7 +448,6 @@ const itemMods = {
                 baseValue: 0,
                 type: 'lockpick'
             }
-
         ],
         prefix: [
             {
@@ -470,9 +464,6 @@ const itemMods = {
             }
         ]
     }
-
-    
 }
 
-
-export { ItemGenerator };
+export { ItemGenerator }

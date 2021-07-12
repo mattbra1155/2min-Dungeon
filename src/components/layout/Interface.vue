@@ -1,6 +1,6 @@
 <template>
     <div class="user-interface">
-        <button id="attackButtonOne" type="button" class="action__button">
+        <button id="attackButtonOne" type="button" class="action__button" @click="attack">
             Attack1
         </button>
         <button id="inventoryButton" type="button" class="action__button">
@@ -10,8 +10,14 @@
 </template>
 
 <script>
+
 export default {
-    name: "Interface"
+    name: 'Interface',
+    methods: {
+        attack() {
+            this.$store.dispatch('attack', true)
+        }
+    }
 }
 </script>
 

@@ -10,7 +10,7 @@
 import Feed from '@/components/layout/Feed'
 import TopBar from '@/components/layout/TopBar'
 import Interface from '@/components/layout/Interface'
-export default {
+export default {    
     components: {
         Feed,
         TopBar,
@@ -18,7 +18,7 @@ export default {
     },
     data() {
         return {
-          name: 'Main'
+            name: 'Main'
         }
     }
 }

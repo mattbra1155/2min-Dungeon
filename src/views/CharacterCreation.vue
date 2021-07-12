@@ -62,6 +62,21 @@
         </button>
     </div>
 </template>
+
+<script>
+import { CharacterGenerator } from '@/assets/scripts/index.js'
+export default {
+    data() {
+        return {
+            isActive: false
+        }
+    },
+    mounted() {
+        CharacterGenerator.createPlayer()
+        console.log(CharacterGenerator)
+    }
+}
+</script>
 <style lang="sass" scoped>
 /* CHARACTER CREATOR */
 
@@ -109,14 +124,8 @@
         transition: 0.2s all linear
         margin-right: 5px
 
-
-
     .item__input:checked
         border: 6px solid black
-
-
-
-
 
 .character__race
     display: flex
@@ -125,13 +134,11 @@
     align-items: center
     justify-content: space-between
 
-
 .stat__list
     display: flex
     flex-direction: column
     justify-content: space-around
     align-items: center
-
 
 .stat__item
     display: grid

@@ -1,4 +1,4 @@
-import {global} from '../index.js';
+import { global } from '../scripts/index.js'
 const races = [
     {
         name: 'human',
@@ -14,21 +14,21 @@ const races = [
             attacks: 1,
             inteligence: global.diceRollK10() * 2,
             willPower: global.diceRollK10() * 2,
-            charisma: global.diceRollK10() * 2,
+            charisma: global.diceRollK10() * 2
         },
         statModifiers: {
-            'hp': 4,
-            'melee': 20,
-            'ranged': 20,
-            'dexterity': 20,
-            'strength': 1,
-            'thoughtness': 1,
-            'speed': 2,
-            'initiative': 20,
-            'attacks': 0,
-            'inteligence': 20,
+            hp: 4,
+            melee: 20,
+            ranged: 20,
+            dexterity: 20,
+            strength: 1,
+            thoughtness: 1,
+            speed: 2,
+            initiative: 20,
+            attacks: 0,
+            inteligence: 20,
             'will power': 20,
-            'charisma': 20,
+            charisma: 20
         },
         description: 'human description'
     },
@@ -46,25 +46,24 @@ const races = [
             attacks: 1,
             inteligence: global.diceRollK10() * 2,
             willPower: global.diceRollK10() * 2,
-            charisma: global.diceRollK10() * 2,
+            charisma: global.diceRollK10() * 2
         },
         statModifiers: {
-            'hp': 5,
-            'melee': 30,
-            'ranged': 10,
-            'dexterity': 10,
-            'strength': 1,
-            'thoughtness': 2,
-            'speed': 2,
-            'initiative': 10,
-            'attacks': 0,
-            'inteligence': 20,
+            hp: 5,
+            melee: 30,
+            ranged: 10,
+            dexterity: 10,
+            strength: 1,
+            thoughtness: 2,
+            speed: 2,
+            initiative: 10,
+            attacks: 0,
+            inteligence: 20,
             'will power': 40,
-            'charisma': 20,
+            charisma: 20
         },
         description: 'dwarf description'
     }
 ]
-
 
 export { races }

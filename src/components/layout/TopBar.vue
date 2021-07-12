@@ -1,14 +1,14 @@
 <template>
     <div id="top-bar">
-        <h2 id="levelName" class="level__name">Level TEST</h2>
-        <h3 id="turnNumber" class="text--center"></h3>
+        <h2 id="levelName" class="level__name">{{ scene }}</h2>
+        <h3 id="turnNumber" class="text--center">{{ turn }}</h3>
         <div class="health__display">
             <div class="player-hp">
-                <h2>Player</h2>
+                <h2>{{ player }}</h2>
                 <p id="playerHp" class="health--player">0</p>
             </div>
             <div class="monster-hp">
-                <h2 id="monsterName">Monster</h2>
+                <h2 id="monsterName">{{ enemy }}</h2>
                 <p id="monsterHp" class="health--monster">0</p>
             </div>
         </div>
@@ -17,7 +17,21 @@
 
 <script>
 export default {
-    name: 'TopBar'
+    name: 'TopBar',
+    computed: {
+        player() {
+            return this.$store.getters.getPlayer
+        },
+        enemy() {
+            return this.$store.getters.getEnemy
+        },
+        scene() {
+            return this.$store.getters.getScene
+        },
+        turn() {
+            return this.$store.getters.getTurn
+        }
+    }
 }
 </script>
 
