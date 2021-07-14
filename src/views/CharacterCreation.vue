@@ -38,7 +38,6 @@
                             v-model="character.race"
                         />
                     </div>
-                    {{ character }}
                 </div>
                 <div class="m-form__column">
                     <p class="a-text">

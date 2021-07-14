@@ -1,3 +1,5 @@
+import localforage from 'localforage'
+
 export const player = {
     namespaced: true,
     state: () => ({
@@ -38,6 +40,18 @@ export const player = {
         },
         create({ commit }, payload) {
             commit('CREATE', payload)
+            console.log(payload)
+            localforage.setItem('player', payload)
+            localforage
+                .getItem('player')
+                .then(value => console.log(value))
+                .catch(err => console.log(err))
+            // try {
+            //     localforage.setItem('player', payload)
+            // } catch(err) {
+            //     console.log(err)
+            // }
+            
         }
     },
     getters: {
