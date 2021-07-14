@@ -26,7 +26,7 @@ export default {
     mounted() {
         const itemGenerator = new ItemGenerator()
 
-        itemGenerator.createItemBase('weapon')
+        itemGenerator.createItem('weapon')
         this.$store.dispatch('setScene')
     }
 }

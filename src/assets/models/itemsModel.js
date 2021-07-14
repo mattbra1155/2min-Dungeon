@@ -9,11 +9,12 @@ class Item {
 }
 
 class Weapon extends Item {
-    constructor(name, description, damage, category, type, prefix) {
+    constructor(name, description, damage, category, type, prefix, modifier) {
         super(name, description, category)
         this.damage = damage
         this.type = type
         this.prefix = prefix
+        this.modifier = modifier
     }
 }
 

@@ -21,7 +21,7 @@ class ItemGenerator {
                 break
         }
         const itemCategory = itemMods[category]
-        
+
         const randomItem =
             itemCategory.item[
                 Math.floor(Math.random() * itemCategory.item.length)
@@ -43,8 +43,53 @@ class ItemGenerator {
             category,
             type: itemType()
         }
-        console.log(finalItem)
         return finalItem
+    }
+
+    createPrefix(baseItem) {
+        const itemCategory = itemMods[baseItem.category]
+        const prefix =
+            itemCategory.prefix[
+                Math.floor(Math.random() * itemCategory.prefix.length)
+            ]
+        console.log(prefix)
+        return prefix
+    }
+
+    createDescription(baseItem, prefix) {
+        let description
+        if (prefix.name === 'used') {
+            description = `This is a ${baseItem.name}. Nothing out of the ordinary`
+        } else {
+            description = `This is a ${baseItem.name}. It's' ${prefix.name}`
+        }
+        return description
+    }
+
+    addModifier(baseItem, prefix) {
+        let modifier
+        /* if (baseItem.category === 'armor') {
+            modifier = baseItem.modifiers
+        } */
+        console.log(baseItem)
+        if (baseItem.category === 'weapon') {
+            const mods = baseItem.modifier === undefined ? 0 : baseItem.modifier
+            const prefixMod = prefix.modifier
+
+            modifier = mods + prefixMod
+        }
+        console.log(modifier)
+        return modifier
+    }
+
+    createItem(category) {
+        const itemBase = this.createItemBase(category)
+        const prefix = this.createPrefix(itemBase)
+        const description = this.createDescription(itemBase, prefix)
+        const modifier = this.addModifier(itemBase, prefix)
+        const item = { ...itemBase, prefix, description, damage: modifier }
+        console.log(item)
+        return item
     }
     /* addModifier(item, category) {
         if (category === 'armor') {
@@ -61,21 +106,7 @@ class ItemGenerator {
         }
     } */
 
-    /* const getDescription = () => {
-            if (getItem.description) {
-                const description = getItem.description
-                return description
-            } else {
-                if (itemPrefix.name === 'regular') {
-                    const description = `This is a ${getItem.name}. Nothing out of the ordinary`
-                    return description
-                } else {
-                    const description = `This is a ${getItem.name}. It is ${itemPrefix.name}`
-                    return description
-                }
-            }
-        }
-
+    /*
         const getPrefix = () => {
             const prefix =
                 getCategories.prefix[
