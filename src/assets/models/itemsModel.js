@@ -9,23 +9,39 @@ class Item {
 }
 
 class Weapon extends Item {
-    constructor(name, description, damage = 0, category) {
+    constructor(name, description, damage, category, type, prefix) {
         super(name, description, category)
         this.damage = damage
+        this.type = type
+        this.prefix = prefix
     }
 }
 
 class Armor extends Item {
-    constructor(name, description, modifier, bodyPart, category) {
+    constructor(
+        name,
+        description,
+        modifier,
+        bodyPart,
+        type,
+        item,
+        category,
+        prefix
+    ) {
         super(name, description, category)
         this.modifier = modifier
         this.bodyPart = bodyPart
+        this.type = type
+        this.item = item
+        this.prefix = prefix
     }
 }
 
 class Potion extends Item {
-    constructor(name, modifier, description, category) {
+    constructor(name, modifier, description, category, item, prefix) {
         super(name, description, category)
+        this.item = item
+        this.prefix = prefix
     }
 }
 

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { ItemGenerator } from '@/assets/generators/itemGenerator'
 export default {
     computed: {
         player() {
@@ -23,6 +24,9 @@ export default {
     },
     methods: {},
     mounted() {
+        const itemGenerator = new ItemGenerator()
+
+        itemGenerator.createItemBase('weapon')
         this.$store.dispatch('setScene')
     }
 }
