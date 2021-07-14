@@ -1,4 +1,4 @@
-import { Weapon, Armor, Potion, Utility } from '../scripts/index.js'
+import { Weapon, Armor, Potion, Utility } from '@/assets/models/itemsModel'
 class ItemGenerator {
     constructor(category) {
         this.category = category
