@@ -87,7 +87,7 @@
                         name="bio"
                         id="characterBio"
                         rows="5"
-                        v-model="character.bio"
+                        v-model="character.description"
                     ></textarea>
                 </div>
             </div>
@@ -144,7 +144,8 @@
 </template>
 
 <script>
-import { diceRollK2, diceRollK3, diceRollK10 } from '../assets/scripts/diceRoll'
+import { Player } from '@/assets/models/playerModel'
+import { diceRollK2, diceRollK3, diceRollK10 } from '@/assets/scripts/diceRoll'
 export default {
     data() {
         return {
@@ -161,8 +162,9 @@ export default {
     },
     methods: {
         createPlayer() {
-            console.log('create')
-            this.$store.dispatch('player/create', this.character)
+            const playerClass = new Player()
+            const player = { ...playerClass, ...this.character }
+            this.$store.dispatch('player/create', player)
         },
         rollStats(race) {
             if (race === 'human') {

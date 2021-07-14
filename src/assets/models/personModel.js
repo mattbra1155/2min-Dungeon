@@ -1,4 +1,4 @@
-import { sceneEngine, global, turn } from '../scripts/index.js'
+// import { sceneEngine, global, turn } from '../scripts/index.js'
 
 class Person {
     constructor(
@@ -88,13 +88,6 @@ class Person {
     }
 
     attack(enemy) {
-        // create a feed row for messages
-        const feed = document.querySelector('#feedContainer')
-        const feedRow = document.createElement('li')
-        feedRow.setAttribute('class', 'feed__item')
-
-        const level = sceneEngine.currentScene
-
         // dice roll
         const diceRollHitResult = global.diceRoll(1, 100)
 
@@ -156,7 +149,7 @@ class Person {
             const savedBodyPart = getBodyPart()
 
             const enemyArmorPoints = savedBodyPart.armor.armorPoints
-            const enemyArmorName = savedBodyPart.name
+            // const enemyArmorName = savedBodyPart.name
             const damageDiceRoll = global.diceRoll(1, 6)
             console.log(damageDiceRoll)
 
@@ -173,155 +166,27 @@ class Person {
                 return damagePoints
             }
             // add action to the turn array
-            turn.turns.unshift({
+            /*  turn.turns.unshift({
                 person: this,
                 action: `${this.name} rolls: ${diceRollHitResult} and hit's ${
                     enemy.name
                 } in ${enemyArmorName} for ${damage()} damage with ${
                     this.weapon.name
                 }`
-            })
+            }) */
 
             // reduce health
             enemy.stats.hp = enemy.stats.hp - damage()
             // update health
         } else {
             // add action to the turn array
-            turn.turns.unshift({
+            /* turn.turns.unshift({
                 person: this,
                 action: `${this.name} rolls: ${diceRollHitResult} and misses.`
-            })
+            }) */
         }
 
-        if (this.name === level.player.name) {
-            feedRow.style.background = 'blue'
-        } else {
-            feedRow.style.background = 'red'
-        }
-        feedRow.textContent = turn.turns[0].action
-        feed.appendChild(feedRow)
-
-        if (feed.childElementCount > 5) {
-            setTimeout(() => {
-                if (feed.childElementCount > 0) {
-                    feed.firstChild.remove()
-                }
-            }, 2000)
-        }
     }
 }
 
-class Player extends Person {
-    constructor(
-        name,
-        race,
-        hp,
-        melee,
-        ranged,
-        dexterity,
-        strength,
-        thoughtness,
-        speed,
-        initiative,
-        attacks,
-        inteligence,
-        charisma,
-        weapon,
-        inventory,
-        description
-    ) {
-        super(
-            name,
-            race,
-            hp,
-            melee,
-            ranged,
-            dexterity,
-            strength,
-            thoughtness,
-            speed,
-            initiative,
-            attacks,
-            inteligence,
-            charisma,
-            weapon,
-            inventory,
-            description
-        )
-    }
-
-    equipItem(item) {
-        switch (item.category) {
-            case 'armor': {
-                let playerBodyPartKeys = Object.keys(this.bodyPart)
-
-                const getBodyPart = playerBodyPartKeys.find(playerBodyPart => {
-                    if (playerBodyPart === item.bodyPart) {
-                        return playerBodyPart
-                    }
-                })
-                this.bodyPart[getBodyPart].armor.item = item
-                this.bodyPart[getBodyPart].armor.armorPoints = item.armorPoints
-                break
-            }
-            case 'weapon':
-                this.weapon = item
-                break
-
-            case 'potion':
-                //todo
-                this.stats.hp += item.modifier
-                break
-
-            case 'utility':
-                //todo
-                this.weapon = item
-        }
-    }
-
-    pickUpItem(item) {
-        this.inventory.push(item)
-    }
-}
-
-class Monster extends Person {
-    constructor(
-        name,
-        race,
-        hp,
-        melee,
-        ranged,
-        dexterity,
-        strength,
-        thoughtness,
-        speed,
-        initiative,
-        attacks,
-        inteligence,
-        charisma,
-        weapon,
-        inventory,
-        description
-    ) {
-        super(
-            name,
-            race,
-            hp,
-            melee,
-            ranged,
-            dexterity,
-            strength,
-            thoughtness,
-            speed,
-            initiative,
-            attacks,
-            inteligence,
-            charisma,
-            weapon,
-            inventory,
-            description
-        )
-    }
-}
-
-export { Person, Player, Monster }
+export { Person }

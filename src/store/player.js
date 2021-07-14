@@ -1,10 +1,12 @@
 import localforage from 'localforage'
 
+
 export const player = {
     namespaced: true,
     state: () => ({
         name: 'player',
         race: 'human',
+        description: '',
         stats: {
             hp: '',
             melee: '',
@@ -21,7 +23,8 @@ export const player = {
             weapon: '',
             inventory: '',
             description: ''
-        }
+        },
+        inventory: [],
     }),
     mutations: {
         CREATE(state, payload) {
@@ -42,15 +45,10 @@ export const player = {
             commit('CREATE', payload)
             console.log(payload)
             localforage.setItem('player', payload)
-            localforage
+            /* return localforage
                 .getItem('player')
                 .then(value => console.log(value))
-                .catch(err => console.log(err))
-            // try {
-            //     localforage.setItem('player', payload)
-            // } catch(err) {
-            //     console.log(err)
-            // }
+                .catch(err => console.log(err))  */
             
         }
     },
