@@ -1,7 +1,3 @@
-import { MonsterGenerator, Player, CharacterGenerator } from './index.js'
-import { ItemGenerator } from '../generators/itemGenerator.js'
-import { Weapon, Armor, Utility, Potion } from '../../../old/models/items.js'
-
 class SceneEngine {
     constructor(currentScene) {
         this.currentScene = currentScene
@@ -44,9 +40,7 @@ class SceneEngine {
     }
 
     createScene(type) {
-        const attackbutton = document.querySelector('#attackButtonOne')
-        const playerHealth = document.querySelector('#playerHp')
-        const enemyHealth = document.querySelector('#monsterHp')
+       
         attackbutton.disabled = true
 
         if (type === 'level') {

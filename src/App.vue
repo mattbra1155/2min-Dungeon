@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ItemGenerator } from '@/assets/generators/itemGenerator'
+import { SceneGenerator } from '@/assets/generators/sceneGenerator'
 export default {
     computed: {
         player() {
@@ -24,12 +24,9 @@ export default {
     },
     methods: {},
     mounted() {
-        const itemGenerator = new ItemGenerator('asd')
-
-        const testWeapon = itemGenerator.createItem('weapon')
-        console.log(testWeapon.fullName)
-
-        this.$store.dispatch('setScene')
+        const sceneGenerator = new SceneGenerator
+        const scene = sceneGenerator.create()
+        console.log(scene)
     }
 }
 </script>

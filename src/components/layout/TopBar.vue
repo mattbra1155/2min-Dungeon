@@ -1,14 +1,14 @@
 <template>
     <div id="top-bar">
-        <h2 id="levelName" class="level__name">{{ scene }}</h2>
+        <h2 id="levelName" class="level__name">{{ scene.name }}</h2>
         <h3 id="turnNumber" class="text--center">{{ turn }}</h3>
         <div class="health__display">
             <div class="player-hp">
-                <h2>{{ player }}</h2>
+                <h2>{{ player.name }}</h2>
                 <p id="playerHp" class="health--player">0</p>
             </div>
             <div class="monster-hp">
-                <h2 id="monsterName">{{ enemy }}</h2>
+                <h2 id="monsterName">{{ enemy.name }}</h2>
                 <p id="monsterHp" class="health--monster">0</p>
             </div>
         </div>
@@ -20,13 +20,13 @@ export default {
     name: 'TopBar',
     computed: {
         player() {
-            return this.$store.getters['player/getPlayer'].name
+            return this.$store.getters['player/getPlayer']
         },
         enemy() {
-            return this.$store.getters['enemy/getEnemy'].name
+            return this.$store.getters['enemy/getEnemy']
         },
         scene() {
-            return this.$store.getters.getScene
+            return this.$store.getters['scene/getScene']
         },
         turn() {
             return this.$store.getters.getTurn

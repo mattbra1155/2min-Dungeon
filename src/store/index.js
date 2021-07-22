@@ -6,6 +6,7 @@ import { turn } from './turn'
 import { scene } from './scene'
 import { characterGenerator } from './characterGenerator'
 import { itemGenerator } from './itemGenerator'
+import { sceneGenerator } from './sceneGenerator'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         scene,
         turn,
         characterGenerator,
-        itemGenerator
+        itemGenerator,
+        sceneGenerator
     }
 })

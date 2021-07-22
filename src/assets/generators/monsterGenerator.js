@@ -1,5 +1,6 @@
 import { bestiary } from './bestiary'
 import { Monster } from '@/assets/models/monsterModel'
+import { assign } from 'core-js/core/object'
 
 class MonsterGenerator {
     constructor(type, level) {
@@ -14,7 +15,7 @@ class MonsterGenerator {
         // monster.weapon = new ItemGenerator().createItem('weapon')
 
         const monsterClass = new Monster()
-        const monster = { ...monsterClass, ...monsterRandom }
+        const monster = Object.assign(monsterClass, monsterRandom)
         return monster
     }
 }

@@ -1,12 +1,30 @@
 export const enemy = {
     namespaced: true,
-    state: {
-        enemy: 'enemy'
-    },
-
+    state: () => ({
+        name: 'enemy',
+        race: 'human',
+        description: '',
+        stats: {
+            hp: '',
+            melee: '',
+            ranged: '',
+            dexterity: '',
+            strength: '',
+            thoughtness: '',
+            speed: '',
+            initiative: '',
+            attacks: '',
+            inteligence: '',
+            willPower: '',
+            charisma: '',
+            weapon: '',
+            inventory: '',
+            description: ''
+        }
+    }),
     mutations: {
         CHANGE_ENEMY(state, payload) {
-            state.enemy = payload
+            state = payload
         }
     },
     actions: {
@@ -15,8 +33,6 @@ export const enemy = {
         }
     },
     getters: {
-        getEnemy: state => {
-            return state.enemy
-        }
+        getEnemy: state => state
     }
 }

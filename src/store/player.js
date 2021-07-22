@@ -1,6 +1,4 @@
 import localforage from 'localforage'
-
-
 export const player = {
     namespaced: true,
     state: () => ({
