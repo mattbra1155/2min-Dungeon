@@ -24,9 +24,11 @@ export default {
     },
     methods: {},
     mounted() {
-        const itemGenerator = new ItemGenerator()
+        const itemGenerator = new ItemGenerator('asd')
 
-        itemGenerator.createItem('weapon')
+        const testWeapon = itemGenerator.createItem('weapon')
+        console.log(testWeapon.fullName)
+
         this.$store.dispatch('setScene')
     }
 }

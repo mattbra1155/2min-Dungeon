@@ -16,6 +16,19 @@ class Weapon extends Item {
         this.prefix = prefix
         this.modifier = modifier
     }
+
+    get fullName() {
+        return this.name = `${this.prefix.name} ${this.name}`
+    }
+
+    addModifier(baseItem, prefix) {
+        let modifier
+        const mods = baseItem.modifier === undefined ? 0 : baseItem.modifier
+        const prefixMod = prefix.modifier
+        modifier = mods + prefixMod
+
+        return modifier
+    }
 }
 
 class Armor extends Item {
