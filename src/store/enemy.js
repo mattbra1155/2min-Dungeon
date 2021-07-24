@@ -23,13 +23,17 @@ export const enemy = {
         }
     }),
     mutations: {
-        CHANGE_ENEMY(state, payload) {
-            state = payload
+        SET_ENEMY(state, payload) {
+            state.name = payload.name
+            state.race = payload.race
+            state.description = payload.description
+            state.stats = payload.stats
         }
     },
     actions: {
         setEnemy(context, payload) {
-            context.commit('CHANGE_ENEMY', payload)
+            console.log(payload)
+            context.commit('SET_ENEMY', payload)
         }
     },
     getters: {

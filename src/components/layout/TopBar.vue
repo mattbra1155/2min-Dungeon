@@ -5,11 +5,15 @@
         <div class="health__display">
             <div class="player-hp">
                 <h2>{{ player.name }}</h2>
-                <p id="playerHp" class="health--player">0</p>
+                <p id="playerHp" class="health--player">
+                    {{ player.stats.hp }}
+                </p>
             </div>
             <div class="monster-hp">
                 <h2 id="monsterName">{{ enemy.name }}</h2>
-                <p id="monsterHp" class="health--monster">0</p>
+                <p id="monsterHp" class="health--monster">
+                    {{ enemy.stats.hp }}
+                </p>
             </div>
         </div>
     </div>
@@ -31,6 +35,10 @@ export default {
         turn() {
             return this.$store.getters.getTurn
         }
+    },
+    mounted() {
+        console.log(this.enemy)
+        console.log(this.scene.currentScene)
     }
 }
 </script>

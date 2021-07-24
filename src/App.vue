@@ -11,20 +11,10 @@
 <script>
 import { SceneGenerator } from '@/assets/generators/sceneGenerator'
 export default {
-    computed: {
-        player() {
-            return this.$store.getters.getPlayer
-        },
-        enemy() {
-            return this.$store.getters.getEnemy
-        },
-        scene() {
-            return this.$store.getters.getScene
-        }
-    },
+    computed: {},
     methods: {},
     mounted() {
-        const sceneGenerator = new SceneGenerator
+        const sceneGenerator = new SceneGenerator()
         const scene = sceneGenerator.create()
         console.log(scene)
     }
