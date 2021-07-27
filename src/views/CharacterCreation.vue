@@ -1,6 +1,10 @@
 <template>
-    <div id="characterGenerator" class="o-characterGenerator">
-        <form @submit.prevent class="m-form o-characterGenerator__sheet">
+    <div
+        @submit.prevent="createPlayer"
+        id="characterGenerator"
+        class="o-characterGenerator"
+    >
+        <form class="m-form o-characterGenerator__sheet">
             <h2 class="o-characterGenerator__header">
                 Character creation sheet
             </h2>
@@ -95,6 +99,7 @@
                 <div class="m-form__column">
                     <h2 class="o-characterGenerator__header">Stats</h2>
                     <button
+                        type="button"
                         @click="rollStats(character.race)"
                         id="generateStatsButton"
                         class="button action__button"
@@ -131,7 +136,6 @@
                 <div class="m-form__column">
                     <button
                         type="submit"
-                        @click="createPlayer"
                         id="createPlayerButton"
                         class="button action__button"
                     >
@@ -164,7 +168,9 @@ export default {
         createPlayer() {
             const playerClass = new Player()
             const player = { ...playerClass, ...this.character }
-            this.$store.dispatch('player/create', player)
+            this.$store.dispatch('player/create', player).then(() => {
+                this.$router.push({ name: 'Home' })
+            })
         },
         rollStats(race) {
             if (race === 'human') {
