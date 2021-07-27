@@ -17,6 +17,7 @@ export default {
         const sceneManager = new SceneManager
         const scene = sceneManager.createScene()
         console.log(scene)
+        this.$store.dispatch('player/fetchPlayer')
     }
 }
 </script>

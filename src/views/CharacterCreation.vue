@@ -208,7 +208,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.playerData)
         if (this.playerData) {
             this.character = this.playerData
         }

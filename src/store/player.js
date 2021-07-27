@@ -27,21 +27,26 @@ export const player = {
         inventory: []
     }),
     mutations: {
-        CREATE(state, payload) {
+        SET_PLAYER(state, payload) {
             state.player = payload
-        },
+        }
     },
     actions: {
-        setPlayer(context, payload) {
-            context.commit('CHANGE_PLAYER', payload)
+        setPlayer({ commit }, payload) {
+            commit('SET_PLAYER', payload)
         },
-        create({ commit }, payload) {
+        createPlayer({ commit }, payload) {
             commit('CREATE', payload)
             localforage.setItem('player', payload)
-            /* return localforage
-                .getItem('player')
-                .then(value => console.log(value))
-                .catch(err => console.log(err))  */
+        },
+        async fetchPlayer({ dispatch }) {
+            try {
+                const value = await localforage.getItem('player')
+                dispatch('setPlayer', value)
+                return console.log('ok')
+            } catch (err) {
+                return console.log(err)
+            }
         }
     },
     getters: {
