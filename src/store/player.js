@@ -36,7 +36,7 @@ export const player = {
             commit('SET_PLAYER', payload)
         },
         createPlayer({ commit }, payload) {
-            commit('CREATE', payload)
+            commit('SET_PLAYER', payload)
             localforage.setItem('player', payload)
         },
         async fetchPlayer({ dispatch }) {

@@ -168,7 +168,7 @@ export default {
         createPlayer() {
             const playerClass = new Player()
             const player = { ...playerClass, ...this.character }
-            this.$store.dispatch('player/create', player).then(() => {
+            this.$store.dispatch('player/createPlayer', player).then(() => {
                 this.$router.push({ name: 'Home' })
             })
         },

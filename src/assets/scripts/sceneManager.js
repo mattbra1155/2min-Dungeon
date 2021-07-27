@@ -1,13 +1,34 @@
 import store from '@/store/index'
 import { SceneGenerator } from '@/assets/generators/sceneGenerator'
+import { MonsterGenerator } from '@/assets/generators/monsterGenerator'
+
 class SceneManager {
     constructor() {
-        this.currentScene = store.getters['scene/currentScene']
+        this.activeScene = store.getters['scene/activeScene']
+    }
+    createMonster() {
+        const monsterGenerator = new MonsterGenerator()
+        const monster = monsterGenerator.create()
+        store.dispatch('enemy/setEnemy', monster)
+        return monster
+    }
+    getPlayer() {
+        return store.getters['player/getPlayer']
+    }
+    getEnemy() {
+        return store.getters['enemy/getEnemy']
     }
     createScene() {
+        this.createMonster()
+        const player = this.getPlayer()
+        const enemy = this.getEnemy()
         const sceneGenerator = new SceneGenerator()
-        const scene = sceneGenerator.create()
+        const scene = sceneGenerator.create(player, enemy)
+
         return scene
+    }
+    setActiveScene(sceneId) {
+        store.dispatch('scene/setActiveScene', sceneId)
     }
     archiveScene(sceneId) {
         store.dispatch('scene/archiveScene', sceneId)
@@ -49,4 +70,4 @@ class SceneManager {
 //     }
 // }
 
-export {SceneManager}
+export { SceneManager }

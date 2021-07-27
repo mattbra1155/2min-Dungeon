@@ -22,7 +22,8 @@ export const enemy = {
                 inventory: '',
                 description: ''
             }
-        }
+        },
+        inventory: []
     }),
     mutations: {
         SET_ENEMY(state, payload) {
@@ -30,9 +31,8 @@ export const enemy = {
         }
     },
     actions: {
-        setEnemy(context, payload) {
-            console.log(payload)
-            context.commit('SET_ENEMY', payload)
+        setEnemy({ commit }, payload) {
+            commit('SET_ENEMY', payload)
         }
     },
     getters: {
