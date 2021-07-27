@@ -1,7 +1,11 @@
 class GameEngine {
-    constructor(currentScene) {
-        this.currentScene = currentScene
-        this.currentSceneId = 0
+    constructor(state) {
+        this.state = state
+        this.states = ['init', 'menu', 'paused', 'player turn', 'enemy turn']
+    }
+    init() {
+        console.log(this)
+        this.state = 'init'
     }
 
     // showInventory() {
@@ -130,6 +134,4 @@ class GameEngine {
     // }
 }
 
-const sceneEngine = new SceneEngine()
-
-export { sceneEngine }
+export { GameEngine }

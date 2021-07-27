@@ -1,4 +1,4 @@
-export const scene = {
+export const sceneManager = {
     namespaced: true,
     state: () => ({
         activeScene: {
@@ -11,9 +11,6 @@ export const scene = {
     }),
 
     mutations: {
-        CHANGE_ID(state, payload) {
-            state.id = payload
-        },
         SET_ACTIVE_SCENE(state, payload) {
             state.activeScene = payload
         },
@@ -22,9 +19,6 @@ export const scene = {
         }
     },
     actions: {
-        setScene({ commit }, payload) {
-            commit('CHANGE_ID', payload)
-        },
         setActiveScene({ commit }, payload) {
             commit('SET_ACTIVE_SCENE', payload)
         },
@@ -34,7 +28,6 @@ export const scene = {
     },
     getters: {
         activeScene: state => state.activeScene,
-        id: state => state.id,
         sceneList: state => state.scenes
     }
 }

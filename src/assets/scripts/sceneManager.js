@@ -24,15 +24,15 @@ class SceneManager {
         const enemy = this.getEnemy()
         const sceneGenerator = new SceneGenerator()
         const scene = sceneGenerator.create(player, enemy)
-        store.dispatch('scene/saveScene', scene)
+        store.dispatch('sceneManager/saveScene', scene)
         this.setActiveScene(scene)
         return scene
     }
     setActiveScene(scene) {
-        store.dispatch('scene/setActiveScene', scene)
+        store.dispatch('sceneManager/setActiveScene', scene)
     }
     archiveScene(sceneId) {
-        store.dispatch('scene/archiveScene', sceneId)
+        store.dispatch('sceneManager/archiveScene', sceneId)
     }
 }
 

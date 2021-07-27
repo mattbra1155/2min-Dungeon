@@ -30,7 +30,7 @@ export default {
             return this.$store.getters['enemy/getEnemy']
         },
         scene() {
-            return this.$store.getters['scene/activeScene']
+            return this.$store.getters['sceneManager/activeScene']
         },
         turn() {
             return this.$store.getters.getTurn

@@ -10,6 +10,7 @@
 
 <script>
 import { SceneManager } from '@/assets/scripts/sceneManager'
+import { GameEngine } from '@/assets/models/gameEngine'
 export default {
     computed: {},
     methods: {},
@@ -19,6 +20,9 @@ export default {
         console.log(this.$store.getters['player/getPlayer'])
     },
     mounted() {
+        const gameEngine = new GameEngine()
+        gameEngine.init()
+
         const sceneManager = new SceneManager()
         this.$store.dispatch('player/fetchPlayer').then(() => {
             sceneManager.createScene()
