@@ -17,24 +17,24 @@ export const scene = {
         SET_ACTIVE_SCENE(state, payload) {
             state.activeScene = payload
         },
-        ARCHIVE_SCENE(state) {
-            state.scenes.push(state.activeScene) 
+        SAVE_SCENE(state, payload) {
+            state.scenes.push(payload)
         }
     },
     actions: {
-        setScene(context, payload) {
-            context.commit('CHANGE_ID', payload)
+        setScene({ commit }, payload) {
+            commit('CHANGE_ID', payload)
         },
-        setActiveScene(context, payload) {
-            context.commit('SET_ACTIVE_SCENE', payload)
+        setActiveScene({ commit }, payload) {
+            commit('SET_ACTIVE_SCENE', payload)
         },
-        archiveScene(context, payload) {
-            context.commit('ARCHIVE_SCENE', payload)
+        saveScene({ commit }, payload) {
+            commit('SAVE_SCENE', payload)
         }
     },
     getters: {
         activeScene: state => state.activeScene,
         id: state => state.id,
-        archiveScenesList: state => state.archiveScenes
+        sceneList: state => state.scenes
     }
 }

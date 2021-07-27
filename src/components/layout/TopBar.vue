@@ -36,9 +36,7 @@ export default {
             return this.$store.getters.getTurn
         }
     },
-    mounted() {
-        console.log(this.enemy)
-    }
+    mounted() {}
 }
 </script>
 

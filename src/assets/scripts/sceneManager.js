@@ -22,14 +22,14 @@ class SceneManager {
         this.createMonster()
         const player = this.getPlayer()
         const enemy = this.getEnemy()
-        console.log(enemy)
         const sceneGenerator = new SceneGenerator()
         const scene = sceneGenerator.create(player, enemy)
-
+        store.dispatch('scene/saveScene', scene)
+        this.setActiveScene(scene)
         return scene
     }
-    setActiveScene(sceneId) {
-        store.dispatch('scene/setActiveScene', sceneId)
+    setActiveScene(scene) {
+        store.dispatch('scene/setActiveScene', scene)
     }
     archiveScene(sceneId) {
         store.dispatch('scene/archiveScene', sceneId)
