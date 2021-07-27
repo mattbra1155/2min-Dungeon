@@ -15,6 +15,7 @@ class MonsterGenerator {
 
         const monsterClass = new Monster()
         const monster = Object.assign(monsterClass, monsterRandom)
+        console.log(monster)
         return monster
     }
 }

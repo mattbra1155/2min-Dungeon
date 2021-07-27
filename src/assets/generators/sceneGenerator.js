@@ -28,10 +28,12 @@ class SceneGenerator {
 
     create() {
         this.createMonster()
+        const enemy = store.getters['enemy/getEnemy']
         const id = this.createId()
         const name = this.createName(id)
-        const scene = new Scene(id, name, this.player, this.enemy)
+        const scene = new Scene(id, name, this.player, enemy)
         store.dispatch('scene/setCurrentScene', scene)
+        
         return scene
     }
 }

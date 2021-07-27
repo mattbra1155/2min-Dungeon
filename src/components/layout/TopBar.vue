@@ -30,16 +30,13 @@ export default {
             return this.$store.getters['enemy/getEnemy']
         },
         scene() {
-            return this.$store.getters['scene/getScene']
+            return this.$store.getters['scene/currentScene']
         },
         turn() {
             return this.$store.getters.getTurn
         }
     },
-    mounted() {
-        console.log(this.enemy)
-        console.log(this.scene.currentScene)
-    }
+    mounted() {}
 }
 </script>
 

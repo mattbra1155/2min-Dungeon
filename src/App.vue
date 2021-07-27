@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import { SceneGenerator } from '@/assets/generators/sceneGenerator'
+import { SceneManager } from '@/assets/scripts/sceneManager'
 export default {
     computed: {},
     methods: {},
     mounted() {
-        const sceneGenerator = new SceneGenerator()
-        const scene = sceneGenerator.create()
+        const sceneManager = new SceneManager
+        const scene = sceneManager.createScene()
         console.log(scene)
     }
 }

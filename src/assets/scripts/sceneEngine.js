@@ -4,41 +4,6 @@ class SceneEngine {
         this.currentSceneId = 0
     }
 
-    sceneManager(currentScene) {
-        switch (currentScene) {
-            case 'start':
-                console.log(`Start Menu`)
-                this.startScreen()
-                break
-            case 'characterCreation':
-                console.log(`Character creation`)
-                new CharacterGenerator().createPlayer()
-                break
-            case 'nextLevel': {
-                console.log(`Next level`)
-                const level = this.createScene('level')
-                document
-                    .querySelectorAll('.feed__item')
-                    .forEach(item => item.remove())
-                this.currentScene = level
-                console.log(level)
-                break
-            }
-            case 'defeat': {
-                console.log(`Defeat`)
-                const defeat = this.createScene('defeat')
-                this.currentScene = defeat
-                break
-            }
-            case 'win': {
-                console.log(`Cleard level`)
-                const win = this.createScene('win')
-                this.currentScene = win
-                break
-            }
-        }
-    }
-
     createScene(type) {
        
         attackbutton.disabled = true

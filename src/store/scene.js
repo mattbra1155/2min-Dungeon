@@ -28,12 +28,12 @@ export const scene = {
         setCurrentScene(context, payload) {
             context.commit('SET_CURRENT_SCENE', payload)
         },
-        archiveScenes(context) {
-            context.commit('ARCHIVE_SCENE')
+        archiveScene(context, payload) {
+            context.commit('ARCHIVE_SCENE', payload)
         }
     },
     getters: {
-        getScene: state => state,
+        currentScene: state => state.currentScene,
         id: state => state.id,
         archiveScenesList: state => state.archiveScenes
     }
