@@ -1,16 +1,30 @@
 import localforage from 'localforage'
+import { Player } from '@/assets/models/playerModel'
 export const player = {
     namespaced: true,
     state: () => ({
-        player: {},
+        player: new Player(),
         inventory: []
     }),
     mutations: {
         SET_PLAYER(state, payload) {
-            state.player = payload
+            Object.assign(state.player, payload)
+        },
+        TAKE_DAMAGE(state, payload) {
+            state.player.stats.hp -= payload
+            console.log(payload)
+            if (state.player.stats.hp < 0) {
+                state.player.stats.hp = 0
+            }
         }
     },
     actions: {
+        attack({ state }, enemy) {
+            state.player.attack(enemy)
+        },
+        takeDamage({ commit }, payload) {
+            commit('TAKE_DAMAGE', payload)
+        },
         setPlayer({ commit }, payload) {
             commit('SET_PLAYER', payload)
         },

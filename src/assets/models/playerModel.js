@@ -38,6 +38,7 @@ class Player extends Person {
             inventory,
             description
         )
+        this.player = true
     }
 
     equipItem(item) {

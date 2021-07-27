@@ -155,7 +155,7 @@ export default {
         return {
             isActive: false,
             character: {
-                stats: {}
+                stats: {},
             }
         }
     },
@@ -166,8 +166,11 @@ export default {
     },
     methods: {
         createPlayer() {
+            
             const playerClass = new Player()
-            const player = { ...playerClass, ...this.character }
+            const player = Object.assign(playerClass, this.character)
+            // TO DO generate weapon
+            player.weapon = null
             this.$store.dispatch('player/createPlayer', player).then(() => {
                 this.$router.push({ name: 'Home' })
             })

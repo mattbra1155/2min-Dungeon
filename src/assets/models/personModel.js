@@ -1,5 +1,6 @@
 // import { sceneEngine, global, turn } from '../scripts/index.js'
-
+import { diceRollK100, diceRollK6 } from '@/assets/scripts/diceRoll'
+import store from '@/store/index'
 class Person {
     constructor(
         name,
@@ -89,15 +90,14 @@ class Person {
 
     attack(enemy) {
         // dice roll
-        const diceRollHitResult = global.diceRoll(1, 100)
-
+        const diceRollHitResult = diceRollK100()
+        console.log(`Dice roll: ${diceRollHitResult}`)
         // check if attack hits
         if (this.stats.melee > diceRollHitResult) {
-            const diceRollBodyPartResult = global.diceRoll(1, 100)
+            const diceRollBodyPartResult = diceRollK100()
 
             console.log(`Body part hit result: ${diceRollBodyPartResult}`)
 
-            // TODO Where the strike hit //
             const getBodyPart = () => {
                 if (
                     diceRollBodyPartResult >= 1 &&
@@ -150,7 +150,7 @@ class Person {
 
             const enemyArmorPoints = savedBodyPart.armor.armorPoints
             // const enemyArmorName = savedBodyPart.name
-            const damageDiceRoll = global.diceRoll(1, 6)
+            const damageDiceRoll = diceRollK6()
             console.log(damageDiceRoll)
 
             // Calculate damage
@@ -159,13 +159,14 @@ class Person {
                     this.stats.strength -
                     enemy.stats.thoughtness -
                     enemyArmorPoints +
-                    (this.weapon.damage + damageDiceRoll)
+                    ((this.weapon === null ? 0 : this.weapon.damage) +
+                        damageDiceRoll)
                 if (damagePoints < 0) {
                     damagePoints = 0
                 }
+                console.log(damagePoints)
                 return damagePoints
             }
-            // add action to the turn array
             /*  turn.turns.unshift({
                 person: this,
                 action: `${this.name} rolls: ${diceRollHitResult} and hit's ${
@@ -176,7 +177,11 @@ class Person {
             }) */
 
             // reduce health
-            enemy.stats.hp = enemy.stats.hp - damage()
+            if (this.player === true) {
+                store.dispatch(`enemy/takeDamage`, damage())
+            } else {
+                store.dispatch(`player/takeDamage`, damage())
+            }
             // update health
         } else {
             // add action to the turn array
@@ -185,7 +190,6 @@ class Person {
                 action: `${this.name} rolls: ${diceRollHitResult} and misses.`
             }) */
         }
-
     }
 }
 
