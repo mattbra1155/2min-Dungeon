@@ -1,28 +1,7 @@
 export const enemy = {
     namespaced: true,
     state: () => ({
-        enemy: {
-            name: 'enemy',
-            race: 'human',
-            description: '',
-            stats: {
-                hp: '',
-                melee: '',
-                ranged: '',
-                dexterity: '',
-                strength: '',
-                thoughtness: '',
-                speed: '',
-                initiative: '',
-                attacks: '',
-                inteligence: '',
-                willPower: '',
-                charisma: '',
-                weapon: '',
-                inventory: '',
-                description: ''
-            }
-        },
+        enemy: {},
         inventory: []
     }),
     mutations: {

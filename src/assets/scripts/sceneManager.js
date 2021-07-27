@@ -22,6 +22,7 @@ class SceneManager {
         this.createMonster()
         const player = this.getPlayer()
         const enemy = this.getEnemy()
+        console.log(enemy)
         const sceneGenerator = new SceneGenerator()
         const scene = sceneGenerator.create(player, enemy)
 

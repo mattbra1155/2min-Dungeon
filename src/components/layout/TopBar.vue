@@ -6,13 +6,13 @@
             <div class="player-hp">
                 <h2>{{ player.name }}</h2>
                 <p id="playerHp" class="health--player">
-                    {{ player.stats.hp }}
+                    {{ player.stats ? player.stats.hp : 0 }}
                 </p>
             </div>
             <div class="monster-hp">
                 <h2 id="monsterName">{{ enemy.name }}</h2>
                 <p id="monsterHp" class="health--monster">
-                    {{ enemy.stats.hp }}
+                    {{ enemy.stats ? enemy.stats.hp : 0 }}
                 </p>
             </div>
         </div>
@@ -36,7 +36,9 @@ export default {
             return this.$store.getters.getTurn
         }
     },
-    mounted() {}
+    mounted() {
+        console.log(this.enemy)
+    }
 }
 </script>
 

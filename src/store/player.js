@@ -2,28 +2,7 @@ import localforage from 'localforage'
 export const player = {
     namespaced: true,
     state: () => ({
-        player: {
-            name: 'player',
-            race: 'human',
-            description: '',
-            stats: {
-                hp: '',
-                melee: '',
-                ranged: '',
-                dexterity: '',
-                strength: '',
-                thoughtness: '',
-                speed: '',
-                initiative: '',
-                attacks: '',
-                inteligence: '',
-                willPower: '',
-                charisma: '',
-                weapon: '',
-                inventory: '',
-                description: ''
-            }
-        },
+        player: {},
         inventory: []
     }),
     mutations: {
@@ -40,13 +19,15 @@ export const player = {
             localforage.setItem('player', payload)
         },
         async fetchPlayer({ dispatch }) {
-            try {
-                const value = await localforage.getItem('player')
-                dispatch('setPlayer', value)
-                return console.log('ok')
-            } catch (err) {
-                return console.log(err)
-            }
+            return localforage
+                .getItem('player')
+                .then(value => {
+                    dispatch('setPlayer', value)
+                    return value
+                })
+                .catch(err => {
+                    return console.log(err)
+                })
         }
     },
     getters: {

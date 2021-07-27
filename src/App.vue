@@ -13,11 +13,16 @@ import { SceneManager } from '@/assets/scripts/sceneManager'
 export default {
     computed: {},
     methods: {},
+    created() {
+        console.log('create')
+
+        console.log(this.$store.getters['player/getPlayer'])
+    },
     mounted() {
-        const sceneManager = new SceneManager
-        const scene = sceneManager.createScene()
-        console.log(scene)
-        this.$store.dispatch('player/fetchPlayer')
+        const sceneManager = new SceneManager()
+        this.$store.dispatch('player/fetchPlayer').then(() => {
+            sceneManager.createScene()
+        })
     }
 }
 </script>

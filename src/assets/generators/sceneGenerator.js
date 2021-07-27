@@ -1,23 +1,20 @@
 import store from '@/store/index'
 import { Scene } from '@/assets/models/sceneModel'
 class SceneGenerator {
-    constructor(player, enemy) {
-        this.player = player
-        this.enemy = enemy
-    }
+    constructor() {}
     createId() {
         store.dispatch('sceneGenerator/incrementId')
         const id = store.getters['sceneGenerator/id']
-        return id 
+        return id
     }
     createName(id) {
         return `level ${id}`
     }
-    create() {
+    create(player, enemy) {
         const id = this.createId()
         const name = this.createName(id)
-        const scene = new Scene(id, name)
-        
+        const scene = new Scene(id, name, player, enemy)
+
         return scene
     }
 }
